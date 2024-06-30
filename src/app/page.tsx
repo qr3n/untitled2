@@ -27,21 +27,21 @@ export default function Home() {
               <div className='absolute top-10 sm:top-0 sm:relative flex w-max gap-4 items-center justify-center'>
                   <div className='flex items-center justify-center gap-1'>
                       <Image src={lamp} alt={'lamp'}/>
-                      <h1 className='font-semibold sm:text-xl text-[18px]'>Ваша идея</h1>
+                      <h1 className='font-semibold text-[15px] sm:text-xl'>Ваша идея</h1>
                   </div>
-                  <h1 className='text-[#999] text-3xl font-medium '>X</h1>
+                  <h1 className='text-[#999] text-2xl sm:text-3xl font-medium '>X</h1>
                   <div className='flex items-center justify-center gap-1'>
                       <Image src={box} alt={'box'}/>
-                      <h1 className='font-semibold sm:text-xl text-[18px]'>Наша реализация</h1>
+                      <h1 className='font-semibold text-[15px] sm:text-xl'>Наша реализация</h1>
                   </div>
               </div>
               <div className='mt-4'>
-                  <h1 className='text-[64px] md:text-[82px] lg:text-[96px] xl:text-[106px] font-bold'>ДОСТАВКА</h1>
+                  <h1 className='text-[56px] md:text-[82px] lg:text-[96px] xl:text-[106px] font-bold'>ДОСТАВКА</h1>
                   <h1 className='
                       -mt-2
                       lg:-mt-6
                       xl:-mt-8
-                      text-[48px]
+                      text-[40px]
                       md:text-[61px]
                       lg:text-[72px]
                       xl:text-[80px]
