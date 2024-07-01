@@ -8,6 +8,8 @@ import {CreateOrderStep3} from "@/features/order/create/ui/steps/CreateOrderStep
 import {CreateOrderStep4} from "@/features/order/create/ui/steps/CreateOrderStep4";
 import {CreateOrderStep5} from "@/features/order/create/ui/steps/CreateOrderStep5";
 import {CreateOrderStep6} from "@/features/order/create/ui/steps/CreateOrderStep6";
+import { FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 
 export const CreateOrder = () => {
     const [api, setApi] = useState<CarouselApi>()
@@ -29,7 +31,7 @@ export const CreateOrder = () => {
 
     return (
         <>
-            <Carousel setApi={setApi} className="w-full">
+            <Carousel setApi={setApi} className="mt-[-10rem] sm:mt-0 w-full">
                 <CarouselContent>
                     <CarouselItem>
                         <div className="p-1">
@@ -72,22 +74,32 @@ export const CreateOrder = () => {
                     onClick={() => api && api.scrollPrev()}
 
                     className='
+                    flex
+                       items-center
+                       justify-center
+                     gap-2
                     w-full
                 sm:w-max
-                bg-gray-300
                 px-8
                 py-3
+                bg-gray-300
                 text-black
                 rounded-full
                 font-bold
             '
-                >НАЗАД
+                >
+                    <FaArrowLeft className='w-4 h-4 text-black'/>
+                    НАЗАД
                 </button>
 
                 <button
                     onClick={() => api && api.scrollNext()}
 
                     className='
+                    flex
+                       items-center
+                       justify-center
+                     gap-2
                     w-full
                 sm:w-max
                 px-8
@@ -98,6 +110,8 @@ export const CreateOrder = () => {
                 font-bold
             '
                 >ПРОДОЛЖИТЬ
+                    <FaArrowRight className='w-4 h-4 text-black'/>
+
                 </button>
             </div>
         </>
