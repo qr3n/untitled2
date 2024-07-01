@@ -26,19 +26,19 @@ export const CreateOrderStep1 = () => {
     return (
         <CreateOrderStepTemplate title='Какой груз?' description='Условия для каждого варианта различаются'>
             <div className='flex flex-col sm:flex-row text-center'>
-                <div className='flex items-center justify-center flex-col cursor-pointer min-h-full p-4 transition-all'
+                <div className='cursor-pointer min-h-full p-4 transition-all'
                      style={selectedFirst ? selectedStyle : notSelectedStyle}
                      onClick={() => setSelected(0)
                 }>
-                    <Image className='w-36 h-36 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64' src={courierWithCar} alt={'courier'} height={300} width={300}/>
+                    <Image src={courierWithCar} alt={'courier'} height={300} width={300}/>
                     <h1 className='text-2xl font-semibold'>Для маркетплейса</h1>
                     <p className='text-lg text-[#9D9D9D]'>До 12кг</p>
                 </div>
-                <div className='flex items-center justify-center flex-col cursor-pointer min-h-full p-4 transition-all'
+                <div className='cursor-pointer min-h-full p-4 transition-all'
                      style={!selectedFirst ? selectedStyle : notSelectedStyle}
                      onClick={() => setSelected(1)}
                 >
-                    <Image className='w-36 h-36 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64' src={courier} alt={'courier'} height={300} width={300}/>
+                    <Image src={courier} alt={'courier'} height={300} width={300}/>
                     <h1 className='text-2xl font-semibold'>Разный товар</h1>
                     <p className='text-lg text-[#9D9D9D]'>До 12кг</p>
                 </div>

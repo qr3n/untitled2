@@ -1,13 +1,13 @@
 'use client';
 
 import {CreateOrderStepTemplate} from "@/features/order/create/ui/steps/CreateOrderStepTemplate";
-import courier from './assets/courier.png'
-import courierWithCar from './assets/courierwithcar.png'
+import box from './assets/box.png'
+import palette from './assets/palette.png'
 import Image from "next/image";
 import {useState} from "react";
 
 
-export const CreateOrderStep1 = () => {
+export const CreateOrderStep2 = () => {
     const [selected, setSelected] = useState<number>(0);
     const selectedFirst = selected === 0
 
@@ -24,13 +24,13 @@ export const CreateOrderStep1 = () => {
     }
 
     return (
-        <CreateOrderStepTemplate title='Какой груз?' description='Условия для каждого варианта различаются'>
+        <CreateOrderStepTemplate title='Какая упаковка?' description='Условия для каждого варианта различаются'>
             <div className='flex flex-col sm:flex-row text-center'>
                 <div className='flex items-center justify-center flex-col cursor-pointer min-h-full p-4 transition-all'
                      style={selectedFirst ? selectedStyle : notSelectedStyle}
                      onClick={() => setSelected(0)
                 }>
-                    <Image className='w-36 h-36 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64' src={courierWithCar} alt={'courier'} height={300} width={300}/>
+                    <Image src={box} alt={'courier'} className='w-36 h-36 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64' height={600} width={600}/>
                     <h1 className='text-2xl font-semibold'>Для маркетплейса</h1>
                     <p className='text-lg text-[#9D9D9D]'>До 12кг</p>
                 </div>
@@ -38,7 +38,7 @@ export const CreateOrderStep1 = () => {
                      style={!selectedFirst ? selectedStyle : notSelectedStyle}
                      onClick={() => setSelected(1)}
                 >
-                    <Image className='w-36 h-36 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64' src={courier} alt={'courier'} height={300} width={300}/>
+                    <Image src={palette} alt={'courier'} className='w-36 h-36 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64' height={600} width={600}/>
                     <h1 className='text-2xl font-semibold'>Разный товар</h1>
                     <p className='text-lg text-[#9D9D9D]'>До 12кг</p>
                 </div>
