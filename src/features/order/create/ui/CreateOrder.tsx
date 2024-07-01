@@ -25,7 +25,7 @@ export const CreateOrder = () => {
 
     return (
         <>
-            <Carousel setApi={setApi} className="w-full -mt-12 sm:mt-0">
+            <Carousel setApi={setApi} className="w-full">
                 <CarouselContent>
                     <CarouselItem>
                         <div className="p-1">
@@ -53,12 +53,13 @@ export const CreateOrder = () => {
                     className='
 
                 w-full
-            px-8
-            py-3
-            bg-white
-            text-black
-            rounded-full
-            font-bold
+                sm:w-max
+                px-8
+                py-3
+                bg-white
+                text-black
+                rounded-full
+                font-bold
             '
                 >ПРОДОЛЖИТЬ
                 </button>
