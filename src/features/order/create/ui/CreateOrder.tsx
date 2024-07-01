@@ -67,13 +67,28 @@ export const CreateOrder = () => {
                     </CarouselItem>
                 </CarouselContent>
             </Carousel>
-            <div className='fixed bottom-0 px-8 w-full'>
+            <div className='fixed gap-4 bottom-8 px-8 w-full flex'>
+                <button
+                    onClick={() => api && api.scrollPrev()}
+
+                    className='
+                    w-full
+                sm:w-max
+                bg-gray-300
+                px-8
+                py-3
+                text-black
+                rounded-full
+                font-bold
+            '
+                >НАЗАД
+                </button>
+
                 <button
                     onClick={() => api && api.scrollNext()}
 
                     className='
-
-                w-full
+                    w-full
                 sm:w-max
                 px-8
                 py-3
