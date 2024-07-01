@@ -3,7 +3,7 @@
 import {CreateOrderStepTemplate} from "@/features/order/create/ui/steps/CreateOrderStepTemplate";
 
 
-export const CreateOrderStep4 = () => {
+export const CreateOrderStep6 = () => {
 
     return (
         <CreateOrderStepTemplate title='Что доставить?' description='Условия для каждого варианта различаются'>
