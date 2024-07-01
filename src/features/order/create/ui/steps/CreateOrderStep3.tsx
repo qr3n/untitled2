@@ -1,47 +1,37 @@
 'use client';
 
 import {CreateOrderStepTemplate} from "@/features/order/create/ui/steps/CreateOrderStepTemplate";
-import courier from './assets/courier.png'
-import courierWithCar from './assets/courierwithcar.png'
+import yandex from './assets/yandex.png'
+import ozon from './assets/ozon.png'
+import wb from './assets/wb.png'
+import ali from './assets/ali.png'
+import lamoda from './assets/lamoda.png'
 import Image from "next/image";
-import {useState} from "react";
+import {StaticImport} from "next/dist/shared/lib/get-img-props";
 
+interface IProps {
+    image: StaticImport,
+    text: string,
+}
 
-export const CreateOrderStep1 = () => {
-    const [selected, setSelected] = useState<number>(0);
-    const selectedFirst = selected === 0
-
-    const notSelectedStyle = {
-        backgroundColor: 'transparent',
-        border: '2px solid transparent',
-        borderRadius: '24px'
-    }
-
-    const selectedStyle = {
-        backgroundColor: 'rgba(184, 255, 166, .1)',
-        border: '2px solid rgba(0, 255, 71, 0.5)',
-        borderRadius: '24px'
-    }
-
+const Shop = (props: IProps) => {
     return (
-        <CreateOrderStepTemplate title='Какой груз?' description='Условия для каждого варианта различаются'>
-            <div className='flex flex-col sm:flex-row text-center'>
-                <div className='cursor-pointer min-h-full p-4 transition-all'
-                     style={selectedFirst ? selectedStyle : notSelectedStyle}
-                     onClick={() => setSelected(0)
-                }>
-                    <Image src={courierWithCar} alt={'courier'} height={300} width={300}/>
-                    <h1 className='text-2xl font-semibold'>Для маркетплейса</h1>
-                    <p className='text-lg text-[#9D9D9D]'>До 12кг</p>
-                </div>
-                <div className='cursor-pointer min-h-full p-4 transition-all'
-                     style={!selectedFirst ? selectedStyle : notSelectedStyle}
-                     onClick={() => setSelected(1)}
-                >
-                    <Image src={courier} alt={'courier'} height={300} width={300}/>
-                    <h1 className='text-2xl font-semibold'>Разный товар</h1>
-                    <p className='text-lg text-[#9D9D9D]'>До 12кг</p>
-                </div>
+        <div className='flex items-center gap-4'>
+            <Image src={props.image} alt='logo' width={48} className='rounded-md'/>
+            <h1 className='text-xl font-semibold'>{ props.text }</h1>
+        </div>
+    )
+}
+
+export const CreateOrderStep3 = () => {
+    return (
+        <CreateOrderStepTemplate title='Какой склад?' description='Условия для каждого варианта различаются'>
+            <div className='flex flex-col gap-10'>
+                <Shop image={yandex} text='Яндекс маркет'/>
+                <Shop image={wb} text='Wildberries'/>
+                <Shop image={ozon} text='Ozon'/>
+                <Shop image={ali} text='AliExpress'/>
+                <Shop image={lamoda} text='Lamoda'/>
             </div>
         </CreateOrderStepTemplate>
     )

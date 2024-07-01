@@ -4,6 +4,7 @@ import {Carousel, CarouselApi, CarouselContent, CarouselItem} from "@/components
 import {CreateOrderStep1} from "@/features/order/create/ui/steps/CreateOrderStep1";
 import {CreateOrderStep2} from "@/features/order/create/ui/steps/CreateOrderStep2";
 import {useEffect, useState} from "react";
+import {CreateOrderStep3} from "@/features/order/create/ui/steps/CreateOrderStep3";
 
 export const CreateOrder = () => {
     const [api, setApi] = useState<CarouselApi>()
@@ -41,7 +42,7 @@ export const CreateOrder = () => {
 
                     <CarouselItem>
                         <div className="p-1">
-                            <CreateOrderStep1/>
+                            <CreateOrderStep3/>
                         </div>
                     </CarouselItem>
                 </CarouselContent>
