@@ -46,7 +46,7 @@ export const CreateOrder = () => {
                     </CarouselItem>
                 </CarouselContent>
             </Carousel>
-            <div className='absolute bottom-4 p-8 w-full'>
+            <div className='absolute bottom-0 p-8 w-full'>
                 <button
                     onClick={() => api && api.scrollNext()}
 
