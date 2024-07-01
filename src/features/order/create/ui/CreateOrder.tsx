@@ -70,8 +70,6 @@ export const CreateOrder = () => {
                 </CarouselContent>
             </Carousel>
             <div className='fixed gap-4 bottom-8 px-8 w-full flex flex-col'>
-
-
                 <button
                     onClick={() => api && api.scrollNext()}
 
