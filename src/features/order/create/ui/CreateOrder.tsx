@@ -69,28 +69,8 @@ export const CreateOrder = () => {
                     </CarouselItem>
                 </CarouselContent>
             </Carousel>
-            <div className='fixed gap-4 bottom-8 px-8 w-full flex'>
-                <button
-                    onClick={() => api && api.scrollPrev()}
+            <div className='fixed gap-4 bottom-8 px-8 w-full flex flex-col'>
 
-                    className='
-                    flex
-                       items-center
-                       justify-center
-                     gap-2
-                    w-full
-                sm:w-max
-                px-8
-                py-3
-                bg-gray-300
-                text-black
-                rounded-full
-                font-bold
-            '
-                >
-                    <FaArrowLeft className='w-4 h-4 text-black'/>
-                    НАЗАД
-                </button>
 
                 <button
                     onClick={() => api && api.scrollNext()}
@@ -103,7 +83,7 @@ export const CreateOrder = () => {
                     w-full
                 sm:w-max
                 px-8
-                py-3
+                py-2
                 bg-white
                 text-black
                 rounded-full
@@ -113,6 +93,28 @@ export const CreateOrder = () => {
                     <FaArrowRight className='w-4 h-4 text-black'/>
 
                 </button>
+                <button
+                    onClick={() => api && api.scrollPrev()}
+
+                    className='
+                    flex
+                       items-center
+                       justify-center
+                     gap-2
+                    w-full
+                sm:w-max
+                px-8
+                py-2
+                bg-gray-300
+                text-black
+                rounded-full
+                font-bold
+            '
+                >
+                    <FaArrowLeft className='w-4 h-4 text-black'/>
+                    НАЗАД
+                </button>
+
             </div>
         </>
     )
