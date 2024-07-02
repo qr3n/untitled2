@@ -9,6 +9,7 @@ import lamoda from './assets/lamoda.png'
 import Image from "next/image";
 import {StaticImport} from "next/dist/shared/lib/get-img-props";
 import {useState} from "react";
+import check from './assets/check.png'
 
 interface IProps {
     image: StaticImport,
@@ -31,9 +32,10 @@ const selectedStyle = {
 
 const Shop = (props: IProps) => {
     return (
-        <div style={props.current === props.text ? selectedStyle : notSelectedStyle} className='py-4 px-6 flex cursor-pointer items-center gap-4' onClick={() => props.setCurrent(props.text)}>
+        <div style={props.current === props.text ? selectedStyle : notSelectedStyle} className='relative py-4 px-6 pr-24 flex cursor-pointer items-center gap-4' onClick={() => props.setCurrent(props.text)}>
             <Image src={props.image} alt='logo' width={48} className='rounded-md'/>
             <h1 className='text-xl font-semibold'>{ props.text }</h1>
+            { props.current === props.text && <Image src={check} className='absolute right-5 top-1/2 -translate-y-1/2' alt='check' width={20}/> }
         </div>
     )
 }
