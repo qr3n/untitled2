@@ -10,6 +10,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import Script from "next/script";
 
 export const CreateOrderStep5 = () => {
 
@@ -35,6 +36,8 @@ export const CreateOrderStep5 = () => {
 
                 <h1 className='text-2xl font-semibold mt-12'>Откуда забрать?</h1>
                 <input className='bg-[#2A2A2A] border-2 border-transparent mt-4 p-3 rounded-xl outline-none focus:border-[#666] placeholder-[#888]' placeholder='Московская 12...'/>
+
+                <Script src={`https://api-maps.yandex.ru/2.1.79/?apikey=4f2e04e9-a489-4b54-b0ea-afabfa88bad9&lang=ru_RU`}/>
             </div>
         </CreateOrderStepTemplate>
     )
