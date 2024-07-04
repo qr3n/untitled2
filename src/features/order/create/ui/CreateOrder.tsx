@@ -79,7 +79,7 @@ export const CreateOrder = () => {
                 font-bold
                 active:bg-gray-100
             '
-                >{ cargo }
+                >ПРОДОЛЖИТЬ
                     <FaArrowRight className='w-4 h-4 text-black'/>
 
                 </button>
