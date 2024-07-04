@@ -20,7 +20,7 @@ export const CreateOrderStep5 = () => {
                 <h1 className='text-2xl font-semibold'>На какой склад?</h1>
                 <Select>
                     <SelectTrigger className="w-full mt-4">
-                        <SelectValue placeholder="Select a fruit" />
+                        <SelectValue placeholder="Выберите склад" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>

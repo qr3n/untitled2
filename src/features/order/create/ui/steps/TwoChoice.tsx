@@ -11,6 +11,9 @@ interface IProps {
     secondTitle: string;
     secondDescription: string;
     secondImage: StaticImport;
+
+    onFirstVariantClick?: () => void,
+    onSecondVariantClick?: () => void,
 }
 
 export const TwoChoice = (props: IProps) => {
@@ -35,8 +38,10 @@ export const TwoChoice = (props: IProps) => {
             <div className='flex flex-col sm:flex-row text-center w-screen px-8 sm:p-0 sm:w-auto'>
                 <div className='flex relative items-center justify-center flex-col cursor-pointer min-h-full px-6 py-4 sm:pb-16'
                      style={selectedFirst ? selectedStyle : notSelectedStyle}
-                     onClick={() => setSelected(0)
-                     }>
+                     onClick={() => {
+                         setSelected(0)
+                         props.onFirstVariantClick && props.onFirstVariantClick()
+                     }}>
                     <Image className='w-36 h-36 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64 object-cover'
                            src={props.firstImage} alt={'select'} height={300} width={300}/>
                     <h1 className='text-xl md:text-2xl font-semibold mt-2'>{ props.firstTitle }</h1>
@@ -45,7 +50,10 @@ export const TwoChoice = (props: IProps) => {
                 </div>
                 <div className='flex relative items-center justify-center flex-col cursor-pointer min-h-full px-6 py-4 sm:pb-16'
                      style={!selectedFirst ? selectedStyle : notSelectedStyle}
-                     onClick={() => setSelected(1)}
+                     onClick={() => {
+                         setSelected(1)
+                         props.onSecondVariantClick && props.onSecondVariantClick()
+                     }}
                 >
                     <Image className='w-36 h-36 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64 object-cover'
                            src={props.secondImage} alt={'select'} height={300} width={300}/>

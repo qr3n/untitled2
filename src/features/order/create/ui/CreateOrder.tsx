@@ -3,66 +3,58 @@
 import {Carousel, CarouselApi, CarouselContent, CarouselItem} from "@/components/ui/carousel";
 import {CreateOrderStep1} from "@/features/order/create/ui/steps/CreateOrderStep1";
 import {CreateOrderStep2} from "@/features/order/create/ui/steps/CreateOrderStep2";
-import {useEffect, useState} from "react";
+import {createContext, useState} from "react";
 import {CreateOrderStep3} from "@/features/order/create/ui/steps/CreateOrderStep3";
 import {CreateOrderStep4} from "@/features/order/create/ui/steps/CreateOrderStep4";
 import {CreateOrderStep5} from "@/features/order/create/ui/steps/CreateOrderStep5";
 import {CreateOrderStep6} from "@/features/order/create/ui/steps/CreateOrderStep6";
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
+import { Context } from '../model/context'
 
 export const CreateOrder = () => {
     const [api, setApi] = useState<CarouselApi>()
-    const [current, setCurrent] = useState(0)
-    const [count, setCount] = useState(0)
-
-    useEffect(() => {
-        if (!api) {
-            return
-        }
-
-        setCount(api.scrollSnapList().length)
-        setCurrent(api.selectedScrollSnap() + 1)
-
-        api.on("select", () => {
-            setCurrent(api.selectedScrollSnap() + 1)
-        })
-    }, [api])
+    const [cargo, setCargo] = useState<'marketplace' | 'anything'>('marketplace')
 
     return (
-        <>
-            <Carousel setApi={setApi} className="mt-[-10rem] sm:mt-0 w-full">
-                <CarouselContent>
-                    <CarouselItem>
+        <Context.Provider value={{
+            cargo,
+            setCargo
+        }}>
+            <Carousel setApi={setApi} className="flex sm:mt-0 w-full h-screen">
+                <CarouselContent className='h-full -mt-24'>
+                    <CarouselItem className='h-full flex justify-center items-center'>
                         <div className="p-1">
                             <CreateOrderStep1/>
                         </div>
                     </CarouselItem>
 
-                    <CarouselItem>
+                    <CarouselItem className='h-full flex justify-center items-center'>
                         <div className="p-1">
                             <CreateOrderStep2/>
                         </div>
                     </CarouselItem>
 
-                    <CarouselItem>
-                        <div className="p-1">
-                            <CreateOrderStep3/>
-                        </div>
-                    </CarouselItem>
+                    {
+                        cargo === 'marketplace' && <CarouselItem className='h-full flex justify-center items-center'>
+                            <div className="p-1">
+                                <CreateOrderStep3/>
+                            </div>
+                        </CarouselItem>
+                    }
 
-                    <CarouselItem>
+                    <CarouselItem className='h-full flex justify-center items-center'>
                         <div className="p-1">
                             <CreateOrderStep4/>
                         </div>
                     </CarouselItem>
 
-                    <CarouselItem>
+                    <CarouselItem className='h-full flex justify-center items-center'>
                         <div className="p-1">
                             <CreateOrderStep5/>
                         </div>
                     </CarouselItem>
-                    <CarouselItem>
+                    <CarouselItem className='h-full flex justify-center items-center'>
                         <div className="p-1">
                             <CreateOrderStep6/>
                         </div>
@@ -87,7 +79,7 @@ export const CreateOrder = () => {
                 font-bold
                 active:bg-gray-100
             '
-                >ПРОДОЛЖИТЬ
+                >{ cargo }
                     <FaArrowRight className='w-4 h-4 text-black'/>
 
                 </button>
@@ -115,6 +107,6 @@ export const CreateOrder = () => {
                 </button>
 
             </div>
-        </>
+        </Context.Provider>
     )
 }
