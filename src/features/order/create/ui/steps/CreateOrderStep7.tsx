@@ -4,14 +4,13 @@ import {CreateOrderStepTemplate} from "@/features/order/create/ui/steps/CreateOr
 import {
     InputOTP,
     InputOTPGroup,
-    InputOTPSeparator,
     InputOTPSlot,
 } from "@/components/ui/input-otp"
-import {useContext, useState} from "react";
+import { useContext } from "react";
 import {Context} from "@/features/order/create/model/context";
 
 export const CreateOrderStep7 = () => {
-    const { emailStep } = useContext(Context)
+    const { emailStep, email, setEmail, setCode, code } = useContext(Context)
 
     return (
         <CreateOrderStepTemplate title={ emailStep === 1 ? 'Ваш email?' : 'Введите код' } description='Мы войдем в уже существующий аккаунт или создадим новый'>
@@ -20,12 +19,12 @@ export const CreateOrderStep7 = () => {
                 {
                     emailStep === 1 && <input
                         className='bg-[#2A2A2A] border-2 border-transparent p-3 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
-                        placeholder='someemail@email.com'/>
+                        placeholder='someemail@email.com' value={email} onChange={e => setEmail(e.target.value)}/>
                 }
 
                 {
-                    emailStep === 2 && <InputOTP maxLength={6}>
-                        <InputOTPGroup>
+                    emailStep === 2 && <InputOTP maxLength={5} value={code} onChange={e => setCode(e)}>
+                        <InputOTPGroup >
                             <InputOTPSlot index={0}/>
                             <InputOTPSlot index={1} />
                             <InputOTPSlot index={2} />

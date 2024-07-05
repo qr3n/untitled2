@@ -11,26 +11,60 @@ import {CreateOrderStep6} from "@/features/order/create/ui/steps/CreateOrderStep
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
 import { Context } from '../model/context'
-import {CreateOrderStep7} from "@/features/order/create/ui/steps/CreateOrderStep7";
-import {Button} from "@/components/ui/button";
-import {CreateOrderStep2SecondVariant} from "@/features/order/create/ui/steps/CreateOrderStep2SecondVariant";
+import { CreateOrderStep7 } from "@/features/order/create/ui/steps/CreateOrderStep7";
+import { Button } from "@/components/ui/button";
+import { CreateOrderStep2SecondVariant } from "@/features/order/create/ui/steps/CreateOrderStep2SecondVariant";
+import axios from 'axios'
+import {toast} from "@/components/ui/use-toast";
+import { useRouter } from 'next/navigation';
+
+interface IResponse {
+    success: boolean
+}
 
 export const CreateOrder = () => {
     const [emailStep, setEmailSte] = useState<1 | 2>(1)
     const [api, setApi] = useState<CarouselApi>()
+    const [email, setEmail] = useState<string>('')
+    const [code, setCode] = useState<string>('')
     const [cargo, setCargo] = useState<'marketplace' | 'anything'>('marketplace')
     const [canContinue, setCanContinue] = useState(true)
+    const router = useRouter()
+
 
     const handleNext = () => {
         if (api) {
-            const current = api.selectedScrollSnap() + 1
-
-            if (current < 7) {
+            if (api.canScrollNext() && emailStep === 1) {
                 api.scrollNext()
             }
 
-            else {
+            else if (emailStep === 1) {
                 setEmailSte(2)
+
+                axios.post(`https://deploy-fastapi-on-render-com-full-kum7.onrender.com?email=${email}`).catch(() => {
+                    toast({
+                        title: "Вы ввели неверный код",
+                        variant: 'destructive',
+                        description: "Пожалуйста, проверье его еще раз.",
+                    })
+                })
+            }
+
+            else if (emailStep === 2) {
+                axios.post<IResponse>(`https://deploy-fastapi-on-render-com-full-kum7.onrender.com?code=${code}&email=${email}`)
+                    .then(r => {
+                        if (r.data.success) {
+                            router.push('/profile')
+                        }
+
+                        else {
+                            toast({
+                                title: "Вы ввели неверный код",
+                                variant: 'destructive',
+                                description: "Пожалуйста, проверье его еще раз.",
+                            })
+                        }
+                    })
             }
         }
     }
@@ -42,7 +76,11 @@ export const CreateOrder = () => {
             canContinue,
             setCanContinue,
             emailStep,
-            setEmailSte
+            setEmailSte,
+            email,
+            setEmail,
+            code,
+            setCode
         }}>
             <Carousel opts={{
                 dragFree: false,
