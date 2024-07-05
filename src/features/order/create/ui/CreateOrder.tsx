@@ -41,7 +41,7 @@ export const CreateOrder = () => {
             else if (emailStep === 1) {
                 setEmailSte(2)
 
-                axios.post(`https://deploy-fastapi-on-render-com-full-kum7.onrender.com?email=${email}`).catch(() => {
+                axios.post(`https://deploy-fastapi-on-render-com-full-kum7.onrender.com/email?email=${email}`).catch(() => {
                     toast({
                         title: "Упс! Что-то пошло не так...",
                         variant: 'destructive',
@@ -51,7 +51,7 @@ export const CreateOrder = () => {
             }
 
             else if (emailStep === 2) {
-                axios.post<IResponse>(`https://deploy-fastapi-on-render-com-full-kum7.onrender.com?code=${code}&email=${email}`)
+                axios.post<IResponse>(`https://deploy-fastapi-on-render-com-full-kum7.onrender.com/code?code=${code}&email=${email}`)
                     .then(r => {
                         if (r.data.success) {
                             router.push('/profile')
