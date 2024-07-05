@@ -51,7 +51,7 @@ export const CreateOrder = () => {
             }
 
             else if (emailStep === 2) {
-                axios.post<IResponse>(`https://deploy-fastapi-on-render-com-full-kum7.onrender.com/code?code=${code}&email=${email}`)
+                axios.post<IResponse>(`https://deploy-fastapi-on-render-com-full-kum7.onrender.com/login?code=${code}&email=${email}`)
                     .then(r => {
                         if (r.data.success) {
                             router.push('/profile')
