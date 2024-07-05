@@ -43,9 +43,9 @@ export const CreateOrder = () => {
 
                 axios.post(`https://deploy-fastapi-on-render-com-full-kum7.onrender.com?email=${email}`).catch(() => {
                     toast({
-                        title: "Вы ввели неверный код",
+                        title: "Упс! Что-то пошло не так...",
                         variant: 'destructive',
-                        description: "Пожалуйста, проверье его еще раз.",
+                        description: "Мы уже разбираемся, пожалуйста, подождите",
                     })
                 })
             }
