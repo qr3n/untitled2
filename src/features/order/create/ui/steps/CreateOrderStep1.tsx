@@ -1,7 +1,7 @@
 'use client';
 
 import {CreateOrderStepTemplate} from "@/features/order/create/ui/steps/CreateOrderStepTemplate";
-import courier from './assets/courier.png'
+import items from './assets/items.png'
 import courierWithCar from './assets/courierwithcar.png'
 import {TwoChoice} from "@/features/order/create/ui/steps/TwoChoice";
 import {useContext} from "react";
@@ -19,7 +19,7 @@ export const CreateOrderStep1 = () => {
                 firstImage={courierWithCar}
                 secondTitle={'Разный товар'}
                 secondDescription={'До 6кг'}
-                secondImage={courier}
+                secondImage={items}
                 onFirstVariantClick={() => setCargo('marketplace')}
                 onSecondVariantClick={() => setCargo('anything')}
             />

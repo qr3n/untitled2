@@ -3,7 +3,7 @@
 import {Carousel, CarouselApi, CarouselContent, CarouselItem} from "@/components/ui/carousel";
 import {CreateOrderStep1} from "@/features/order/create/ui/steps/CreateOrderStep1";
 import {CreateOrderStep2} from "@/features/order/create/ui/steps/CreateOrderStep2";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import {CreateOrderStep3} from "@/features/order/create/ui/steps/CreateOrderStep3";
 import {CreateOrderStep4} from "@/features/order/create/ui/steps/CreateOrderStep4";
 import {CreateOrderStep5} from "@/features/order/create/ui/steps/CreateOrderStep5";
@@ -30,7 +30,21 @@ export const CreateOrder = () => {
     const [cargo, setCargo] = useState<'marketplace' | 'anything'>('marketplace')
     const [canContinue, setCanContinue] = useState(true)
     const router = useRouter()
+    const [buttonDisabled, setButtonDisabled] = useState(false)
+    const [current, setCurrent] = useState(0)
 
+    useEffect(() => {
+        if (!api) {
+            return
+        }
+
+        setCurrent(api.selectedScrollSnap() + 1)
+
+        api.on("select", () => {
+            setCurrent(api.selectedScrollSnap() + 1)
+        })
+
+    }, [api])
 
     const handleNext = () => {
         if (api) {
@@ -93,11 +107,13 @@ export const CreateOrder = () => {
                         </div>
                     </CarouselItem>
 
-                    <CarouselItem className='h-full flex justify-center items-center'>
-                        <div className="p-1">
-                            { cargo === 'marketplace' ? <CreateOrderStep2/> : <CreateOrderStep2SecondVariant/> }
-                        </div>
-                    </CarouselItem>
+                    {
+                        cargo === 'marketplace' && <CarouselItem className='h-full flex justify-center items-center'>
+                            <div className="p-1">
+                                <CreateOrderStep2/>
+                            </div>
+                        </CarouselItem>
+                    }
 
                     {
                         cargo === 'marketplace' && <CarouselItem className='h-full flex justify-center items-center'>
@@ -134,7 +150,7 @@ export const CreateOrder = () => {
             <div className='fixed gap-4 bottom-8 px-8 w-full flex flex-col sm:px-[20%] md:px-[25%] lg:px-[30%] xl:px-[35%]'>
                 <Button
                     onClick={handleNext}
-
+                    disabled={buttonDisabled}
                     className='
                     flex
                     items-center

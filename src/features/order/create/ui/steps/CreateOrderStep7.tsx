@@ -18,7 +18,7 @@ export const CreateOrderStep7 = () => {
                 className='flex flex-col items-center justify-center mt-6 text-left w-screen px-12 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
                 {
                     emailStep === 1 && <input
-                        className='bg-[#2A2A2A] border-2 border-transparent p-3 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
+                        className='bg-[#2A2A2A] w-full border-2 border-transparent p-3 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
                         placeholder='someemail@email.com' value={email} onChange={e => setEmail(e.target.value)}/>
                 }
 

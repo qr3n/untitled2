@@ -81,7 +81,7 @@ export default function Home() {
                   transition-all
                   '
                   >
-                      ВЫБРАТЬ КУРЬЕРА
+                      СДЕЛАТЬ ЗАКАЗ
                       <FaArrowRight className='w-6 h-6 text-black'/>
                   </button>
               </Link>
