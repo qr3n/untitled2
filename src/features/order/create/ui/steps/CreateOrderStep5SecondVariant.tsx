@@ -28,14 +28,6 @@ export const CreateOrderStep5SecondVariant = () => {
                 <input
                     className='bg-[#2A2A2A] border-2 border-transparent mt-4 p-3 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
                     placeholder='Московская 12...'/>
-
-                <div className='w-full overflow-hidden rounded-xl mt-12'>
-                    <YMaps>
-                        <div className=''>
-                            <Map defaultState={{center: [55.75, 37.57], zoom: 9}} width={1000} height={180}/>
-                        </div>
-                    </YMaps>
-                </div>
             </div>
         </CreateOrderStepTemplate>
     )
