@@ -3,7 +3,7 @@ import {CreateOrderStepTemplate} from "@/features/order/create/ui/steps/CreateOr
 
 export const CreateOrderCommentStep = () => {
     return (
-        <CreateOrderStepTemplate title='У вас есть пожелания?' description='Если их нет, просто оставьте поле пустым'>
+        <CreateOrderStepTemplate title='Пожелания?' description='Если их нет, просто оставьте поле пустым'>
             <div
                 className='flex flex-col mt-6 text-left w-screen px-12 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
                 <textarea
