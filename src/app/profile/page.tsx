@@ -3,11 +3,12 @@ import { cookies } from 'next/headers'
 import {jwtDecode} from 'jwt-decode';
 import {redirect} from "next/navigation";
 
+
 interface User {
     email: string
 }
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
     const token = cookies().get('token')
 
     if (!token) {
@@ -27,9 +28,9 @@ export default function ProfilePage() {
                     <TabsTrigger value="completed">Завершены</TabsTrigger>
                     <TabsTrigger value="canceled">Отменены</TabsTrigger>
                 </TabsList>
-                <TabsContent value="now">Make changes to your account here.</TabsContent>
-                <TabsContent value="completed">Change your password here.</TabsContent>
-                <TabsContent value="canceled">Change your password here.</TabsContent>
+                <TabsContent value="now"></TabsContent>
+                <TabsContent value="completed"></TabsContent>
+                <TabsContent value="canceled"></TabsContent>
             </Tabs>
         </div>
     )
