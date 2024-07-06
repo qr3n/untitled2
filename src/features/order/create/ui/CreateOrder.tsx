@@ -17,6 +17,7 @@ import { CreateOrderStep2SecondVariant } from "@/features/order/create/ui/steps/
 import axios from 'axios'
 import {toast} from "@/components/ui/use-toast";
 import { useRouter } from 'next/navigation';
+import {CreateOrderStep5SecondVariant} from "@/features/order/create/ui/steps/CreateOrderStep5SecondVariant";
 
 interface IResponse {
     success: boolean
@@ -31,20 +32,31 @@ export const CreateOrder = () => {
     const [canContinue, setCanContinue] = useState(true)
     const router = useRouter()
     const [buttonDisabled, setButtonDisabled] = useState(false)
-    const [current, setCurrent] = useState(0)
 
     useEffect(() => {
         if (!api) {
             return
         }
 
-        setCurrent(api.selectedScrollSnap() + 1)
+        if (!api.canScrollNext() && email === '') {
+            setButtonDisabled(true)
+        }
+
+        else {
+            setButtonDisabled(false)
+        }
 
         api.on("select", () => {
-            setCurrent(api.selectedScrollSnap() + 1)
+            if (!api.canScrollNext() && email === '') {
+                setButtonDisabled(true)
+            }
+
+            else {
+                setButtonDisabled(false)
+            }
         })
 
-    }, [api])
+    }, [api, email])
 
     const handleNext = () => {
         if (api) {
@@ -131,7 +143,7 @@ export const CreateOrder = () => {
 
                     <CarouselItem className='h-full flex justify-center items-center'>
                         <div className="p-1">
-                            <CreateOrderStep5/>
+                            { cargo === 'marketplace' ? <CreateOrderStep5/> : <CreateOrderStep5SecondVariant/> }
                         </div>
                     </CarouselItem>
                     <CarouselItem className='h-full flex justify-center items-center'>
