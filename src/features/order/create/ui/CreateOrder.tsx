@@ -122,7 +122,7 @@ export const CreateOrder = () => {
                     {
                         cargo === 'marketplace' && <CarouselItem className='h-full flex justify-center items-center'>
                             <div className="p-1">
-                                <CreateOrderStep2/>
+                                <CreateOrderStep3/>
                             </div>
                         </CarouselItem>
                     }
@@ -130,10 +130,11 @@ export const CreateOrder = () => {
                     {
                         cargo === 'marketplace' && <CarouselItem className='h-full flex justify-center items-center'>
                             <div className="p-1">
-                                <CreateOrderStep3/>
+                                <CreateOrderStep2/>
                             </div>
                         </CarouselItem>
                     }
+
 
                     <CarouselItem className='h-full flex justify-center items-center'>
                         <div className="p-1">
