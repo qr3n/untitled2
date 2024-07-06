@@ -31,7 +31,6 @@ const Buttons = ({ api, email, handleNext, emailStep }: { api: CarouselApi, emai
     const cookies = useCookies()
     const account = cookies.get('token')
 
-
     useEffect(() => {
         if (!account) {
             if (!api) {
@@ -237,17 +236,19 @@ export const CreateOrder = () => {
                         </div>
                     </CarouselItem>
 
+                    <CarouselItem className='h-full flex justify-center items-center'>
+                        <div className="p-1">
+                            <CreateOrderCommentStep/>
+                        </div>
+                    </CarouselItem>
+
                     { !account && <CarouselItem className='h-full flex justify-center items-center'>
                         <div className="p-1">
                             <CreateOrderStep7/>
                         </div>
                     </CarouselItem> }
 
-                    <CarouselItem className='h-full flex justify-center items-center'>
-                        <div className="p-1">
-                            <CreateOrderCommentStep/>
-                        </div>
-                    </CarouselItem>
+
                 </CarouselContent>x
             </Carousel>
             <div className='fixed gap-4 bottom-8 px-8 w-full flex flex-col sm:px-[20%] md:px-[25%] lg:px-[30%] xl:px-[35%]'>
