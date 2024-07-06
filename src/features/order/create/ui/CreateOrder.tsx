@@ -13,7 +13,8 @@ import { FaArrowLeft } from "react-icons/fa";
 import { Context } from '../model/context'
 import { CreateOrderStep7 } from "@/features/order/create/ui/steps/CreateOrderStep7";
 import { Button } from "@/components/ui/button";
-import { CreateOrderStep2SecondVariant } from "@/features/order/create/ui/steps/CreateOrderStep2SecondVariant";
+// @ts-ignore
+import { useCookies } from 'next-client-cookies';
 import axios from 'axios'
 import {toast} from "@/components/ui/use-toast";
 import { useRouter } from 'next/navigation';
@@ -21,6 +22,88 @@ import {CreateOrderStep5SecondVariant} from "@/features/order/create/ui/steps/Cr
 
 interface IResponse {
     success: boolean
+}
+
+const Buttons = ({ api, email, handleNext, emailStep }: { api: CarouselApi, email: string, handleNext: () => void, emailStep: 1 | 2 }) => {
+    const [buttonDisabled, setButtonDisabled] = useState(false)
+    const cookies = useCookies()
+    const account = cookies.get('token')
+
+
+    useEffect(() => {
+        if (!account) {
+            if (!api) {
+                return
+            }
+
+            if (!api.canScrollNext() && email === '') {
+                setButtonDisabled(true)
+            }
+
+            else {
+                setButtonDisabled(false)
+            }
+
+            api.on("select", () => {
+                if (!api.canScrollNext() && email === '') {
+                    setButtonDisabled(true)
+                }
+
+                else {
+                    setButtonDisabled(false)
+                }
+            })
+        }
+    }, [api, email])
+
+    return (
+        <>
+            <Button
+                onClick={handleNext}
+                disabled={buttonDisabled}
+                className='
+                    flex
+                    items-center
+                    justify-center
+                    gap-2
+                    w-full
+                    px-8
+                    py-2
+                    bg-white
+                    text-black
+                    rounded-full
+                    font-bold
+                    active:bg-gray-100
+            '
+            >
+                ПРОДОЛЖИТЬ
+                <FaArrowRight className='w-4 h-4 text-black'/>
+
+            </Button>
+            <Button
+                onClick={() => api && api.scrollPrev()}
+                disabled={emailStep === 2}
+                className='
+                    flex
+                    items-center
+                    justify-center
+                    gap-2
+                    w-full
+                    px-8
+                    py-2
+                    border
+                    border-[#666]
+                    text-white
+                    rounded-full
+                    font-bold
+                    active:bg-[#222]
+            '
+            >
+                <FaArrowLeft className='w-4 h-4 text-white'/>
+                НАЗАД
+            </Button>
+        </>
+    )
 }
 
 export const CreateOrder = () => {
@@ -31,32 +114,9 @@ export const CreateOrder = () => {
     const [cargo, setCargo] = useState<'marketplace' | 'anything'>('marketplace')
     const [canContinue, setCanContinue] = useState(true)
     const router = useRouter()
-    const [buttonDisabled, setButtonDisabled] = useState(false)
+    const cookies = useCookies()
+    const account = cookies.get('token')
 
-    useEffect(() => {
-        if (!api) {
-            return
-        }
-
-        if (!api.canScrollNext() && email === '') {
-            setButtonDisabled(true)
-        }
-
-        else {
-            setButtonDisabled(false)
-        }
-
-        api.on("select", () => {
-            if (!api.canScrollNext() && email === '') {
-                setButtonDisabled(true)
-            }
-
-            else {
-                setButtonDisabled(false)
-            }
-        })
-
-    }, [api, email])
 
     const handleNext = () => {
         if (api) {
@@ -65,32 +125,38 @@ export const CreateOrder = () => {
             }
 
             else if (emailStep === 1) {
-                setEmailSte(2)
+                if (!account) {
+                    setEmailSte(2)
 
-                axios.post(`https://deploy-fastapi-on-render-com-full-kum7.onrender.com/email?email=${email}`).catch(() => {
-                    toast({
-                        title: "Упс! Что-то пошло не так...",
-                        variant: 'destructive',
-                        description: "Мы уже разбираемся, пожалуйста, подождите",
+                    axios.post(`http://localhost:8000/email?email=${email}`).catch(() => {
+                        toast({
+                            title: "Упс! Что-то пошло не так...",
+                            variant: 'destructive',
+                            description: "Мы уже разбираемся, пожалуйста, подождите",
+                        })
                     })
-                })
+                }
             }
 
             else if (emailStep === 2) {
-                axios.post<IResponse>(`https://deploy-fastapi-on-render-com-full-kum7.onrender.com/login?code=${code}&email=${email}`)
-                    .then(r => {
-                        if (r.data.success) {
-                            router.push('/profile')
-                        }
-
-                        else {
-                            toast({
-                                title: "Вы ввели неверный код",
-                                variant: 'destructive',
-                                description: "Пожалуйста, проверье его еще раз.",
-                            })
-                        }
+                if (!account) {
+                    axios.post<IResponse>(`http://localhost:8000/login?code=${code}&email=${email}`, {}, {
+                        withCredentials: true
                     })
+                        .then(r => {
+                            if (r.data.success) {
+                                router.push('/profile')
+                            }
+
+                            else {
+                                toast({
+                                    title: "Вы ввели неверный код",
+                                    variant: 'destructive',
+                                    description: "Пожалуйста, проверье его еще раз.",
+                                })
+                            }
+                        })
+                }
             }
         }
     }
@@ -153,59 +219,15 @@ export const CreateOrder = () => {
                         </div>
                     </CarouselItem>
 
-                    <CarouselItem className='h-full flex justify-center items-center'>
+                    { !account && <CarouselItem className='h-full flex justify-center items-center'>
                         <div className="p-1">
                             <CreateOrderStep7/>
                         </div>
-                    </CarouselItem>
-                </CarouselContent>
+                    </CarouselItem> }
+                </CarouselContent>x
             </Carousel>
             <div className='fixed gap-4 bottom-8 px-8 w-full flex flex-col sm:px-[20%] md:px-[25%] lg:px-[30%] xl:px-[35%]'>
-                <Button
-                    onClick={handleNext}
-                    disabled={buttonDisabled}
-                    className='
-                    flex
-                    items-center
-                    justify-center
-                    gap-2
-                    w-full
-                    px-8
-                    py-2
-                    bg-white
-                    text-black
-                    rounded-full
-                    font-bold
-                    active:bg-gray-100
-            '
-                >
-                    ПРОДОЛЖИТЬ
-                    <FaArrowRight className='w-4 h-4 text-black'/>
-
-                </Button>
-                <Button
-                    onClick={() => api && api.scrollPrev()}
-
-                    className='
-                    flex
-                    items-center
-                    justify-center
-                    gap-2
-                    w-full
-                    px-8
-                    py-2
-                    border
-                    border-[#666]
-                    text-white
-                    rounded-full
-                    font-bold
-                    active:bg-[#222]
-            '
-                >
-                    <FaArrowLeft className='w-4 h-4 text-white'/>
-                    НАЗАД
-                </Button>
-
+                <Buttons api={api} email={email} handleNext={handleNext} emailStep={emailStep}/>
             </div>
 
         </Context.Provider>
