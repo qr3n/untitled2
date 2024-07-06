@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cookies } from 'next/headers'
 import {jwtDecode} from 'jwt-decode';
 import {redirect} from "next/navigation";
+import {Orders} from "@/app/profile/orders";
 
 
 interface User {

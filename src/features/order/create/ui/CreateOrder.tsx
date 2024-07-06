@@ -20,6 +20,7 @@ import {toast} from "@/components/ui/use-toast";
 import { useRouter } from 'next/navigation';
 import {CreateOrderStep5SecondVariant} from "@/features/order/create/ui/steps/CreateOrderStep5SecondVariant";
 import {CreateOrderCommentStep} from "@/features/order/create/ui/steps/CreateOrderCommentStep";
+import {CreateOrderGabaritsStep} from "@/features/order/create/ui/steps/CreateOrderGabaritsStep";
 
 interface IResponse {
     success: boolean
@@ -216,6 +217,14 @@ export const CreateOrder = () => {
                             <CreateOrderStep4/>
                         </div>
                     </CarouselItem>
+
+                    {
+                        cargo === 'anything' && <CarouselItem className='h-full flex justify-center items-center'>
+                            <div className="p-1">
+                                <CreateOrderGabaritsStep/>
+                            </div>
+                        </CarouselItem>
+                    }
 
                     <CarouselItem className='h-full flex justify-center items-center'>
                         <div className="p-1">
