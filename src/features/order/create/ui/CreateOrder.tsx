@@ -86,7 +86,7 @@ const Buttons = ({ api, email, handleNext, emailStep }: { api: CarouselApi, emai
                 disabled={emailStep === 2}
                 className='
                     flex
-                    items-center
+
                     justify-center
                     gap-2
                     w-full
@@ -187,15 +187,15 @@ export const CreateOrder = () => {
                 dragFree: false,
                 watchDrag: false,
             }} setApi={setApi} className="flex sm:mt-0 w-full h-screen" draggable={false}>
-                <CarouselContent className='h-full -mt-24'>
-                    <CarouselItem className='h-full flex justify-center items-center'>
+                <CarouselContent className='h-full pt-16'>
+                    <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             <CreateOrderStep1/>
                         </div>
                     </CarouselItem>
 
                     {
-                        cargo === 'marketplace' && <CarouselItem className='h-full flex justify-center items-center'>
+                        cargo === 'marketplace' && <CarouselItem className='h-full flex justify-center'>
                             <div className="p-1">
                                 <CreateOrderStep3/>
                             </div>
@@ -203,7 +203,7 @@ export const CreateOrder = () => {
                     }
 
                     {
-                        cargo === 'marketplace' && <CarouselItem className='h-full flex justify-center items-center'>
+                        cargo === 'marketplace' && <CarouselItem className='h-full flex justify-center'>
                             <div className="p-1">
                                 <CreateOrderStep2/>
                             </div>
@@ -211,38 +211,38 @@ export const CreateOrder = () => {
                     }
 
 
-                    <CarouselItem className='h-full flex justify-center items-center'>
+                    <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             <CreateOrderStep4/>
                         </div>
                     </CarouselItem>
 
                     {
-                        cargo === 'anything' && <CarouselItem className='h-full flex justify-center items-center'>
+                        cargo === 'anything' && <CarouselItem className='h-full flex justify-center'>
                             <div className="p-1">
                                 <CreateOrderGabaritsStep/>
                             </div>
                         </CarouselItem>
                     }
 
-                    <CarouselItem className='h-full flex justify-center items-center'>
+                    <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             { cargo === 'marketplace' ? <CreateOrderStep5/> : <CreateOrderStep5SecondVariant/> }
                         </div>
                     </CarouselItem>
-                    <CarouselItem className='h-full flex justify-center items-center'>
+                    <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             <CreateOrderStep6/>
                         </div>
                     </CarouselItem>
 
-                    <CarouselItem className='h-full flex justify-center items-center'>
+                    <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             <CreateOrderCommentStep/>
                         </div>
                     </CarouselItem>
 
-                    { !account && <CarouselItem className='h-full flex justify-center items-center'>
+                    { !account && <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             <CreateOrderStep7/>
                         </div>
