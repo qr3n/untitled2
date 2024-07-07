@@ -187,7 +187,7 @@ export const CreateOrder = () => {
                 dragFree: false,
                 watchDrag: false,
             }} setApi={setApi} className="flex sm:mt-0 w-full h-screen" draggable={false}>
-                <CarouselContent className='h-full pt-16'>
+                <CarouselContent className='h-full pt-12'>
                     <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             <CreateOrderStep1/>
