@@ -19,7 +19,7 @@ export const CreateOrderGabaritsStep = () => {
     return (
         <CreateOrderStepTemplate title='Какие габариты?' description='Пожалуйста, укажите точные значения'>
             <div
-                className='flex flex-col mt-6 text-left w-screen px-12 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
+                className='flex flex-col mt-2 text-left w-screen px-12 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
 
                 <h1 className='text-xl font-semibold'>Длина</h1>
                 <input
