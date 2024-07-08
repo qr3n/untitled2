@@ -251,7 +251,7 @@ export const CreateOrder = () => {
 
                 </CarouselContent>x
             </Carousel>
-            <div className='fixed gap-4 bottom-8 px-8 w-full flex flex-col sm:px-[20%] md:px-[25%] lg:px-[30%] xl:px-[35%]'>
+            <div className='fixed gap-4 bottom-2 sm:bottom-8 px-8 w-full flex flex-col sm:px-[20%] md:px-[25%] lg:px-[30%] xl:px-[35%]'>
                 <Buttons api={api} email={email} handleNext={handleNext} emailStep={emailStep}/>
             </div>
 
