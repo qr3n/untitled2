@@ -53,7 +53,7 @@ export const CreateOrderStep5SecondVariant = () => {
                                 className='w-full bg-[#2A2A2A] border-2 border-transparent p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
                                 placeholder='Введите адрес'/>
 
-                            <div className='p-2 bg-[#222] rounded-md' onClick={() => removeInput(i.id)} >
+                            <div className='p-2 bg-[#222] rounded-md' onClick={() => { inputs.length > 1 && removeInput(i.id)  }} >
                                 <FaRegTrashAlt style={{ color: inputs.length > 1 ? '#ccc' : '#8c8c8c' }}/>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ export const CreateOrderStep5SecondVariant = () => {
                                 className='w-full bg-[#2A2A2A] border-2 border-transparent p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
                                 placeholder='Введите адрес'/>
 
-                            <div className='p-2 bg-[#222] rounded-md' onClick={() => removeInput2(i.id)}>
+                            <div className='p-2 bg-[#222] rounded-md' onClick={() => { inputs2.length > 1 && removeInput2(i.id)  }}>
                                 <FaRegTrashAlt style={{ color: inputs2.length > 1 ? '#ccc' : '#8c8c8c' }}/>
                             </div>
                         </div>
