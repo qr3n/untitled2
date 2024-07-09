@@ -21,13 +21,14 @@ import { useRouter } from 'next/navigation';
 import {CreateOrderStep5SecondVariant} from "@/features/order/create/ui/steps/CreateOrderStep5SecondVariant";
 import {CreateOrderCommentStep} from "@/features/order/create/ui/steps/CreateOrderCommentStep";
 import {CreateOrderGabaritsStep} from "@/features/order/create/ui/steps/CreateOrderGabaritsStep";
+import {Loader2} from "lucide-react";
 
 interface IResponse {
     success: boolean,
     token: string
 }
 
-const Buttons = ({ api, email, handleNext, emailStep }: { api: CarouselApi, email: string, handleNext: () => void, emailStep: 1 | 2 }) => {
+const Buttons = ({ api, email, handleNext, emailStep, isLoading }: { api: CarouselApi, email: string, handleNext: () => void, emailStep: 1 | 2, isLoading: boolean }) => {
     const [buttonDisabled, setButtonDisabled] = useState(false)
     const cookies = useCookies()
     const account = cookies.get('token')
@@ -62,7 +63,7 @@ const Buttons = ({ api, email, handleNext, emailStep }: { api: CarouselApi, emai
         <>
             <Button
                 onClick={handleNext}
-                disabled={buttonDisabled}
+                disabled={buttonDisabled || isLoading}
                 className='
                     flex
                     items-center
@@ -78,13 +79,14 @@ const Buttons = ({ api, email, handleNext, emailStep }: { api: CarouselApi, emai
                     active:bg-gray-100
             '
             >
+                { isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" /> }
                 ПРОДОЛЖИТЬ
                 <FaArrowRight className='w-4 h-4 text-black'/>
 
             </Button>
             <Button
                 onClick={() => api && api.scrollPrev()}
-                disabled={emailStep === 2}
+                disabled={emailStep === 2 || isLoading}
                 className='
                     flex
 
@@ -117,6 +119,7 @@ const CreateOrderProvider = () => {
 }
 
 export const CreateOrder = () => {
+    const [loading, setLoading] = useState(false)
     const [token, setToken] = useState('')
     const [cargo, setCargo] = useState<'marketplace' | 'anything'>('marketplace')
     const [warehouse, setWarehouse] = useState('Яндекс маркет')
@@ -152,8 +155,10 @@ export const CreateOrder = () => {
             else if (emailStep === 1) {
                 if (!account) {
                     setEmailSte(2)
+                    setLoading(true)
 
                     axios.post(`https://emarket-1ans.onrender.com/email?email=${email}`).catch(() => {
+                        setLoading(false)
                         toast({
                             title: "Упс! Что-то пошло не так...",
                             variant: 'destructive',
@@ -163,6 +168,8 @@ export const CreateOrder = () => {
                 }
 
                 else {
+                    setLoading(true)
+
                     axios.post(`https://emarket-1ans.onrender.com/order?token=${token}`, {
                         cargo: cargo,
                         warehouse: warehouse,
@@ -174,12 +181,17 @@ export const CreateOrder = () => {
                         time_to_take: timeToTake,
                         time_to_deliver: timeToDeliver,
                         comment: comment,
-                    }, { withCredentials: true }).then(() => router.push('/profile'))
+                    }, { withCredentials: true }).then(() => {
+                        setLoading(true)
+                        router.push('/profile')
+                    })
                 }
             }
 
             else if (emailStep === 2) {
                 if (!account) {
+                    setLoading(true)
+
                     axios.post<IResponse>(`https://emarket-1ans.onrender.com/login?code=${code}&email=${email}`, {}, {
                         withCredentials: true
                     })
@@ -200,10 +212,14 @@ export const CreateOrder = () => {
                                     time_to_take: timeToTake,
                                     time_to_deliver: timeToDeliver,
                                     comment: comment,
-                                }, { withCredentials: true }).then(r => router.push('/profile'))
+                                }, { withCredentials: true }).then(r => {
+                                    setLoading(false)
+                                    router.push('/profile')
+                                })
                             }
 
                             else {
+                                setLoading(false)
                                 toast({
                                     title: "Вы ввели неверный код",
                                     variant: 'destructive',
@@ -318,7 +334,7 @@ export const CreateOrder = () => {
                 </CarouselContent>
             </Carousel>
             <div className='fixed gap-4 bottom-2 sm:bottom-8 px-8 w-full flex flex-col sm:px-[20%] md:px-[25%] lg:px-[30%] xl:px-[35%]'>
-                <Buttons api={api} email={email} handleNext={handleNext} emailStep={emailStep}/>
+                <Buttons isLoading={loading} api={api} email={email} handleNext={handleNext} emailStep={emailStep}/>
             </div>
 
         </Context.Provider>
