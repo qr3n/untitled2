@@ -138,6 +138,10 @@ export const CreateOrder = () => {
     const cookies = useCookies()
     const account = cookies.get('token')
 
+    useEffect(() => {
+        if (account) setToken(account)
+    }, [account]);
+
 
     const handleNext = () => {
         if (api) {
