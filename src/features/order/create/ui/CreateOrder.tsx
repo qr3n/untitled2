@@ -23,7 +23,8 @@ import {CreateOrderCommentStep} from "@/features/order/create/ui/steps/CreateOrd
 import {CreateOrderGabaritsStep} from "@/features/order/create/ui/steps/CreateOrderGabaritsStep";
 
 interface IResponse {
-    success: boolean
+    success: boolean,
+    token: string
 }
 
 const Buttons = ({ api, email, handleNext, emailStep }: { api: CarouselApi, email: string, handleNext: () => void, emailStep: 1 | 2 }) => {
@@ -179,6 +180,8 @@ export const CreateOrder = () => {
                     })
                         .then(r => {
                             if (r.data.success) {
+                                cookies.set('token', r.data.token)
+
                                 router.push('/profile')
                             }
 
