@@ -42,7 +42,7 @@ export const TwoChoice = (props: IProps) => {
                          setSelected(0)
                          props.onFirstVariantClick && props.onFirstVariantClick()
                      }}>
-                    <Image className='w-36 h-36 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64 object-cover'
+                    <Image className='w-32 h-32 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64 object-cover'
                            src={props.firstImage} alt={'select'} height={300} width={300}/>
                     <h1 className='text-xl md:text-2xl font-semibold mt-2'>{ props.firstTitle }</h1>
                     <p className='text-md md:text-lg text-[#9D9D9D]'>{ props.firstDescription }</p>
@@ -55,7 +55,7 @@ export const TwoChoice = (props: IProps) => {
                          props.onSecondVariantClick && props.onSecondVariantClick()
                      }}
                 >
-                    <Image className='w-36 h-36 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64 object-cover'
+                    <Image className='w-32 h-32 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64 object-cover'
                            src={props.secondImage} alt={'select'} height={300} width={300}/>
                     <h1 className='text-xl md:text-2xl font-semibold mt-2'>{ props.secondTitle }</h1>
                     <p className='text-md md:text-lg text-[#9D9D9D]'>{ props.secondDescription }</p>
