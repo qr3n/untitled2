@@ -13,9 +13,13 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/components/ui/select";
+import {useState} from "react";
 
 
 export const CreateOrderStep6 = () => {
+    const [get, setGet] = useState<Date | undefined>()
+    const [give, setGive] = useState<Date | undefined>()
+
     const timeSlots = Array.from({ length: 48 }, (_, i) => {
         const hours = Math.floor(i / 2);
         const minutes = i % 2 === 0 ? 0 : 30;
@@ -39,13 +43,18 @@ export const CreateOrderStep6 = () => {
                             <div
                                 className='flex cursor-pointer items-center justify-center gap-2 bg-[#2A2A2A] border-2 border-transparent mt-4 px-3 py-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'>
                                 <IoCalendarOutline className='text-[#777] w-5 h-5'/>
-                                Сегодня
+                                { get ? get === new Date() ? 'Сегодня' : `${get.getDate()}.${get.getMonth() + 1}.${get.getFullYear()}` : 'Сегодня' }
                             </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                             <Calendar
+                                disabled={(date) =>
+                                    date < new Date()
+                                }
                                 mode="single"
                                 className="rounded-md border"
+                                onSelect={d => setGet(d)}
+                                selected={get}
                             />
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -93,13 +102,18 @@ export const CreateOrderStep6 = () => {
                             <div
                                 className='flex cursor-pointer items-center justify-center gap-2 bg-[#2A2A2A] border-2 border-transparent mt-4 px-3 py-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'>
                                 <IoCalendarOutline className='text-[#777] w-5 h-5'/>
-                                Сегодня
+                                { give ? give === new Date() ? 'Сегодня' : `${give.getDate()}.${give.getMonth() + 1}.${give.getFullYear()}` : 'Сегодня' }
                             </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                             <Calendar
+                                disabled={(date) =>
+                                    date < new Date()
+                                }
                                 mode="single"
                                 className="rounded-md border"
+                                onSelect={d => setGive(d)}
+                                selected={give}
                             />
                         </DropdownMenuContent>
                     </DropdownMenu>

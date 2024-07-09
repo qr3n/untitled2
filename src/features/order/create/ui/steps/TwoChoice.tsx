@@ -36,7 +36,7 @@ export const TwoChoice = (props: IProps) => {
     return (
         <>
             <div className='flex flex-col sm:flex-row text-center w-screen px-8 sm:p-0 sm:w-auto'>
-                <div className='flex relative items-center justify-center flex-col cursor-pointer min-h-full px-6 py-4 sm:pb-16'
+                <div className='flex relative items-center justify-center flex-col cursor-pointer min-h-full px-6 py-3 sm:pb-14'
                      style={selectedFirst ? selectedStyle : notSelectedStyle}
                      onClick={() => {
                          setSelected(0)
@@ -48,7 +48,7 @@ export const TwoChoice = (props: IProps) => {
                     <p className='text-md md:text-lg text-[#9D9D9D]'>{ props.firstDescription }</p>
                     { selectedFirst && <Image src={check} alt={'check'} className='absolute top-1/2 -translate-y-1/2 right-10 sm:top-auto sm:bottom-6 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-0 sm:w-6' width={32}/> }
                 </div>
-                <div className='flex relative items-center justify-center flex-col cursor-pointer min-h-full px-6 py-4 sm:pb-16'
+                <div className='flex relative items-center justify-center flex-col cursor-pointer min-h-full px-6 py-3 sm:pb-14'
                      style={!selectedFirst ? selectedStyle : notSelectedStyle}
                      onClick={() => {
                          setSelected(1)

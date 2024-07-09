@@ -182,7 +182,7 @@ export const CreateOrder = () => {
                         time_to_deliver: timeToDeliver,
                         comment: comment,
                     }, { withCredentials: true }).then(() => {
-                        setLoading(true)
+                        setLoading(false)
                         router.push('/profile')
                     })
                 }
