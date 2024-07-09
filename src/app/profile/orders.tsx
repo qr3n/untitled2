@@ -11,7 +11,7 @@ export const Orders = () => {
     const [orders, setOrders] = useState<IOrder[]>([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/orders', {
+        axios.get('https://emarket-1ans.onrender.com/orders', {
             withCredentials: true
         }).then(order => {
             setOrders(order.data);

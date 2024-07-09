@@ -129,7 +129,7 @@ export const CreateOrder = () => {
                 if (!account) {
                     setEmailSte(2)
 
-                    axios.post(`http://localhost:8000/email?email=${email}`).catch(() => {
+                    axios.post(`https://emarket-1ans.onrender.com/email?email=${email}`).catch(() => {
                         toast({
                             title: "Упс! Что-то пошло не так...",
                             variant: 'destructive',
@@ -139,13 +139,13 @@ export const CreateOrder = () => {
                 }
 
                 else {
-                    axios.post(`http://localhost:8000/order`, {}, { withCredentials: true }).then(() => router.push('/profile'))
+                    axios.post(`https://emarket-1ans.onrender.com/order`, {}, { withCredentials: true }).then(() => router.push('/profile'))
                 }
             }
 
             else if (emailStep === 2) {
                 if (!account) {
-                    axios.post<IResponse>(`http://localhost:8000/login?code=${code}&email=${email}`, {}, {
+                    axios.post<IResponse>(`https://emarket-1ans.onrender.com/login?code=${code}&email=${email}`, {}, {
                         withCredentials: true
                     })
                         .then(r => {
@@ -219,13 +219,11 @@ export const CreateOrder = () => {
                         </CarouselItem>
                     }
 
-                    {
-                        cargo === 'anything' && <CarouselItem className='h-full flex justify-center'>
-                            <div className="p-1">
-                                <CreateOrderGabaritsStep/>
-                            </div>
-                        </CarouselItem>
-                    }
+                    <CarouselItem className='h-full flex justify-center'>
+                        <div className="p-1">
+                            <CreateOrderGabaritsStep/>
+                        </div>
+                    </CarouselItem>
 
                     <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
