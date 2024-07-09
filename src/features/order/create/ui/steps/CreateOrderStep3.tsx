@@ -8,8 +8,9 @@ import ali from './assets/ali.png'
 import lamoda from './assets/lamoda.png'
 import Image from "next/image";
 import {StaticImport} from "next/dist/shared/lib/get-img-props";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import check from './assets/check.png'
+import {Context} from "@/features/order/create/model/context";
 
 interface IProps {
     image: StaticImport,
@@ -41,16 +42,16 @@ const Shop = (props: IProps) => {
 }
 
 export const CreateOrderStep3 = () => {
-    const [current, setCurrent] = useState('Яндекс маркет');
+    const { warehouse, setWarehouse } = useContext(Context)
 
     return (
         <CreateOrderStepTemplate title='Какой склад?' description='Условия для каждого варианта различаются'>
             <div className='flex flex-col gap-3'>
-                <Shop image={yandex} text='Яндекс маркет' current={current} setCurrent={setCurrent}/>
-                <Shop image={wb} text='Wildberries' current={current} setCurrent={setCurrent}/>
-                <Shop image={ozon} text='Ozon' current={current} setCurrent={setCurrent}/>
-                <Shop image={ali} text='AliExpress' current={current} setCurrent={setCurrent}/>
-                <Shop image={lamoda} text='Lamoda' current={current} setCurrent={setCurrent}/>
+                <Shop image={yandex} text='Яндекс маркет' current={warehouse} setCurrent={setWarehouse}/>
+                <Shop image={wb} text='Wildberries' current={warehouse} setCurrent={setWarehouse}/>
+                <Shop image={ozon} text='Ozon' current={warehouse} setCurrent={setWarehouse}/>
+                <Shop image={ali} text='AliExpress' current={warehouse} setCurrent={setWarehouse}/>
+                <Shop image={lamoda} text='Lamoda' current={warehouse} setCurrent={setWarehouse}/>
             </div>
         </CreateOrderStepTemplate>
     )

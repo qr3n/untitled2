@@ -7,14 +7,26 @@ import {
     SelectContent,
     SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue
 } from "@/components/ui/select";
+import {Context} from "@/features/order/create/model/context";
+import {useContext} from "react";
 
+
+type LENGTH = 0
+type WIDTH = 1
+type HEIGHT = 2
 
 
 export const CreateOrderGabaritsStep = () => {
+    const { dimensions, setDimensions } = useContext(Context);
+
+    const handleChange = (param: LENGTH | WIDTH | HEIGHT, val: number) => {
+        const newDimensions = dimensions
+
+        setDimensions(newDimensions)
+    }
 
     return (
         <CreateOrderStepTemplate title='Какие габариты?' description='Пожалуйста, укажите точные значения'>

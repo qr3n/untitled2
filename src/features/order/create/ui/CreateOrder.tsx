@@ -107,12 +107,30 @@ const Buttons = ({ api, email, handleNext, emailStep }: { api: CarouselApi, emai
     )
 }
 
+const CreateOrderProvider = () => {
+    return (
+        <>
+
+        </>
+    )
+}
+
 export const CreateOrder = () => {
+    const [cargo, setCargo] = useState<'marketplace' | 'anything'>('marketplace')
+    const [warehouse, setWarehouse] = useState('Яндекс маркет')
+    const [whatToDeliver, setWhatToDeliver] = useState<string[]>([])
+    const [packing, setPacking] = useState<'box' | 'palette'>('box')
+    const [dimensions, setDimensions] = useState<string[]>([])
+    const [addrTo, setAddrTo] = useState('')
+    const [addrFrom, setAddrFrom] = useState('')
+    const [timeToTake, setTimeToTake] = useState('')
+    const [timeToDeliver, setTimeToDeliver] = useState('')
+    const [comment, setComment] = useState('')
+
     const [emailStep, setEmailSte] = useState<1 | 2>(1)
     const [api, setApi] = useState<CarouselApi>()
     const [email, setEmail] = useState<string>('')
     const [code, setCode] = useState<string>('')
-    const [cargo, setCargo] = useState<'marketplace' | 'anything'>('marketplace')
     const [canContinue, setCanContinue] = useState(true)
     const router = useRouter()
     const cookies = useCookies()
@@ -129,7 +147,7 @@ export const CreateOrder = () => {
                 if (!account) {
                     setEmailSte(2)
 
-                    axios.post(`https://emarket-1ans.onrender.com/email?email=${email}`).catch(() => {
+                    axios.post(`http://localhost:8000/email?email=${email}`).catch(() => {
                         toast({
                             title: "Упс! Что-то пошло не так...",
                             variant: 'destructive',
@@ -139,13 +157,24 @@ export const CreateOrder = () => {
                 }
 
                 else {
-                    axios.post(`https://emarket-1ans.onrender.com/order`, {}, { withCredentials: true }).then(() => router.push('/profile'))
+                    axios.post(`http://localhost:8000/order`, {
+                        cargo: cargo,
+                        warehouse: warehouse,
+                        what_to_deliver: whatToDeliver,
+                        packing: packing,
+                        dimensions: dimensions,
+                        addr_to: addrTo,
+                        addr_from: addrFrom,
+                        time_to_take: timeToTake,
+                        time_to_deliver: timeToDeliver,
+                        comment: comment,
+                    }, { withCredentials: true }).then(() => router.push('/profile'))
                 }
             }
 
             else if (emailStep === 2) {
                 if (!account) {
-                    axios.post<IResponse>(`https://emarket-1ans.onrender.com/login?code=${code}&email=${email}`, {}, {
+                    axios.post<IResponse>(`http://localhost:8000/login?code=${code}&email=${email}`, {}, {
                         withCredentials: true
                     })
                         .then(r => {
@@ -174,6 +203,24 @@ export const CreateOrder = () => {
         <Context.Provider value={{
             cargo,
             setCargo,
+            warehouse,
+            setWarehouse,
+            whatToDeliver,
+            setWhatToDeliver,
+            packing,
+            setPacking,
+            dimensions,
+            setDimensions,
+            addrTo,
+            setAddrFrom,
+            timeToTake,
+            setTimeToTake,
+            timeToDeliver,
+            setTimeToDeliver,
+            setAddrTo,
+            addrFrom,
+            comment,
+            setComment,
             canContinue,
             setCanContinue,
             emailStep,
