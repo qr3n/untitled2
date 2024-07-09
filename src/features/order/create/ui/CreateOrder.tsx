@@ -157,8 +157,10 @@ export const CreateOrder = () => {
                     setEmailSte(2)
                     setLoading(true)
 
-                    axios.post(`https://emarket-1ans.onrender.com/email?email=${email}`).catch(() => {
+                    axios.post(`https://emarket-1ans.onrender.com/email?email=${email}`).then(() => setLoading(false)).catch(() => {
+
                         setLoading(false)
+
                         toast({
                             title: "Упс! Что-то пошло не так...",
                             variant: 'destructive',
@@ -182,7 +184,9 @@ export const CreateOrder = () => {
                         time_to_deliver: timeToDeliver,
                         comment: comment,
                     }, { withCredentials: true }).then(() => {
+
                         setLoading(false)
+
                         router.push('/profile')
                     })
                 }
