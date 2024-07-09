@@ -10,7 +10,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import Script from "next/script";
 import {Map, YMaps} from "@pbe/react-yandex-maps";
 
 export const CreateOrderStep5 = () => {
