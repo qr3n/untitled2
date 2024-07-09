@@ -23,7 +23,7 @@ export default async function ProfilePage() {
             <h1 className='text-3xl font-bold'>Новый пользователь</h1>
             <p className='text-[#A0A0A0] mt-2'>{ account.email }</p>
 
-            <Tabs defaultValue="account" className="mt-16 w-full flex items-center justify-center flex-col">
+            <Tabs defaultValue="now" className="mt-16 w-full flex items-center justify-center flex-col">
                 <TabsList>
                     <TabsTrigger value="now">В процессе</TabsTrigger>
                     <TabsTrigger value="completed">Завершены</TabsTrigger>
