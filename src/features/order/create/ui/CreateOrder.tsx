@@ -155,11 +155,8 @@ export const CreateOrder = () => {
             else if (emailStep === 1) {
                 if (!account) {
                     setEmailSte(2)
-                    setLoading(true)
 
                     axios.post(`https://emarket-1ans.onrender.com/email?email=${email}`).then(() => setLoading(false)).catch(() => {
-
-                        setLoading(false)
 
                         toast({
                             title: "Упс! Что-то пошло не так...",
@@ -205,7 +202,7 @@ export const CreateOrder = () => {
 
                                 setToken(token)
 
-                                axios.post(`https://emarket-1ans.onrender.com/order?token=${token}`, {
+                                axios.post(`https://emarket-1ans.onrender.com/order?token=${r.data.token}`, {
                                     cargo: cargo,
                                     warehouse: warehouse,
                                     what_to_deliver: whatToDeliver,
