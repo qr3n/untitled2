@@ -117,6 +117,7 @@ const CreateOrderProvider = () => {
 }
 
 export const CreateOrder = () => {
+    const [token, setToken] = useState('')
     const [cargo, setCargo] = useState<'marketplace' | 'anything'>('marketplace')
     const [warehouse, setWarehouse] = useState('Яндекс маркет')
     const [whatToDeliver, setWhatToDeliver] = useState<string[]>([])
@@ -158,7 +159,7 @@ export const CreateOrder = () => {
                 }
 
                 else {
-                    axios.post(`https://emarket-1ans.onrender.com/order`, {
+                    axios.post(`https://emarket-1ans.onrender.com/order?token=${token}`, {
                         cargo: cargo,
                         warehouse: warehouse,
                         what_to_deliver: whatToDeliver,
@@ -182,7 +183,20 @@ export const CreateOrder = () => {
                             if (r.data.success) {
                                 cookies.set('token', r.data.token)
 
-                                router.push('/profile')
+                                setToken(token)
+
+                                axios.post(`https://emarket-1ans.onrender.com/order?token=${token}`, {
+                                    cargo: cargo,
+                                    warehouse: warehouse,
+                                    what_to_deliver: whatToDeliver,
+                                    packing: packing,
+                                    dimensions: dimensions,
+                                    addr_to: addrTo,
+                                    addr_from: addrFrom,
+                                    time_to_take: timeToTake,
+                                    time_to_deliver: timeToDeliver,
+                                    comment: comment,
+                                }, { withCredentials: true }).then(r => router.push('/profile'))
                             }
 
                             else {
