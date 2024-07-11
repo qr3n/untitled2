@@ -13,12 +13,26 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/components/ui/select";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {Context} from "@/features/order/create/model/context";
 
 
 export const CreateOrderStep6 = () => {
+    const { setTimeToTake, setTimeToDeliver } = useContext(Context)
     const [get, setGet] = useState<Date | undefined>()
     const [give, setGive] = useState<Date | undefined>()
+    const [getTimeFrom, setGetTimeFrom] = useState('')
+    const [getTimeTo, setGetTimeTo] = useState('')
+    const [giveTimeFrom, setGiveTimeFrom] = useState('')
+    const [giveTimeTo, setGiveTimeTo] = useState('')
+
+    useEffect(() => {
+        setTimeToTake(`${get?.getDate()}.${get && get.getMonth() + 1}.${get?.getFullYear()} с ${getTimeFrom} до ${getTimeTo}`)
+    }, [getTimeFrom, getTimeTo, get]);
+
+    useEffect(() => {
+        setTimeToDeliver(`${give?.getDate()}.${give && give.getMonth() + 1}.${give?.getFullYear()} с ${giveTimeFrom} до ${giveTimeTo}`)
+    }, [giveTimeFrom, giveTimeTo, give]);
 
     const timeSlots = Array.from({ length: 48 }, (_, i) => {
         const hours = Math.floor(i / 2);
@@ -31,6 +45,7 @@ export const CreateOrderStep6 = () => {
         const minutes = i % 2 === 0 ? 0 : 30;
         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
     });
+
 
     return (
         <CreateOrderStepTemplate title='Когда выполнить?' description='Условия для каждого варианта различаются'>
@@ -59,7 +74,7 @@ export const CreateOrderStep6 = () => {
                         </DropdownMenuContent>
                     </DropdownMenu>
 
-                    <Select>
+                    <Select onValueChange={v => setGetTimeFrom(v)}>
                         <SelectTrigger className="w-full mt-4">
                             <div className='flex gap-1'>
                                 <p className='text-[#A2A2A2]'>с</p>
@@ -76,7 +91,7 @@ export const CreateOrderStep6 = () => {
                         </SelectContent>
                     </Select>
 
-                    <Select>
+                    <Select onValueChange={v => setGetTimeTo(v)}>
                         <SelectTrigger className="w-full mt-4">
                             <div className='flex gap-1'>
                                 <p className='text-[#A2A2A2]'>до</p>
@@ -118,7 +133,7 @@ export const CreateOrderStep6 = () => {
                         </DropdownMenuContent>
                     </DropdownMenu>
 
-                    <Select>
+                    <Select onValueChange={v => setGiveTimeFrom(v)}>
                         <SelectTrigger className="w-full mt-4">
                             <div className='flex gap-1'>
                                 <p className='text-[#A2A2A2]'>с</p>
@@ -135,7 +150,7 @@ export const CreateOrderStep6 = () => {
                         </SelectContent>
                     </Select>
 
-                    <Select>
+                    <Select onValueChange={v => setGiveTimeTo(v)}>
                         <SelectTrigger className="w-full mt-4">
                             <div className='flex gap-1'>
                                 <p className='text-[#A2A2A2]'>до</p>

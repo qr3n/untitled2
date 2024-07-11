@@ -22,6 +22,10 @@ const Variant = (props: IProps) => {
             if (selected) {
                 props.setter(prev => [...prev, props.text])
             }
+
+            else {
+                props.setter(prev => prev.filter(v => v != props.text))
+            }
         }}>
             {selected ? <Image src={check} alt={'check'} className='w-6 h-6'/> :
                 <div className='border-2 rounded-md border-[#858585] w-6 h-6'/>}

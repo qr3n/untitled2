@@ -1,9 +1,10 @@
 'use client';
 
 import {CreateOrderStepTemplate} from "@/features/order/create/ui/steps/CreateOrderStepTemplate";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {PlusIcon} from "lucide-react";
 import { FaRegTrashAlt } from "react-icons/fa";
+import {Context} from "@/features/order/create/model/context";
 
 interface Input {
     id: number;
@@ -11,8 +12,18 @@ interface Input {
 }
 
 export const CreateOrderStep5SecondVariant = () => {
+    const { setAddrFrom, setAddrTo } = useContext(Context)
+
     const [inputs2, setInputs2] = useState<Input[]>([{ id: Date.now(), value: '' }]);
     const [inputs, setInputs] = useState<Input[]>([{ id: Date.now(), value: '' }]);
+
+    useEffect(() => {
+        setAddrTo(inputs.map(input => input.value))
+    }, [inputs]);
+
+    useEffect(() => {
+        setAddrFrom(inputs2.map(input => input.value))
+    }, [inputs2]);
 
     const addInput2 = () => {
         setInputs2([...inputs2, { id: Date.now(), value: '' }]);

@@ -22,8 +22,10 @@ type HEIGHT = 2
 export const CreateOrderGabaritsStep = () => {
     const { dimensions, setDimensions } = useContext(Context);
 
-    const handleChange = (param: LENGTH | WIDTH | HEIGHT, val: number) => {
+    const handleChange = (param: LENGTH | WIDTH | HEIGHT, val: string) => {
         const newDimensions = dimensions
+
+        newDimensions[param] = val
 
         setDimensions(newDimensions)
     }
@@ -36,19 +38,18 @@ export const CreateOrderGabaritsStep = () => {
                 <h1 className='text-xl font-semibold'>Длина</h1>
                 <input
                     className='bg-[#2A2A2A] border-2 border-transparent mt-4 p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
-                    placeholder='200см'/>
-
+                    placeholder='200см' onChange={e => handleChange(0, e.target.value)}/>
 
                 <h1 className='text-xl font-semibold mt-6'>Ширина</h1>
                 <input
                     className='bg-[#2A2A2A] border-2 border-transparent mt-4 p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
-                    placeholder='200см'/>
+                    placeholder='200см' onChange={e => handleChange(1, e.target.value)}/>
 
 
                 <h1 className='text-xl font-semibold mt-6'>Высота</h1>
                 <input
                     className='bg-[#2A2A2A] border-2 border-transparent mt-4 p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
-                    placeholder='120см'/>
+                    placeholder='120см' onChange={e => handleChange(2, e.target.value)}/>
 
 
                 <h1 className='text-2xl font-semibold mt-6'>Количество</h1>
