@@ -87,7 +87,7 @@ export default async function ProfilePage() {
                     <div className='px-8 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
                         {
                             res.map((order, index) => (
-                                <Dialog>
+                                <Dialog key={index}>
                                     <DialogTrigger asChild>
                                         <div
                                             className='mt-4 w-full flex items-center gap-4 bg-[#151515] p-4 rounded-2xl cursor-pointer hover:bg-[#202020] select-none'>
