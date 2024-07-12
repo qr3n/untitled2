@@ -73,7 +73,7 @@ export default async function ProfilePage() {
     const res: IOrder[] = await orders.json()
 
     return (
-        <div className="w-screen h-screen flex flex-col items-center mt-24 sm:mt-32">
+        <div className="w-screen h-screen flex flex-col items-center mt-18 sm:mt-32">
             <h1 className='text-3xl font-bold'>Новый пользователь</h1>
             <p className='text-[#A0A0A0] mt-2'>{ account.email }</p>
 
