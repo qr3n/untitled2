@@ -73,7 +73,7 @@ export default async function ProfilePage() {
     const res: IOrder[] = await orders.json()
 
     return (
-        <div className="w-screen h-screen flex flex-col items-center mt-18 sm:mt-24">
+        <div className="w-screen h-screen flex flex-col items-center mt-16 sm:mt-24">
             <h1 className='text-3xl font-bold'>Новый пользователь</h1>
             <p className='text-[#A0A0A0] mt-2'>{ account.email }</p>
 
@@ -84,7 +84,7 @@ export default async function ProfilePage() {
                     <TabsTrigger value="canceled">Отменены</TabsTrigger>
                 </TabsList>
                 <TabsContent value="now" className='w-full'>
-                    <div className='px-8 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
+                    <div className='px-8 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%] h-[calc(100vh-300px)] overflow-y-auto'>
                         {
                             res.map((order, index) => (
                                 <Dialog key={index}>
