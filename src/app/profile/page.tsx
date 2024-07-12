@@ -100,7 +100,7 @@ export default async function ProfilePage() {
                                             </div>
                                         </div>
                                     </DialogTrigger>
-                                    <DialogContent className='bg-[#161616] h-screen sm:h-auto overflow-y-auto'>
+                                    <DialogContent className='bg-[#161616] h-screen sm:h-80vh overflow-y-auto'>
                                         { order.cargo === 'marketplace' ? (
                                             <div className='w-full pb-4'>
                                                 <div className=' text-center w-full items-center'>
@@ -152,7 +152,7 @@ export default async function ProfilePage() {
                                                     </h1>
                                                     <p className='text-[#999] mt-3'>{order.packing === 'box' ? 'Короб' : 'Палетта'}</p>
                                                 </div>
-                                                <div className='mt-8 px-6 overflow-y-auto min-h-max'>
+                                                <div className='mt-8 px-6 overflow-y-auto min-h-max max-h-[calc(100vh-132px)]'>
                                                     <h1 className='text-2xl text-white font-semibold'>Основное</h1>
                                                     <h1 className='text-xl text-[#999]  mt-4'>Что доставить</h1>
                                                     <p className='mt-1 font-medium'>{order.what_to_deliver}</p>
