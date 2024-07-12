@@ -111,7 +111,7 @@ export default async function ProfilePage() {
                                                     </h1>
                                                     <p className='text-[#999] mt-3'>{order.packing === 'box' ? 'Короб' : 'Палетта'}</p>
                                                 </div>
-                                                <div className='mt-8 px-6 overflow-y-auto min-h-max'>
+                                                <div className='mt-8 px-6 overflow-y-auto min-h-max max-h-[calc(100vh-132px)]'>
                                                     <h1 className='text-2xl text-white font-semibold'>Основное</h1>
                                                     <h1 className='text-xl text-[#999]  mt-4'>Упаковка</h1>
                                                     <div className='flex items-center gap-2'>
