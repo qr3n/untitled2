@@ -63,7 +63,7 @@ export const UserChat = ({ children, token }: IProps ) => {
     },[])
 
     useEffect(() => {
-        setWebsocket(chatOpen ? new WebSocket(`ws://localhost:8000/chat/user?token=${token}&order_id=${orderId}`) : null)
+        setWebsocket(chatOpen ? new WebSocket(`wss://emarket-1ans.onrender.com/chat/user?token=${token}&order_id=${orderId}`) : null)
     }, [chatOpen, orderId, token]);
 
     useEffect(() => {

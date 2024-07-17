@@ -60,7 +60,7 @@ export const Chat = ({ children }: PropsWithChildren) => {
     },[])
 
     useEffect(() => {
-        setWebsocket(chatOpen ? new WebSocket(`ws://localhost:8000/chat/admin?admin_token=secret&order_id=${orderId}`) : null)
+        setWebsocket(chatOpen ? new WebSocket(`wss://emarket-1ans.onrender.com/chat/admin?admin_token=secret&order_id=${orderId}`) : null)
     }, [chatOpen, orderId]);
 
     useEffect(() => {
