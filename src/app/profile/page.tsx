@@ -115,7 +115,7 @@ export default async function ProfilePage() {
                                             </div>
 
                                         </>
-                                        <DialogContent className='!rounded-3xl bg-[#161616] h-[100dvh] sm:h-[85dvh]'>
+                                        <DialogContent className='rounded-none sm:!rounded-3xl bg-[#161616] h-[100dvh] sm:h-[85dvh]'>
                                             {order.cargo === 'marketplace' ? (
                                                 <div className='w-full pb-4'>
                                                     <div className=' text-center w-full items-center'>
