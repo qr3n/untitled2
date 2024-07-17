@@ -45,7 +45,7 @@ export const CreateOrderStep3 = () => {
     const { warehouse, setWarehouse } = useContext(Context)
 
     return (
-        <CreateOrderStepTemplate title='Какой склад?' description='Условия для каждого варианта различаются'>
+        <CreateOrderStepTemplate title='Какой магазин?' description='Условия для каждого варианта различаются'>
             <div className='flex flex-col gap-3'>
                 <Shop image={yandex} text='Яндекс маркет' current={warehouse} setCurrent={setWarehouse}/>
                 <Shop image={wb} text='Wildberries' current={warehouse} setCurrent={setWarehouse}/>

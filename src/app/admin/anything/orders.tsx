@@ -9,7 +9,7 @@ import question from './assets/question.png'
 
 export const OrdersAnything = ({ orders }: { orders: IAnythingOrder[] }) => {
     const [currentOrder, setCurrentOrder] = useState<IAnythingOrder>(orders[0])
-
+    
     return (
         <Dialog>
             <div className='w-full h-full'>
