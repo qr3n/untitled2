@@ -92,7 +92,7 @@ export default async function ProfilePage() {
                         <TabsTrigger value="canceled">Отменены</TabsTrigger>
                     </TabsList>
                     <TabsContent value="now" className='w-full'>
-                        <div className='px-4 sm:px-[15%] md:px-[20%] lg:px-[25%] xl:px-[30%] h-[calc(100vh-300px)] overflow-y-auto'>
+                        <div className='px-4 sm:px-[15%] md:px-[20%] lg:px-[25%] xl:px-[30%] h-[calc(100svh-300px)] overflow-y-auto'>
                             {
                                 res.map((order, index) => (
                                     <Dialog key={index}>
@@ -115,7 +115,7 @@ export default async function ProfilePage() {
                                             </div>
 
                                         </>
-                                        <DialogContent className='!rounded-3xl bg-[#161616] h-screen sm:h-[85vh]'>
+                                        <DialogContent className='!rounded-3xl bg-[#161616] h-screen sm:h-[85svh]'>
                                             {order.cargo === 'marketplace' ? (
                                                 <div className='w-full pb-4'>
                                                     <div className=' text-center w-full items-center'>
@@ -126,7 +126,7 @@ export default async function ProfilePage() {
                                                         </h1>
                                                         <p className='text-[#999] mt-3'>{order.packing === 'box' ? 'Короб' : 'Палетта'}</p>
                                                     </div>
-                                                    <div className='mt-8 px-6 h-[calc(100vh-164px)] sm:h-[calc(85vh-164px)] overflow-auto'>
+                                                    <div className='mt-8 px-6 h-[calc(100svh-164px)] sm:h-[calc(85svh-164px)] overflow-auto'>
                                                         <h1 className='text-2xl text-white font-semibold'>Основное</h1>
                                                         <h1 className='text-xl text-[#999]  mt-4'>Упаковка</h1>
                                                         <div className='flex items-center gap-2'>
@@ -167,7 +167,7 @@ export default async function ProfilePage() {
                                                         </h1>
                                                         <p className='text-[#999] mt-3'>{order.packing === 'box' ? 'Короб' : 'Палетта'}</p>
                                                     </div>
-                                                    <div className='mt-8 px-6 h-[calc(100vh-164px)] sm:h-[calc(85vh-164px)] overflow-auto'>
+                                                    <div className='mt-8 px-6 h-[calc(100svh-164px)] sm:h-[calc(85svh-164px)] overflow-auto'>
                                                         <h1 className='text-2xl text-white font-semibold'>Основное</h1>
                                                         <h1 className='text-xl text-[#999]  mt-4'>Что доставить</h1>
                                                         <p className='mt-1 font-medium'>{order.what_to_deliver}</p>

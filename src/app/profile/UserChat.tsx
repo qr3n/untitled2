@@ -127,7 +127,7 @@ export const UserChat = ({ children, token }: IProps ) => {
                                 <>
                                     <h1 className='font-semibold'>Заказ #1</h1>
                                     <h1 className='text-[#aaa] text-sm'>qtter85@gmail.com</h1>
-                                    <div className='mt-4 overflow-y-auto w-full h-[calc(100vh-180px)] sm:h-[350px] px-4 flex flex-col gap-3'>
+                                    <div className='mt-4 overflow-y-auto w-full h-[calc(100svh-180px)] sm:h-[350px] px-4 flex flex-col gap-3'>
                                         { init ? messages.map(msg => <Message {...msg} key={msg.text}/>) : (
                                             <div className="left-1/2 -translate-x-1/2 absolute top-1/2 -translate-y-1/2">
                                                 <Loader2 className="gap-2 text-[#999] h-4 w-4 animate-spin"/>

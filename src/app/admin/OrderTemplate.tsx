@@ -32,8 +32,8 @@ export const OrdersTemplate = (props: IProps) => {
 
     return (
         <Dialog>
-            <div className='sm:px-[15%] md:px-[20%] lg:px-[25%] xl:px-[30%] h-[calc(100vh-100px)] overflow-y-auto'>
-                <div className='flex w-full flex-col gap-0 p-6 px-4 mt-0 h-[calc(100vh-200px)] overflow-y-auto'>
+            <div className='sm:px-[15%] md:px-[20%] lg:px-[25%] xl:px-[30%] h-[calc(100svh-100px)] overflow-y-auto'>
+                <div className='flex w-full flex-col gap-0 p-6 px-4 mt-0 h-[calc(100svh-200px)] overflow-y-auto'>
                     { props.orders.map(order => (
                         <div
                             key={order.id}
@@ -96,7 +96,7 @@ export const OrdersTemplate = (props: IProps) => {
                 </div>
             </div>
 
-            <DialogContent className='!rounded-3xl bg-[#161616] h-screen sm:h-[85vh]'>
+            <DialogContent className='!rounded-3xl bg-[#161616] h-screen sm:h-[85svh]'>
                 {currentOrder.cargo === 'marketplace' ? (
                     <div className='w-full pb-4'>
                         <div className=' text-center w-full items-center'>
@@ -107,7 +107,7 @@ export const OrdersTemplate = (props: IProps) => {
                             </h1>
                             <p className='text-[#999] mt-3'>{currentOrder.packing === 'box' ? 'Короб' : 'Палетта'}</p>
                         </div>
-                        <div className='mt-8 px-6 h-[calc(100vh-164px)] sm:h-[calc(85vh-164px)] overflow-auto'>
+                        <div className='mt-8 px-6 h-[calc(100svh-164px)] sm:h-[calc(85svh-164px)] overflow-auto'>
                             <h1 className='text-2xl text-white font-semibold'>Основное</h1>
                             <h1 className='text-xl text-[#999]  mt-4'>Упаковка</h1>
                             <div className='flex items-center gap-2'>
@@ -148,7 +148,7 @@ export const OrdersTemplate = (props: IProps) => {
                             </h1>
                             <p className='text-[#999] mt-3'>{currentOrder.packing === 'box' ? 'Короб' : 'Палетта'}</p>
                         </div>
-                        <div className='mt-8 px-6 h-[calc(100vh-164px)] sm:h-[calc(85vh-164px)] overflow-auto'>
+                        <div className='mt-8 px-6 h-[calc(100svh-164px)] sm:h-[calc(85svh-164px)] overflow-auto'>
                             <h1 className='text-2xl text-white font-semibold'>Основное</h1>
                             <h1 className='text-xl text-[#999]  mt-4'>Что доставить</h1>
                             <p className='mt-1 font-medium'>{currentOrder.what_to_deliver}</p>

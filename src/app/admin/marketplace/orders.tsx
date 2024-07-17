@@ -26,7 +26,7 @@ export const Orders = ({ orders }: { orders: IMarketplaceOrder[] }) => {
     return (
         <Dialog>
             <div className='w-full h-full'>
-                <div className='flex w-full flex-col gap-4 p-6 mt-6 h-[calc(100vh-200px)] overflow-y-auto'>
+                <div className='flex w-full flex-col gap-4 p-6 mt-6 h-[calc(100svh-200px)] overflow-y-auto'>
                     { orders.map(order => (
                         <DialogTrigger asChild key={order.name}>
                             <div onClick={() => setCurrentOrder(order)} className=' w-full flex items-center gap-4 bg-[#151515] p-4 rounded-2xl cursor-pointer hover:bg-[#202020] select-none'>
@@ -41,7 +41,7 @@ export const Orders = ({ orders }: { orders: IMarketplaceOrder[] }) => {
                 </div>
             </div>
 
-            <DialogContent className='bg-[#161616] h-screen sm:h-80vh sm:mt-6'>
+            <DialogContent className='bg-[#161616] h-screen sm:h-80svh sm:mt-6'>
                 <div className='w-full pb-4 block h-full'>
                     <div className=' text-center w-full items-center'>
                         <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
@@ -50,7 +50,7 @@ export const Orders = ({ orders }: { orders: IMarketplaceOrder[] }) => {
                         </h1>
                         <p className='text-[#999] mt-3'>{currentOrder.email}</p>
                     </div>
-                    <div className='max-h-[calc(100vh-132px)] overflow-y-auto'>
+                    <div className='max-h-[calc(100svh-132px)] overflow-y-auto'>
                         <div className='mt-8 px-6'>
                             <h1 className='text-2xl text-white font-semibold'>Основное</h1>
                             <h1 className='text-xl text-[#999]  mt-4'>Упаковка</h1>
