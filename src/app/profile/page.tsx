@@ -101,7 +101,7 @@ export default async function ProfilePage() {
                                                 className='mt-4 relative w-full flex justify-between items-center bg-[#151515] p-4 rounded-2xl cursor-pointer hover:bg-[#202020] select-none'>
                                                 <div className='flex items-center gap-4'>
                                                     <DialogTrigger asChild>
-                                                        <div className='absolute top-0 left-0 rounded-2xl w-full h-full z-10'/>
+                                                        <div className='absolute top-0 left-0 rounded-2xl w-full h-[100dvh] z-10'/>
                                                     </DialogTrigger>
                                                     <Image
                                                         src={order.cargo === 'anything' ? question : imagesMap[order.warehouse]}

@@ -12,7 +12,7 @@ export const OrdersAnything = ({ orders }: { orders: IAnythingOrder[] }) => {
     
     return (
         <Dialog>
-            <div className='w-full h-full'>
+            <div className='w-full h-[100dvh]'>
                 <div className='flex w-full flex-col gap-4 p-6 mt-6 h-[calc(100dvh-200px)] overflow-y-auto'>
                     { orders.map(order => (
                         <DialogTrigger asChild key={order.name}>
