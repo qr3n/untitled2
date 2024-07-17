@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import {jwtDecode} from 'jwt-decode';
 import {redirect} from "next/navigation";
 import Image from "next/image";
-import question from "@/app/admin/anything/assets/q.png";
+import question from "./q.png";
 import yandex from "@/app/admin/marketplace/assets/yandex.png";
 import ozon from "@/app/admin/marketplace/assets/ozon.png";
 import ali from "@/app/admin/marketplace/assets/ali.png";
