@@ -272,15 +272,15 @@ export const CreateOrder = () => {
                 dragFree: false,
                 watchDrag: false,
             }} setApi={setApi} className="flex sm:mt-0 w-full h-screen" draggable={false}>
-                <CarouselContent className='h-[100dvh] pt-12'>
-                    <CarouselItem className='h-[100dvh] flex justify-center'>
+                <CarouselContent className='h-full pt-12'>
+                    <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             <CreateOrderStep1/>
                         </div>
                     </CarouselItem>
 
                     {
-                        cargo === 'marketplace' && <CarouselItem className='h-[100dvh] flex justify-center'>
+                        cargo === 'marketplace' && <CarouselItem className='h-full flex justify-center'>
                             <div className="p-1">
                                 <CreateOrderStep3/>
                             </div>
@@ -288,7 +288,7 @@ export const CreateOrder = () => {
                     }
 
                     {
-                        cargo === 'marketplace' && <CarouselItem className='h-[100dvh] flex justify-center'>
+                        cargo === 'marketplace' && <CarouselItem className='h-full flex justify-center'>
                             <div className="p-1">
                                 <CreateOrderStep2/>
                             </div>
@@ -297,37 +297,37 @@ export const CreateOrder = () => {
 
 
                     {
-                        cargo === 'anything' && <CarouselItem className='h-[100dvh] flex justify-center'>
+                        cargo === 'anything' && <CarouselItem className='h-full flex justify-center'>
                             <div className="p-1">
                                 <CreateOrderStep4/>
                             </div>
                         </CarouselItem>
                     }
 
-                    <CarouselItem className='h-[100dvh] flex justify-center'>
+                    <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             <CreateOrderGabaritsStep/>
                         </div>
                     </CarouselItem>
 
-                    <CarouselItem className='h-[100dvh] flex justify-center'>
+                    <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             { cargo === 'marketplace' ? <CreateOrderStep5/> : <CreateOrderStep5SecondVariant/> }
                         </div>
                     </CarouselItem>
-                    <CarouselItem className='h-[100dvh] flex justify-center'>
+                    <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             <CreateOrderStep6/>
                         </div>
                     </CarouselItem>
 
-                    <CarouselItem className='h-[100dvh] flex justify-center'>
+                    <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             <CreateOrderCommentStep/>
                         </div>
                     </CarouselItem>
 
-                    { !account && <CarouselItem className='h-[100dvh] flex justify-center'>
+                    { !account && <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             <CreateOrderStep7/>
                         </div>

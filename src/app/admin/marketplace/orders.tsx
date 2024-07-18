@@ -25,7 +25,7 @@ export const Orders = ({ orders }: { orders: IMarketplaceOrder[] }) => {
 
     return (
         <Dialog>
-            <div className='w-full h-[100dvh]'>
+            <div className='w-full h-full'>
                 <div className='flex w-full flex-col gap-4 p-6 mt-6 h-[calc(100dvh-200px)] overflow-y-auto'>
                     { orders.map(order => (
                         <DialogTrigger asChild key={order.name}>
@@ -42,7 +42,7 @@ export const Orders = ({ orders }: { orders: IMarketplaceOrder[] }) => {
             </div>
 
             <DialogContent className='bg-[#161616] h-screen sm:h-80dvh sm:mt-6'>
-                <div className='w-full pb-4 block h-[100dvh]'>
+                <div className='w-full pb-4 block h-full'>
                     <div className=' text-center w-full items-center'>
                         <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
                             <Image src={imagesMap[currentOrder.warehouse]} alt={''} width={32} className='rounded-lg'/>
