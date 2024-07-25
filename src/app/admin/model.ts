@@ -13,7 +13,9 @@ export interface IOrder {
     time_to_deliver: string,
     addr_to: string,
     addr_from: string,
-    comment: string
+    comment: string,
+    status: 'active' | 'disabled',
+    cost: number
 }
 
 interface IChatContext {

@@ -4,6 +4,7 @@ import "./globals.css";
 import NextTopLoader from 'nextjs-toploader';
 import {Toaster} from "@/components/ui/toaster";
 import {CookiesProvider} from "next-client-cookies/server";
+import {Providers} from "@/app/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,9 @@ export default function RootLayout({
       <NextTopLoader color="#FF551F" template='<div class="bar" role="bar"><div class="peg"></div></divz' showSpinner={false} />
       <Toaster/>
       <CookiesProvider>
-          { children }
+          <Providers>
+              { children }
+          </Providers>
       </CookiesProvider>
       </body>
     </html>

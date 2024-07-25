@@ -7,10 +7,36 @@ import {
 import {OrdersTemplate} from "@/app/admin/OrderTemplate";
 import {IOrder} from "@/app/admin/model";
 import {Chat} from "@/app/admin/Chat";
+import {IReview} from "@/app/profile/model";
 
 export default async function AdminPage() {
-    const data = await fetch('https://emarket-1ans.onrender.com/orders/all?admin_token=secret', { cache: 'no-cache' })
+    const data = await fetch('http://31.129.96.22/api/orders/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['orders'] } })
+    const data2 = await fetch('http://31.129.96.22/api/rates/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['rates'] } })
+
+    const reviews: IReview[] = await data2.json()
     const orders: IOrder[] = await data.json()
+    const activeOrders = orders.filter(order => order.status === 'active')
+    const disabledOrders = orders.filter(order => order.status === 'disabled')
+
+    const nowOrders = activeOrders.filter(order => {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1)
+        const year = now.getFullYear();
+        const date = order.time_to_take.replace(/\s.*/, "");
+
+        return `${day}.${month}.${year}` === date
+    })
+
+    const plannedOrders = activeOrders.filter(order => {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1)
+        const year = now.getFullYear();
+        const date = order.time_to_take.replace(/\s.*/, "");
+
+        return `${day}.${month}.${year}` !== date
+    })
 
     return (
         <div className='w-screen h-screen flex flex-col items-center mt-12 gap-6'>
@@ -24,15 +50,15 @@ export default async function AdminPage() {
                     </TabsList>
 
                     <TabsContent value='active' className='w-full'>
-                        { orders.length > 0 && <OrdersTemplate orders={orders}/> }
+                        { nowOrders.length > 0 && <OrdersTemplate rates={reviews} orders={nowOrders} variant='active'/> }
                     </TabsContent>
 
                     <TabsContent value='planned' className='w-full'>
-                        { orders.length > 0 && <OrdersTemplate orders={orders}/> }
+                        { plannedOrders.length > 0 && <OrdersTemplate rates={reviews} orders={plannedOrders} variant='planned'/> }
                     </TabsContent>
 
                     <TabsContent value='closed' className='w-full'>
-                        { orders.length > 0 && <OrdersTemplate orders={orders}/> }
+                        { disabledOrders.length > 0 && <OrdersTemplate rates={reviews} orders={disabledOrders} variant='disabled'/> }
                     </TabsContent>
                 </Tabs>
             </Chat>

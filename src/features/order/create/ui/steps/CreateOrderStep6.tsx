@@ -18,6 +18,7 @@ import {Context} from "@/features/order/create/model/context";
 
 
 export const CreateOrderStep6 = () => {
+    const currentDate = new Date()
     const { setTimeToTake, setTimeToDeliver } = useContext(Context)
     const [get, setGet] = useState<Date | undefined>()
     const [give, setGive] = useState<Date | undefined>()
@@ -28,11 +29,11 @@ export const CreateOrderStep6 = () => {
 
     useEffect(() => {
         setTimeToTake(`${get?.getDate()}.${get && get.getMonth() + 1}.${get?.getFullYear()} с ${getTimeFrom} до ${getTimeTo}`)
-    }, [getTimeFrom, getTimeTo, get]);
+    }, [getTimeFrom, getTimeTo, get, setTimeToTake]);
 
     useEffect(() => {
         setTimeToDeliver(`${give?.getDate()}.${give && give.getMonth() + 1}.${give?.getFullYear()} с ${giveTimeFrom} до ${giveTimeTo}`)
-    }, [giveTimeFrom, giveTimeTo, give]);
+    }, [giveTimeFrom, giveTimeTo, give, setTimeToDeliver]);
 
     const timeSlots = Array.from({ length: 48 }, (_, i) => {
         const hours = Math.floor(i / 2);

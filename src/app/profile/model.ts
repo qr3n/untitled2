@@ -7,4 +7,10 @@ interface IChatContext {
     setOrderId: Dispatch<SetStateAction<number>>,
 }
 
+export interface IReview {
+    order_id: number,
+    text: string,
+    stars: number
+}
+
 export const UserChatContext = createContext<IChatContext>(null!)

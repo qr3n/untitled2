@@ -41,13 +41,16 @@ export const CreateOrderStep4 = () => {
     return (
         <CreateOrderStepTemplate title='Что доставить?' description='Условия для каждого варианта различаются'>
             <div className='flex flex-col gap-6'>
-                <Variant text='Посылка' setter={setWhatToDeliver}/>
                 <Variant text='Документы' setter={setWhatToDeliver}/>
-                <Variant text='Личные вещи' setter={setWhatToDeliver}/>
-                <Variant text='Продукты' setter={setWhatToDeliver}/>
-                <Variant text='Лекарства' setter={setWhatToDeliver}/>
+                <Variant text='Воздушные' setter={setWhatToDeliver}/>
+                <Variant text='Мебель' setter={setWhatToDeliver}/>
+                <Variant text='Лекарство' setter={setWhatToDeliver}/>
+                <Variant text='Запчасти' setter={setWhatToDeliver}/>
                 <Variant text='Цветы' setter={setWhatToDeliver}/>
-                <Variant text='Другое' setter={setWhatToDeliver}/>
+                <Variant text='Продукты' setter={setWhatToDeliver}/>
+                <Variant text='Трамитадоры' setter={setWhatToDeliver}/>
+                <Variant text='Личные вещи' setter={setWhatToDeliver}/>
+                <Variant text='Животные' setter={setWhatToDeliver}/>
             </div>
         </CreateOrderStepTemplate>
     )

@@ -5,6 +5,7 @@ import {useContext, useEffect, useState} from "react";
 import {PlusIcon} from "lucide-react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import {Context} from "@/features/order/create/model/context";
+import {AddressSuggestions} from "react-dadata";
 
 interface Input {
     id: number;
@@ -58,11 +59,18 @@ export const CreateOrderStep5SecondVariant = () => {
                 <div className='w-full max-h-36 overflow-y-auto pr-4 mt-4 pb-4'>
                     {inputs.map(i => (
                         <div key={i.id} className='flex items-center mt-4 justify-between w-full gap-2'>
-                            <input
-                                value={i.value}
-                                onChange={(e) => handleInputChange(i.id, e.target.value)}
-                                className='w-full bg-[#2A2A2A] border-2 border-transparent p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
-                                placeholder='Введите адрес'/>
+                            <AddressSuggestions
+                                filterFromBound='house'
+                                token="dae305d1444a59cb68acd68b223f4080a84a6dc5"
+                                delay={700}
+                                suggestionClassName='suggestt_'
+                                suggestionsClassName='suggests'
+                                highlightClassName='suggest_highlight'
+                                onChange={(e) => handleInputChange(i.id, e ? e.value : '')}
+                                inputProps={{
+                                    placeholder: 'г. Москва, Тверская...'
+                                }}
+                            />
 
                             <div className='p-2 bg-[#222] rounded-md' onClick={() => { inputs.length > 1 && removeInput(i.id)  }} >
                                 <FaRegTrashAlt style={{ color: inputs.length > 1 ? '#ccc' : '#8c8c8c' }}/>
@@ -78,15 +86,21 @@ export const CreateOrderStep5SecondVariant = () => {
 
 
                 <h1 className='text-2xl font-semibold mt-12'>Откуда забрать?</h1>
-                <div className='w-full max-h-36 overflow-y-auto pr-4 mt-4 pb-4'>
+                <div className='w-full max-h-36 pr-4 mt-4 pb-4 overflow-y-scroll'>
                     {inputs2.map(i => (
-                        <div key={i.id} className='flex items-center mt-4 justify-between w-full gap-2'>
-                            <input
-                                value={i.value}
-                                onChange={(e) => handleInputChange2(i.id, e.target.value)}
-                                className='w-full bg-[#2A2A2A] border-2 border-transparent p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
-                                placeholder='Введите адрес'/>
-
+                        <div key={i.id} className=' flex items-center mt-4 w-full gap-2'>
+                            <AddressSuggestions
+                                filterFromBound='house'
+                                token="dae305d1444a59cb68acd68b223f4080a84a6dc5"
+                                delay={700}
+                                suggestionClassName='suggestt_'
+                                suggestionsClassName='suggests'
+                                highlightClassName='suggest_highlight'
+                                onChange={(e) => handleInputChange2(i.id, e ? e.value : '')}
+                                inputProps={{
+                                    placeholder: 'г. Москва, Тверская...'
+                                }}
+                            />
                             <div className='p-2 bg-[#222] rounded-md' onClick={() => { inputs2.length > 1 && removeInput2(i.id)  }}>
                                 <FaRegTrashAlt style={{ color: inputs2.length > 1 ? '#ccc' : '#8c8c8c' }}/>
                             </div>

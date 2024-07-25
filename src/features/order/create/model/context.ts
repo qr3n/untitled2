@@ -30,6 +30,12 @@ interface IContext {
     setEmail: (v: string) => void,
     code: string,
     setCode: (v: string) => void,
+
+    senderPhone: string,
+    setSenderPhone: (v: string) => void,
+
+    recipientPhone: string,
+    setRecipientPhone: (v: string) => void
 }
 
 export const Context = createContext<IContext>(null!);

@@ -38,3 +38,66 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #575757;
 }
+
+.react-dadata__input {
+    padding-left: 16px !important;
+    background: #333 !important;
+    border-radius: 0.7rem !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    width: 100% !important;
+}
+
+.react-dadata__container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+}
+
+.react-dadata__suggestions {
+    background: #222 !important;
+    padding: 0.8rem !important;
+    border-radius: 0.7rem !important;
+    z-index: 50 !important;
+    max-height: 320px;
+    overflow-y: auto !important;
+}
+
+.suggests {
+    position: absolute;
+    top: 44px;
+    left: 0;
+    background: #222;
+    padding: 0.8rem;
+    border-radius: 0.7rem;
+    z-index: 50;
+    max-height: 160px;
+    overflow-y: auto;
+}
+
+.suggestt_ {
+    width: 100%;
+    text-align: left;
+    padding: 8px;
+    color: #aaa;
+}
+
+.suggestt_:hover {
+    background: #333;
+    border-radius: 0.7rem !important;
+}
+
+
+.suggest_highlight {
+    color: #ffffff !important;
+}
+
+.ymaps-2-1-79-gototech {
+    display: none !important;
+}
+
+.ymaps-2-1-79-map-copyrights-promo {
+    display: none !important;
+}

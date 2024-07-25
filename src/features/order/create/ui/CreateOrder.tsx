@@ -22,6 +22,10 @@ import {CreateOrderStep5SecondVariant} from "@/features/order/create/ui/steps/Cr
 import {CreateOrderCommentStep} from "@/features/order/create/ui/steps/CreateOrderCommentStep";
 import {CreateOrderGabaritsStep} from "@/features/order/create/ui/steps/CreateOrderGabaritsStep";
 import {Loader2} from "lucide-react";
+import {CreateOrderCostOrderStep} from "@/features/order/create/ui/steps/CostOrderStep";
+import {CreateOrderPhoneStep} from "@/features/order/create/ui/steps/CreateOrderPhoneStep";
+import {EmblaCarouselType} from "embla-carousel";
+import {IContext} from "ts-interface-checker/dist/util";
 
 interface IResponse {
     success: boolean,
@@ -118,6 +122,7 @@ const CreateOrderProvider = () => {
     )
 }
 
+
 export const CreateOrder = () => {
     const [loading, setLoading] = useState(false)
     const [token, setToken] = useState('')
@@ -136,6 +141,8 @@ export const CreateOrder = () => {
     const [api, setApi] = useState<CarouselApi>()
     const [email, setEmail] = useState<string>('')
     const [code, setCode] = useState<string>('')
+    const [senderPhone, setSenderPhone] = useState<string>('')
+    const [recipientPhone, setRecipientPhone] = useState<string>('')
     const [canContinue, setCanContinue] = useState(true)
     const router = useRouter()
     const cookies = useCookies()
@@ -156,7 +163,7 @@ export const CreateOrder = () => {
                 if (!account) {
                     setEmailSte(2)
 
-                    axios.post(`https://emarket-1ans.onrender.com/email?email=${email}`).then(() => setLoading(false)).catch(() => {
+                    axios.post(`http://31.129.96.22/api/email?email=${email}`).then(() => setLoading(false)).catch(() => {
 
                         toast({
                             title: "Упс! Что-то пошло не так...",
@@ -169,7 +176,7 @@ export const CreateOrder = () => {
                 else {
                     setLoading(true)
 
-                    axios.post(`https://emarket-1ans.onrender.com/order?token=${token}`, {
+                    axios.post(`http://31.129.96.22/api/order?token=${token}`, {
                         cargo: cargo,
                         warehouse: warehouse,
                         what_to_deliver: whatToDeliver,
@@ -180,6 +187,9 @@ export const CreateOrder = () => {
                         time_to_take: timeToTake,
                         time_to_deliver: timeToDeliver,
                         comment: comment,
+                        status: 'active',
+                        sender_phone: senderPhone,
+                        recipient_phone: recipientPhone,
                     }, { withCredentials: true }).then(() => {
 
                         setLoading(false)
@@ -193,7 +203,7 @@ export const CreateOrder = () => {
                 if (!account) {
                     setLoading(true)
 
-                    axios.post<IResponse>(`https://emarket-1ans.onrender.com/login?code=${code}&email=${email}`, {}, {
+                    axios.post<IResponse>(`http://31.129.96.22/api/login?code=${code}&email=${email}`, {}, {
                         withCredentials: true
                     })
                         .then(r => {
@@ -202,7 +212,7 @@ export const CreateOrder = () => {
 
                                 setToken(token)
 
-                                axios.post(`https://emarket-1ans.onrender.com/order?token=${r.data.token}`, {
+                                axios.post(`http://31.129.96.22/api/order?token=${r.data.token}`, {
                                     cargo: cargo,
                                     warehouse: warehouse,
                                     what_to_deliver: whatToDeliver,
@@ -213,6 +223,7 @@ export const CreateOrder = () => {
                                     time_to_take: timeToTake,
                                     time_to_deliver: timeToDeliver,
                                     comment: comment,
+                                    status: 'active'
                                 }, { withCredentials: true }).then(r => {
                                     setLoading(false)
                                     router.push('/profile')
@@ -266,7 +277,11 @@ export const CreateOrder = () => {
             email,
             setEmail,
             code,
-            setCode
+            setCode,
+            senderPhone,
+            setSenderPhone,
+            recipientPhone,
+            setRecipientPhone
         }}>
             <Carousel opts={{
                 dragFree: false,
@@ -324,6 +339,18 @@ export const CreateOrder = () => {
                     <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
                             <CreateOrderCommentStep/>
+                        </div>
+                    </CarouselItem>
+
+                    <CarouselItem className='h-full flex justify-center'>
+                        <div className="p-1">
+                            <CreateOrderPhoneStep/>
+                        </div>
+                    </CarouselItem>
+
+                    <CarouselItem className='h-full flex justify-center'>
+                        <div className="p-1">
+                            <CreateOrderCostOrderStep/>
                         </div>
                     </CarouselItem>
 

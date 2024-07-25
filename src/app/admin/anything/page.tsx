@@ -3,7 +3,7 @@ import {OrdersAnything} from "@/app/admin/anything/orders";
 import {IAnythingOrder} from "@/app/admin/anything/model";
 
 export default async function AnythingPage() {
-    const data = await fetch('https://emarket-1ans.onrender.com/orders/all?admin_token=secret', { cache: 'no-cache' })
+    const data = await fetch('http://31.129.96.22/api/orders/all?admin_token=secret', { cache: 'no-cache' })
     const res: IAnythingOrder[] = await data.json()
     const filtered = res.filter(r => r.cargo === 'anything')
 
