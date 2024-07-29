@@ -164,7 +164,7 @@ export const CreateOrder = () => {
                 if (!account) {
                     setEmailSte(2)
 
-                    axios.post(`http://localhost:8000/email?email=${email}`).then(() => setLoading(false)).catch(() => {
+                    axios.post(`http://31.129.96.22/api/email?email=${email}`).then(() => setLoading(false)).catch(() => {
 
                         toast({
                             title: "Упс! Что-то пошло не так...",
@@ -177,7 +177,7 @@ export const CreateOrder = () => {
                 else {
                     setLoading(true)
 
-                    axios.post(`http://localhost:8000/order?token=${token}`, {
+                    axios.post(`http://31.129.96.22/api/order?token=${token}`, {
                         cargo: cargo,
                         warehouse: warehouse,
                         what_to_deliver: whatToDeliver,
@@ -205,7 +205,7 @@ export const CreateOrder = () => {
                 if (!account) {
                     setLoading(true)
 
-                    axios.post<IResponse>(`http://localhost:8000/login?code=${code}&email=${email}`, {}, {
+                    axios.post<IResponse>(`http://31.129.96.22/api/login?code=${code}&email=${email}`, {}, {
                         withCredentials: true
                     })
                         .then(r => {
@@ -214,7 +214,7 @@ export const CreateOrder = () => {
 
                                 setToken(token)
 
-                                axios.post(`http://localhost:8000/order?token=${r.data.token}`, {
+                                axios.post(`http://31.129.96.22/api/order?token=${r.data.token}`, {
                                     cargo: cargo,
                                     warehouse: warehouse,
                                     what_to_deliver: whatToDeliver,

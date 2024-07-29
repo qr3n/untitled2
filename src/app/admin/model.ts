@@ -16,7 +16,9 @@ export interface IOrder {
     comment: string,
     status: 'active' | 'disabled',
     cost: number,
-    count: string
+    count: string,
+    sender_phone: string,
+    recipient_phone: string,
 }
 
 interface IChatContext {

@@ -10,9 +10,9 @@ import {Chat} from "@/app/admin/Chat";
 import {IDriver, IReview} from "@/app/profile/model";
 
 export default async function AdminPage() {
-    const data = await fetch('http://localhost:8000/orders/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['orders'] } })
-    const data2 = await fetch('http://localhost:8000/rates/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['rates'] } })
-    const data3 = await fetch('http://localhost:8000/drivers/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['drivers'] } })
+    const data = await fetch('http://31.129.96.22/api/orders/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['orders'] } })
+    const data2 = await fetch('http://31.129.96.22/api/rates/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['rates'] } })
+    const data3 = await fetch('http://31.129.96.22/api/drivers/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['drivers'] } })
 
     const reviews: IReview[] = await data2.json()
     const orders: IOrder[] = await data.json()

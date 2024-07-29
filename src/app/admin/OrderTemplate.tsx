@@ -48,11 +48,11 @@ export const OrdersTemplate = (props: IProps) => {
     const [driverName, setDriverName] = useState("")
 
     const { mutate, isPending, isSuccess } = useMutation({
-        mutationFn: async (data: { status: 'active' | 'disabled', order_id: number }) => axios.patch(`http://localhost:8000/order?order_id=${data.order_id}&status=${data.status}`, {}),
+        mutationFn: async (data: { status: 'active' | 'disabled', order_id: number }) => axios.patch(`http://31.129.96.22/api/order?order_id=${data.order_id}&status=${data.status}`, {}),
     })
 
     const { mutate: addDriver, isPending: isDriverPending, isSuccess: isDriverSuccess } = useMutation({
-        mutationFn: async (data: { order_id: number }) => axios.post(`http://localhost:8000/driver?order_id=${data.order_id}`, {
+        mutationFn: async (data: { order_id: number }) => axios.post(`http://31.129.96.22/api/driver?order_id=${data.order_id}`, {
             color: color,
             model: model,
             car_number: carNumber,
@@ -338,6 +338,10 @@ export const OrdersTemplate = (props: IProps) => {
                             <p className='mt-1 font-medium'>{currentOrder.time_to_deliver}</p>
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
+                            <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
+                            <p className='mt-1 font-medium'>{currentOrder.sender_phone || 'Отсутствует'}</p>
+                            <h1 className='text-xl text-[#999] mt-4'>Телефон получателя</h1>
+                            <p className='mt-1 font-medium'>{currentOrder.recipient_phone || 'Отсутствует'}</p>
                             <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
                             <p className='mt-1 font-medium'>{currentOrder.comment || 'Отсутствует'}</p>
                         </div>
@@ -384,6 +388,10 @@ export const OrdersTemplate = (props: IProps) => {
                             <p className='mt-1 font-medium'>{currentOrder.time_to_deliver}</p>
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
+                            <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
+                            <p className='mt-1 font-medium'>{currentOrder.sender_phone || 'Отсутствует'}</p>
+                            <h1 className='text-xl text-[#999] mt-4'>Телефон получателя</h1>
+                            <p className='mt-1 font-medium'>{currentOrder.recipient_phone || 'Отсутствует'}</p>
                             <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
                             <p className='mt-1 font-medium'>{currentOrder.comment || 'Отсутствует'}</p>
                         </div>

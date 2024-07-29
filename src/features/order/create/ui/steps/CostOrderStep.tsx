@@ -13,7 +13,7 @@ export const CreateOrderCostOrderStep = () => {
 
     useEffect(() => {
         if (addrFrom.length > 0 && addrTo.length > 0) {
-            axios.post(`http://localhost:8000/cost`, {
+            axios.post(`http://31.129.96.22/api/cost`, {
                 address_from: addrFrom,
                 address_to: addrTo,
             }).then(r => setKm(r.data))

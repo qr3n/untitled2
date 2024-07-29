@@ -43,7 +43,7 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
     const [a, setA] = useState(false)
     const [textReview, setTextReview] = useState('')
     const { mutate, isPending } = useMutation({
-        mutationFn: async (order_id: number) => axios.post(`http://localhost:8000/rating?token=${cookies.get('token')}`, {
+        mutationFn: async (order_id: number) => axios.post(`http://31.129.96.22/api/rating?token=${cookies.get('token')}`, {
             text: textReview,
             stars: stars,
             order_id: order_id
