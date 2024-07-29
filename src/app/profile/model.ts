@@ -13,4 +13,13 @@ export interface IReview {
     stars: number
 }
 
+export interface IDriver {
+    order_id: number,
+    color: string,
+    model: string,
+    car_number: string,
+    driver_phone: string,
+    driver_name: string,
+}
+
 export const UserChatContext = createContext<IChatContext>(null!)

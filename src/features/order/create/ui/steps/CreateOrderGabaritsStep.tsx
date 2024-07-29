@@ -20,7 +20,7 @@ type HEIGHT = 2
 
 
 export const CreateOrderGabaritsStep = () => {
-    const { dimensions, setDimensions } = useContext(Context);
+    const { dimensions, setDimensions, setCount, count } = useContext(Context);
 
     const handleChange = (param: LENGTH | WIDTH | HEIGHT, val: string) => {
         const newDimensions = dimensions
@@ -53,7 +53,7 @@ export const CreateOrderGabaritsStep = () => {
 
 
                 <h1 className='text-2xl font-semibold mt-6'>Количество</h1>
-                <Select>
+                <Select defaultValue={'1'} onValueChange={v => setCount(v)} value={count}>
                     <SelectTrigger className="w-full mt-4">
                         <SelectValue placeholder="Выберите количество"/>
                     </SelectTrigger>

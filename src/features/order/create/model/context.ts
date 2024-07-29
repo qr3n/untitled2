@@ -35,7 +35,10 @@ interface IContext {
     setSenderPhone: (v: string) => void,
 
     recipientPhone: string,
-    setRecipientPhone: (v: string) => void
+    setRecipientPhone: (v: string) => void,
+
+    count: string,
+    setCount: (v: string) => void
 }
 
 export const Context = createContext<IContext>(null!);

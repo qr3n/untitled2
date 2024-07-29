@@ -27,25 +27,55 @@ export const CreateOrderStep6 = () => {
     const [giveTimeFrom, setGiveTimeFrom] = useState('')
     const [giveTimeTo, setGiveTimeTo] = useState('')
 
+    const generateTimeSlots = () => Array.from({ length: 48 }, (_, i) => {
+        const hours = Math.floor(i / 2);
+        const minutes = i % 2 === 0 ? 0 : 30;
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    })
+
+    const [timeSlots, setTimeSlots] = useState(generateTimeSlots())
+    const [timeSlots2, setTimeSlots2] = useState(generateTimeSlots())
+
+    const [timeSlots3, setTimeSlots3] = useState(generateTimeSlots())
+    const [timeSlots4, setTimeSlots4] = useState(generateTimeSlots())
+
+
     useEffect(() => {
-        setTimeToTake(`${get?.getDate()}.${get && get.getMonth() + 1}.${get?.getFullYear()} с ${getTimeFrom} до ${getTimeTo}`)
+        setTimeToTake(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}, как можно быстрее`)
+    })
+
+    useEffect(() => {
+        setTimeToDeliver(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}, как можно быстрее`)
+    })
+
+    useEffect(() => {
+        if (getTimeTo && getTimeFrom) {
+            const newTimeSlots = generateTimeSlots()
+
+            setTimeSlots3(newTimeSlots.slice(newTimeSlots.indexOf(getTimeTo) + 1, newTimeSlots.length))
+            setTimeSlots4(newTimeSlots.slice(newTimeSlots.indexOf(getTimeTo), newTimeSlots.length))
+        }
+
+        setTimeToTake(`${get?.getDate()}.${get && get.getMonth() + 1}.${get?.getFullYear()} ${getTimeFrom ? `с ${getTimeFrom}` : 'как можно быстрее, '} ${getTimeTo ? `до ${getTimeTo}` : 'как можно быстрее'}`)
     }, [getTimeFrom, getTimeTo, get, setTimeToTake]);
 
     useEffect(() => {
-        setTimeToDeliver(`${give?.getDate()}.${give && give.getMonth() + 1}.${give?.getFullYear()} с ${giveTimeFrom} до ${giveTimeTo}`)
+        if (getTimeFrom) {
+            const newTimeSlots = generateTimeSlots()
+            setTimeSlots2(newTimeSlots.slice(newTimeSlots.indexOf(getTimeFrom) + 1, newTimeSlots.length))
+        }
+    }, [getTimeFrom]);
+
+    useEffect(() => {
+        if (giveTimeFrom) {
+            const newTimeSlots = generateTimeSlots()
+            setTimeSlots4(newTimeSlots.slice(newTimeSlots.indexOf(giveTimeFrom) + 1, newTimeSlots.length))
+        }
+    }, [giveTimeFrom]);
+
+    useEffect(() => {
+        setTimeToDeliver(`${give?.getDate()}.${give && give.getMonth() + 1}.${give?.getFullYear()} ${giveTimeFrom ? `с ${giveTimeFrom}` : 'как можно быстрее, '} ${giveTimeTo ? `до ${giveTimeTo}` : 'как можно быстрее'}`)
     }, [giveTimeFrom, giveTimeTo, give, setTimeToDeliver]);
-
-    const timeSlots = Array.from({ length: 48 }, (_, i) => {
-        const hours = Math.floor(i / 2);
-        const minutes = i % 2 === 0 ? 0 : 30;
-        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-    });
-
-    const timeSlots2 = Array.from({ length: 48 }, (_, i) => {
-        const hours = Math.floor(i / 2);
-        const minutes = i % 2 === 0 ? 0 : 30;
-        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-    });
 
 
     return (
@@ -59,13 +89,13 @@ export const CreateOrderStep6 = () => {
                             <div
                                 className='flex cursor-pointer items-center justify-center gap-2 bg-[#2A2A2A] border-2 border-transparent mt-4 px-3 py-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'>
                                 <IoCalendarOutline className='text-[#777] w-5 h-5'/>
-                                { get ? get === new Date() ? 'Сегодня' : `${get.getDate()}.${get.getMonth() + 1}.${get.getFullYear()}` : 'Сегодня' }
+                                { get ? get.getDate() === new Date().getDate() ? 'Сегодня' : `${get.getDate()}.${get.getMonth() + 1}.${get.getFullYear()}` : 'Сегодня' }
                             </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                             <Calendar
                                 disabled={(date) =>
-                                    date < new Date()
+                                    date.getDate() < new Date().getDate()
                                 }
                                 mode="single"
                                 className="rounded-md border"
@@ -118,13 +148,13 @@ export const CreateOrderStep6 = () => {
                             <div
                                 className='flex cursor-pointer items-center justify-center gap-2 bg-[#2A2A2A] border-2 border-transparent mt-4 px-3 py-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'>
                                 <IoCalendarOutline className='text-[#777] w-5 h-5'/>
-                                { give ? give === new Date() ? 'Сегодня' : `${give.getDate()}.${give.getMonth() + 1}.${give.getFullYear()}` : 'Сегодня' }
+                                { give ? give.getDate() === new Date().getDate() ? 'Сегодня' : `${give.getDate()}.${give.getMonth() + 1}.${give.getFullYear()}` : 'Сегодня' }
                             </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                             <Calendar
                                 disabled={(date) =>
-                                    date < new Date()
+                                    date.getDate() < new Date().getDate()
                                 }
                                 mode="single"
                                 className="rounded-md border"
@@ -134,7 +164,7 @@ export const CreateOrderStep6 = () => {
                         </DropdownMenuContent>
                     </DropdownMenu>
 
-                    <Select onValueChange={v => setGiveTimeFrom(v)}>
+                    <Select disabled={!getTimeTo || !getTimeFrom} onValueChange={v => setGiveTimeFrom(v)}>
                         <SelectTrigger className="w-full mt-4">
                             <div className='flex gap-1'>
                                 <p className='text-[#A2A2A2]'>с</p>
@@ -143,7 +173,7 @@ export const CreateOrderStep6 = () => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                {timeSlots.map((item, i) => (
+                                {timeSlots3.map((item, i) => (
                                     <SelectItem value={item} key={i}>{item}</SelectItem>
                                 ))}
                                 <SelectItem value='23:59'>23:59</SelectItem>
@@ -151,7 +181,7 @@ export const CreateOrderStep6 = () => {
                         </SelectContent>
                     </Select>
 
-                    <Select onValueChange={v => setGiveTimeTo(v)}>
+                    <Select disabled={!getTimeTo || !getTimeFrom} onValueChange={v => setGiveTimeTo(v)}>
                         <SelectTrigger className="w-full mt-4">
                             <div className='flex gap-1'>
                                 <p className='text-[#A2A2A2]'>до</p>
@@ -160,7 +190,7 @@ export const CreateOrderStep6 = () => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                {timeSlots2.map((item, i) => (
+                                {timeSlots4.map((item, i) => (
                                     <SelectItem value={item} key={i}>{item}</SelectItem>
                                 ))}
                                 <SelectItem value='23:59'>23:59</SelectItem>

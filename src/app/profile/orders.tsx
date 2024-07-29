@@ -43,7 +43,7 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
     const [a, setA] = useState(false)
     const [textReview, setTextReview] = useState('')
     const { mutate, isPending } = useMutation({
-        mutationFn: async (order_id: number) => axios.post(`http://31.129.96.22/api/rating?token=${cookies.get('token')}`, {
+        mutationFn: async (order_id: number) => axios.post(`http://localhost:8000/rating?token=${cookies.get('token')}`, {
             text: textReview,
             stars: stars,
             order_id: order_id
@@ -102,7 +102,8 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                         </h1>
                                         <p className='text-[#999] mt-3'>{order.packing === 'box' ? 'Короб' : 'Палетта'}</p>
                                     </div>
-                                    <div className='mt-8 px-6 h-[calc(100dvh-164px)] sm:h-[calc(85dvh-164px)] overflow-auto'>
+                                    <div
+                                        className='mt-8 px-6 h-[calc(100dvh-164px)] sm:h-[calc(85dvh-164px)] overflow-auto'>
                                         <h1 className='text-2xl text-white font-semibold'>Основное</h1>
                                         <h1 className='text-xl text-[#999]  mt-4'>Упаковка</h1>
                                         <div className='flex items-center gap-2'>
@@ -111,6 +112,9 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                                    alt={''}/>
                                             <p className='mt-1 font-medium'>{order.packing === 'box' ? 'Короб' : 'Палетта'}</p>
                                         </div>
+                                        <h1 className='text-xl text-[#999]  mt-4'>Цена</h1>
+                                        <p className='mt-1 font-medium'>{Math.round(order.cost / 1000 * 300)} руб</p>
+                                        <p className='-mt-1 text-sm text-[#aaa]'>~{(order.cost / 1000).toFixed(1).toString().replace('.', ',')}</p>
 
                                         <h1 className='text-2xl text-white font-semibold mt-8'>Размеры</h1>
                                         <h1 className='text-xl text-[#999] mt-4'>Длина</h1>
@@ -119,6 +123,8 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                         <p className='mt-1 font-medium'>{order.dimensions.split(' ')[1]}</p>
                                         <h1 className='text-xl mt-4 text-[#999]'>Высота</h1>
                                         <p className='mt-1 font-medium'>{order.dimensions.split(' ')[2]}</p>
+                                        <h1 className='text-xl mt-4 text-[#999]'>Количество</h1>
+                                        <p className='mt-1 font-medium'>{order.count}</p>
 
                                         <h1 className='text-2xl text-white font-semibold mt-8'>Куда и
                                             откуда</h1>
@@ -131,47 +137,60 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                         <p className='mt-1 font-medium'>{order.time_to_take}</p>
                                         <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
                                         <p className='mt-1 font-medium'>{order.time_to_deliver}</p>
+
+                                        <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
+                                        <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
+                                        <p className='mt-1 font-medium'>{order.comment || 'Отсутствует'}</p>
                                     </div>
                                 </div>
-                            ) : (
-                                <div className='w-full pb-4'>
-                                    <div className=' text-center w-full items-center'>
-                                        <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
+                        ) : (
+                            <div className='w-full pb-4'>
+                                <div className=' text-center w-full items-center'>
+                                <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
                                             <Image src={question} alt={''} width={32}
                                                    className='rounded-lg'/>
                                             {order.name}
                                         </h1>
                                         <p className='text-[#999] mt-3'>{order.packing === 'box' ? 'Короб' : 'Палетта'}</p>
                                     </div>
-                                    <div
-                                        className='mt-8 px-6 h-[calc(100dvh-164px)] sm:h-[calc(85dvh-164px)] overflow-auto'>
-                                        <h1 className='text-2xl text-white font-semibold'>Основное</h1>
-                                        <h1 className='text-xl text-[#999]  mt-4'>Цена</h1>
-                                        <p className='mt-1 font-medium'>{Math.round(order.cost / 1000 * 300)} руб</p>
-                                        <h1 className='text-xl text-[#999]  mt-4'>Что доставить</h1>
-                                        <p className='mt-1 font-medium'>{order.what_to_deliver}</p>
+                                <div
+                                    className='mt-8 px-6 h-[calc(100dvh-164px)] sm:h-[calc(85dvh-164px)] overflow-auto'>
+                                    <h1 className='text-2xl text-white font-semibold'>Основное</h1>
+                                    <h1 className='text-xl text-[#999]  mt-4'>Цена</h1>
+                                    <p className='mt-1 font-medium'>{Math.round(order.cost / 1000 * 300)} руб</p>
+                                    <h1 className='text-xl text-[#999]  mt-4'>Что доставить</h1>
+                                    <p className='mt-1 font-medium'>{order.what_to_deliver}</p>
+                                    <h1 className='text-xl text-[#999]  mt-4'>Цена</h1>
+                                    <p className='mt-1 font-medium'>{Math.round(order.cost / 1000 * 300)} руб</p>
+                                    <p className='-mt-1 text-sm text-[#aaa]'>~{(order.cost / 1000).toFixed(1).toString().replace('.', ',')}</p>
 
-                                        <h1 className='text-2xl text-white font-semibold mt-8'>Размеры</h1>
-                                        <h1 className='text-xl text-[#999] mt-4'>Длина</h1>
-                                        <p className='mt-1 font-medium'>{order.dimensions.split(' ')[0]}</p>
-                                        <h1 className='text-xl mt-4 text-[#999]'>Ширина</h1>
-                                        <p className='mt-1 font-medium'>{order.dimensions.split(' ')[1]}</p>
-                                        <h1 className='text-xl mt-4 text-[#999]'>Высота</h1>
-                                        <p className='mt-1 font-medium'>{order.dimensions.split(' ')[2]}</p>
+                                    <h1 className='text-2xl text-white font-semibold mt-8'>Размеры</h1>
+                                    <h1 className='text-xl text-[#999] mt-4'>Длина</h1>
+                                    <p className='mt-1 font-medium'>{order.dimensions.split(' ')[0]}</p>
+                                    <h1 className='text-xl mt-4 text-[#999]'>Ширина</h1>
+                                    <p className='mt-1 font-medium'>{order.dimensions.split(' ')[1]}</p>
+                                    <h1 className='text-xl mt-4 text-[#999]'>Высота</h1>
+                                    <p className='mt-1 font-medium'>{order.dimensions.split(' ')[2]}</p>
+                                    <h1 className='text-xl mt-4 text-[#999]'>Количество</h1>
+                                    <p className='mt-1 font-medium'>{order.count}</p>
 
-                                        <h1 className='text-2xl text-white font-semibold mt-8'>Куда и
-                                            откуда</h1>
-                                        <h1 className='text-xl text-[#999] mt-4'>Откуда забрать</h1>
-                                        <p className='mt-1 font-medium'>{order.addr_from}</p>
-                                        <h1 className='text-xl mt-4 text-[#999]'>Куда доставить</h1>
-                                        <p className='mt-1 font-medium'>{order.addr_to}</p>
+                                    <h1 className='text-2xl text-white font-semibold mt-8'>Куда и
+                                        откуда</h1>
+                                    <h1 className='text-xl text-[#999] mt-4'>Откуда забрать</h1>
+                                    <p className='mt-1 font-medium'>{order.addr_from}</p>
+                                    <h1 className='text-xl mt-4 text-[#999]'>Куда доставить</h1>
+                                    <p className='mt-1 font-medium'>{order.addr_to}</p>
 
-                                        <h1 className='text-xl text-[#999] mt-4'>Когда забрать</h1>
-                                        <p className='mt-1 font-medium'>{order.time_to_take}</p>
-                                        <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
-                                        <p className='mt-1 font-medium'>{order.time_to_deliver}</p>
-                                    </div>
+                                    <h1 className='text-xl text-[#999] mt-4'>Когда забрать</h1>
+                                    <p className='mt-1 font-medium'>{order.time_to_take}</p>
+                                    <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
+                                    <p className='mt-1 font-medium'>{order.time_to_deliver}</p>
+
+                                    <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
+                                    <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
+                                    <p className='mt-1 font-medium'>{order.comment || 'Отсутствует'}</p>
                                 </div>
+                            </div>
                         )}
                         </DialogContent>
                     </Dialog>
@@ -179,7 +198,8 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
             }
 
             {variant === 'disabled' && <Dialog open={a} onOpenChange={() => setA(!a)}>
-                <DialogContent className='flex gap-0 flex-col justify-start rounded-none sm:!rounded-3xl bg-[#161616] h-[100dvh] sm:h-[65dvh]'>
+                <DialogContent
+                    className='flex gap-0 flex-col justify-start rounded-none sm:!rounded-3xl bg-[#161616] h-[100dvh] sm:h-[65dvh]'>
                     <div className='flex gap-2 flex-col items-center mt-3'>
                         <h1 className='text-2xl font-semibold'>Оставить отзыв</h1>
                     </div>

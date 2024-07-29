@@ -125,6 +125,7 @@ const CreateOrderProvider = () => {
 
 export const CreateOrder = () => {
     const [loading, setLoading] = useState(false)
+    const [count, setCount] = useState('1')
     const [token, setToken] = useState('')
     const [cargo, setCargo] = useState<'marketplace' | 'anything'>('marketplace')
     const [warehouse, setWarehouse] = useState('Яндекс маркет')
@@ -163,7 +164,7 @@ export const CreateOrder = () => {
                 if (!account) {
                     setEmailSte(2)
 
-                    axios.post(`http://31.129.96.22/api/email?email=${email}`).then(() => setLoading(false)).catch(() => {
+                    axios.post(`http://localhost:8000/email?email=${email}`).then(() => setLoading(false)).catch(() => {
 
                         toast({
                             title: "Упс! Что-то пошло не так...",
@@ -176,7 +177,7 @@ export const CreateOrder = () => {
                 else {
                     setLoading(true)
 
-                    axios.post(`http://31.129.96.22/api/order?token=${token}`, {
+                    axios.post(`http://localhost:8000/order?token=${token}`, {
                         cargo: cargo,
                         warehouse: warehouse,
                         what_to_deliver: whatToDeliver,
@@ -190,6 +191,7 @@ export const CreateOrder = () => {
                         status: 'active',
                         sender_phone: senderPhone,
                         recipient_phone: recipientPhone,
+                        count: count,
                     }, { withCredentials: true }).then(() => {
 
                         setLoading(false)
@@ -203,7 +205,7 @@ export const CreateOrder = () => {
                 if (!account) {
                     setLoading(true)
 
-                    axios.post<IResponse>(`http://31.129.96.22/api/login?code=${code}&email=${email}`, {}, {
+                    axios.post<IResponse>(`http://localhost:8000/login?code=${code}&email=${email}`, {}, {
                         withCredentials: true
                     })
                         .then(r => {
@@ -212,7 +214,7 @@ export const CreateOrder = () => {
 
                                 setToken(token)
 
-                                axios.post(`http://31.129.96.22/api/order?token=${r.data.token}`, {
+                                axios.post(`http://localhost:8000/order?token=${r.data.token}`, {
                                     cargo: cargo,
                                     warehouse: warehouse,
                                     what_to_deliver: whatToDeliver,
@@ -250,6 +252,8 @@ export const CreateOrder = () => {
 
     return (
         <Context.Provider value={{
+            count,
+            setCount,
             cargo,
             setCargo,
             warehouse,

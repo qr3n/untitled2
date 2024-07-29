@@ -2,7 +2,7 @@
 
 import {PropsWithChildren, useContext, useEffect, useState} from "react";
 import {ChatContext, IOrder} from './model'
-import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
+import {Dialog, DialogClose, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 import Image from "next/image";
 import question from "@/app/admin/anything/assets/question.png";
 import yandex from "@/app/admin/marketplace/assets/yandex.png";
@@ -20,11 +20,12 @@ import {Loader2} from "lucide-react";
 import {AiOutlineEdit} from "react-icons/ai";
 import ReactStars from "react-stars";
 import {Button} from "@/components/ui/button";
-import {IReview} from "@/app/profile/model";
+import {IDriver, IReview} from "@/app/profile/model";
 
 interface IProps extends PropsWithChildren {
     orders: IOrder[],
     rates: IReview[],
+    drivers: IDriver[],
     variant: 'active' | 'planned' | 'disabled'
 }
 
@@ -37,15 +38,49 @@ const imagesMap = {
 }
 
 export const OrdersTemplate = (props: IProps) => {
+    const [driverWindowOpen, setDriverWindowOpen] = useState(false)
+    const [currentOrderId, setCurrentOrderId] = useState(0)
     const [isLoading, setIsLoading] = useState(false)
+    const [color, setColor] = useState("")
+    const [model, setModel] = useState("")
+    const [carNumber, setCarNumber] = useState("")
+    const [driverPhone, setDriverPhone] = useState("")
+    const [driverName, setDriverName] = useState("")
 
     const { mutate, isPending, isSuccess } = useMutation({
-        mutationFn: async (data: { status: 'active' | 'disabled', order_id: number }) => axios.patch(`http://31.129.96.22/api/order?order_id=${data.order_id}&status=${data.status}`, {}),
+        mutationFn: async (data: { status: 'active' | 'disabled', order_id: number }) => axios.patch(`http://localhost:8000/order?order_id=${data.order_id}&status=${data.status}`, {}),
+    })
+
+    const { mutate: addDriver, isPending: isDriverPending, isSuccess: isDriverSuccess } = useMutation({
+        mutationFn: async (data: { order_id: number }) => axios.post(`http://localhost:8000/driver?order_id=${data.order_id}`, {
+            color: color,
+            model: model,
+            car_number: carNumber,
+            driver_phone: driverPhone,
+            driver_name: driverName
+        }),
     })
 
     const [currentOrder, setCurrentOrder] = useState<IOrder>(props.orders[0])
     const { setChatOpen, setOrderId } = useContext(ChatContext)
 
+
+    useEffect(() => {
+        if (driverWindowOpen) {
+            setColor(props.drivers.find(d => d.order_id === currentOrderId)?.color || '')
+            setModel(props.drivers.find(d => d.order_id === currentOrderId)?.model || '')
+            setCarNumber(props.drivers.find(d => d.order_id === currentOrderId)?.car_number || '')
+            setDriverPhone(props.drivers.find(d => d.order_id === currentOrderId)?.driver_phone || '')
+            setDriverName(props.drivers.find(d => d.order_id === currentOrderId)?.driver_name || '')
+        }
+    }, [currentOrderId, driverWindowOpen, props.drivers]);
+
+
+    useEffect(() => {
+        if (isDriverSuccess) {
+            revalidateTagFrontend('drivers').then(() => setDriverWindowOpen(false))
+        }
+    }, [isDriverSuccess]);
 
     useEffect(() => {
         if (isSuccess) {
@@ -95,9 +130,9 @@ export const OrdersTemplate = (props: IProps) => {
                                 </button>}
 
                                 {(props.variant === 'active' || props.variant === 'planned') && (
-                                    <Dialog>
+                                    <Dialog open={driverWindowOpen} onOpenChange={setDriverWindowOpen}>
                                         <DialogTrigger>
-                                            <div className='p-2 rounded-md bg-[#444] hover:bg-[#555]'>
+                                            <div className='p-2 rounded-md bg-[#444] hover:bg-[#555]' onClick={() => setCurrentOrderId(order.id)}>
                                                 <AiOutlineEdit/>
                                             </div>
                                         </DialogTrigger>
@@ -114,6 +149,8 @@ export const OrdersTemplate = (props: IProps) => {
                                                         <div className='w-full'>
                                                             <h1 className='font-semibold text-lg'>Цвет машины</h1>
                                                             <input
+                                                                value={color}
+                                                                onChange={e => setColor(e.target.value)}
                                                                 className='w-full bg-[#2A2A2A] border-2 border-transparent mt-2 p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
                                                                 placeholder='Темно-серый'
                                                             />
@@ -121,6 +158,8 @@ export const OrdersTemplate = (props: IProps) => {
                                                         <div className='w-full mt-4'>
                                                             <h1 className='font-semibold text-lg'>Модель машины</h1>
                                                             <input
+                                                                value={model}
+                                                                onChange={e => setModel(e.target.value)}
                                                                 className='w-full bg-[#2A2A2A] border-2 border-transparent mt-2 p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
                                                                 placeholder='Kia Rio'
                                                             />
@@ -128,6 +167,8 @@ export const OrdersTemplate = (props: IProps) => {
                                                         <div className='w-full mt-4'>
                                                             <h1 className='font-semibold text-lg'>Номер машины</h1>
                                                             <input
+                                                                value={carNumber}
+                                                                onChange={e => setCarNumber(e.target.value)}
                                                                 className='w-full bg-[#2A2A2A] border-2 border-transparent mt-2 p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
                                                                 placeholder='A111TB78'
                                                             />
@@ -136,25 +177,45 @@ export const OrdersTemplate = (props: IProps) => {
                                                         <div className='w-full mt-4'>
                                                             <h1 className='font-semibold text-lg'>Номер водителя</h1>
                                                             <input
+                                                                value={driverPhone}
+                                                                onChange={e => setDriverPhone(e.target.value)}
+                                                                className='w-full resize-none bg-[#2A2A2A] border-2 border-transparent mt-2 p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
+                                                                placeholder='+79117629553'
+                                                            />
+                                                        </div>
+
+                                                        <div className='w-full mt-4'>
+                                                            <h1 className='font-semibold text-lg'>ФИО водителя</h1>
+                                                            <input
+                                                                value={driverName}
+                                                                onChange={e => setDriverName(e.target.value)}
                                                                 className='w-full resize-none bg-[#2A2A2A] border-2 border-transparent mt-2 p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
                                                                 placeholder='+79117629553'
                                                             />
                                                         </div>
                                                     </div>
-                                                    <Button disabled={isPending} className='
+                                                    <Button onClick={() => isDriverPending ? null : addDriver({ order_id: order.id })} disabled={
+                                                        isDriverPending ||
+                                                        !color ||
+                                                        !model ||
+                                                        !carNumber ||
+                                                        !driverPhone ||
+                                                        !driverName
+                                                    }
+                                                            className='
                                                     justify-self-end
-                                        flex
-                                        items-center
-                                        justify-center
-                                        gap-2
-                                        w-full
-                                        px-8
-                                        py-2
-                                        bg-white
-                                        text-black
-                                        rounded-full
-                                        font-bold
-                                        active:bg-gray-100 mt-4'>{isPending ? <Loader2
+                                                    flex
+                                                    items-center
+                                                    justify-center
+                                                    gap-2
+                                                    w-full
+                                                    px-8
+                                                    py-2
+                                                    bg-white
+                                                    text-black
+                                                    rounded-full
+                                                    font-bold
+                                                    active:bg-gray-100 mt-4'>{isDriverPending ? <Loader2
                                                         className="text-[#999] h-4 w-4 animate-spin"/> : 'Отправить'}</Button>
                                                 </div>
                                             </div>
@@ -261,6 +322,8 @@ export const OrdersTemplate = (props: IProps) => {
                             <p className='mt-1 font-medium'>{currentOrder.dimensions.split(' ')[1]}</p>
                             <h1 className='text-xl mt-4 text-[#999]'>Высота</h1>
                             <p className='mt-1 font-medium'>{currentOrder.dimensions.split(' ')[2]}</p>
+                            <h1 className='text-xl mt-4 text-[#999]'>Количество</h1>
+                            <p className='mt-1 font-medium'>{currentOrder.count}</p>
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Куда и
                                 откуда</h1>
@@ -273,13 +336,17 @@ export const OrdersTemplate = (props: IProps) => {
                             <p className='mt-1 font-medium'>{currentOrder.time_to_take}</p>
                             <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
                             <p className='mt-1 font-medium'>{currentOrder.time_to_deliver}</p>
+
+                            <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
+                            <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
+                            <p className='mt-1 font-medium'>{currentOrder.comment || 'Отсутствует'}</p>
                         </div>
                     </div>
                 ) : (
                     <div className='w-full pb-4'>
                         <div className=' text-center w-full items-center'>
-                        <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
-                                <Image src={question} alt={''} width={32}
+                            <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
+                            <Image src={question} alt={''} width={32}
                                        className='rounded-lg'/>
                                 {currentOrder.name}
                             </h1>
@@ -301,6 +368,8 @@ export const OrdersTemplate = (props: IProps) => {
                             <p className='mt-1 font-medium'>{currentOrder.dimensions.split(' ')[1]}</p>
                             <h1 className='text-xl mt-4 text-[#999]'>Высота</h1>
                             <p className='mt-1 font-medium'>{currentOrder.dimensions.split(' ')[2]}</p>
+                            <h1 className='text-xl mt-4 text-[#999]'>Количество</h1>
+                            <p className='mt-1 font-medium'>{currentOrder.count}</p>
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Куда и
                                 откуда</h1>
@@ -313,6 +382,10 @@ export const OrdersTemplate = (props: IProps) => {
                             <p className='mt-1 font-medium'>{currentOrder.time_to_take}</p>
                             <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
                             <p className='mt-1 font-medium'>{currentOrder.time_to_deliver}</p>
+
+                            <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
+                            <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
+                            <p className='mt-1 font-medium'>{currentOrder.comment || 'Отсутствует'}</p>
                         </div>
                     </div>
                 )}

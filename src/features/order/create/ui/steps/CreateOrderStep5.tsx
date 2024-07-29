@@ -22,7 +22,7 @@ export const CreateOrderStep5 = () => {
 
     return (
         <CreateOrderStepTemplate title='Куда и откуда?' description='Условия для каждого варианта различаются'>
-            <Script src='https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE&libraries=places'/>
+            <Script src='https://maps.googleapis.com/maps/js?key=YOUR_API_KEY_HERE&libraries=places'/>
             <div className='flex flex-col mt-4 text-left w-screen px-12 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
                 <h1 className='text-2xl font-semibold'>На какой склад?</h1>
                 <Select onValueChange={e => setAddrTo(['г Москва, ул 1-я Тверская-Ямская'])}>
