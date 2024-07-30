@@ -39,14 +39,21 @@ export const CreateOrderStep6 = () => {
     const [timeSlots3, setTimeSlots3] = useState(generateTimeSlots())
     const [timeSlots4, setTimeSlots4] = useState(generateTimeSlots())
 
+    useEffect(() => {
+        if (give && get) {
+            if (give < get) {
+                setGive(get)
+            }
+        }
+    }, [get, give]);
 
     useEffect(() => {
         setTimeToTake(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}, как можно быстрее`)
-    })
+    }, [currentDate, setTimeToTake])
 
     useEffect(() => {
         setTimeToDeliver(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}, как можно быстрее`)
-    })
+    }, [currentDate, setTimeToDeliver])
 
     useEffect(() => {
         if (getTimeTo && getTimeFrom) {
@@ -154,7 +161,7 @@ export const CreateOrderStep6 = () => {
                         <DropdownMenuContent>
                             <Calendar
                                 disabled={(date) =>
-                                    date.getDate() < new Date().getDate()
+                                    date.getDate() < new Date().getDate() || (get ? date < get : false)
                                 }
                                 mode="single"
                                 className="rounded-md border"

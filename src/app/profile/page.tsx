@@ -38,7 +38,9 @@ export default async function ProfilePage() {
     const rates = await fetch(`http://31.129.96.22/api/rates?token=${token.value}`, { cache: 'no-cache' })
 
     const ratesres: IReview[] = await rates.json()
-    const res: IOrder[] = await orders.json()
+    const resnotsorted: IOrder[] = await orders.json()
+    const res = resnotsorted.reverse()
+
     const activeOrders = res.filter(order => order.status === 'active')
     const disabledOrders = res.filter(order => order.status === 'disabled')
 

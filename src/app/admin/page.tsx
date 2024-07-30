@@ -15,12 +15,13 @@ export default async function AdminPage() {
     const data3 = await fetch('http://31.129.96.22/api/drivers/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['drivers'] } })
 
     const reviews: IReview[] = await data2.json()
-    const orders: IOrder[] = await data.json()
+    const ordersnotsorted: IOrder[] = await data.json()
+    const orders = ordersnotsorted.reverse()
+
     const drivers: IDriver[] = await data3.json()
     const activeOrders = orders.filter(order => order.status === 'active')
     const disabledOrders = orders.filter(order => order.status === 'disabled')
 
-    console.log(orders)
 
     const nowOrders = activeOrders.filter(order => {
         const now = new Date();

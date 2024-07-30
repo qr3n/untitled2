@@ -114,7 +114,7 @@ export const Chat = ({ children }: PropsWithChildren) => {
             { children }
 
             { chatOpen &&
-                <div className='z-50 border border-[#444] shadow-2xl rounded-xl fixed bottom-0 left-0 sm:left-auto w-screen h-screen sm:bottom-16 sm:right-8 sm:h-[500px] sm:w-[340px] bg-[#151515]'>
+                <div className='z-50 border border-[#444] shadow-2xl rounded-xl fixed bottom-0 left-0 sm:left-auto w-screen h-[100dvh] sm:bottom-16 sm:right-8 sm:h-[500px] sm:w-[340px] bg-[#151515]'>
                     <div className='flex flex-col rounded-t-xl items-center justify-center p-4'>
                         <CgClose className='absolute text-[#aaa] hover:text-white cursor-pointer right-4 top-4' onClick={() => {
                             websocket?.close()
