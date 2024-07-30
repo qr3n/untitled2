@@ -225,7 +225,10 @@ export const CreateOrder = () => {
                                     time_to_take: timeToTake,
                                     time_to_deliver: timeToDeliver,
                                     comment: comment,
-                                    status: 'active'
+                                    status: 'active',
+                                    sender_phone: senderPhone,
+                                    recipient_phone: recipientPhone,
+                                    count: count,
                                 }, { withCredentials: true }).then(r => {
                                     setLoading(false)
                                     router.push('/profile')

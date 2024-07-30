@@ -97,7 +97,7 @@ export const OrdersTemplate = (props: IProps) => {
                             key={order.id}
                             className='mt-4 w-full flex flex-col relative sm:flex-row justify-between sm:items-center gap-4 bg-[#151515] p-4 rounded-2xl cursor-pointer hover:bg-[#202020] select-none'>
                             <DialogTrigger asChild>
-                                <div className='absolute top-0 left-0 rounded-2xl w-full h-full z-10'/>
+                                <div className='absolute top-0 left-0 rounded-2xl w-full h-full z-10' onClick={() => setCurrentOrder(order)}/>
                             </DialogTrigger>
                             <div className='flex items-center gap-4'>
                             <Image

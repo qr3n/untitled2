@@ -44,7 +44,7 @@ export default async function ProfilePage() {
 
     return (
         <div className="w-screen h-screen flex flex-col items-center mt-12">
-            <h1 className='text-3xl font-semibold'>Новый пользователь</h1>
+            <h1 className='text-3xl font-semibold'>Пользователь</h1>
             <p className='text-[#A0A0A0] mt-2'>{ account.email }</p>
 
             <UserChat token={token.value}>

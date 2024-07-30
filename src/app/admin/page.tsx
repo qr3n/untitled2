@@ -20,6 +20,8 @@ export default async function AdminPage() {
     const activeOrders = orders.filter(order => order.status === 'active')
     const disabledOrders = orders.filter(order => order.status === 'disabled')
 
+    console.log(orders)
+
     const nowOrders = activeOrders.filter(order => {
         const now = new Date();
         const day = String(now.getDate()).padStart(2, '0');
