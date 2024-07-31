@@ -125,7 +125,7 @@ const CreateOrderProvider = () => {
 
 export const CreateOrder = () => {
     const [loading, setLoading] = useState(false)
-    const [count, setCount] = useState('1')
+    const [count, setCount] = useState('0')
     const [token, setToken] = useState('')
     const [cargo, setCargo] = useState<'marketplace' | 'anything'>('marketplace')
     const [warehouse, setWarehouse] = useState('Яндекс маркет')

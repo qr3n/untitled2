@@ -31,7 +31,7 @@ export const CreateOrderGabaritsStep = () => {
     }
 
     return (
-        <CreateOrderStepTemplate title='Какие габариты?' description='Пожалуйста, укажите точные значения'>
+        <CreateOrderStepTemplate title='Какие габариты?' description='Пожалуйста, укажите общие габариты груза'>
             <div
                 className='flex flex-col mt-2 text-left w-screen px-12 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
 
@@ -52,7 +52,7 @@ export const CreateOrderGabaritsStep = () => {
                     placeholder='120см' onChange={e => handleChange(2, e.target.value)}/>
 
 
-                <h1 className='text-2xl font-semibold mt-6'>Количество</h1>
+                <h1 className='text-2xl font-semibold mt-6'>Кол.мест</h1>
                 <Select defaultValue={'1'} onValueChange={v => setCount(v)} value={count}>
                     <SelectTrigger className="w-full mt-4">
                         <SelectValue placeholder="Выберите количество"/>

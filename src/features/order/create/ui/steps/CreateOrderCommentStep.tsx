@@ -7,7 +7,7 @@ export const CreateOrderCommentStep = () => {
     const { comment, setComment } = useContext(Context)
 
     return (
-        <CreateOrderStepTemplate title='Пожелания?' description='Если их нет, просто оставьте поле пустым'>
+        <CreateOrderStepTemplate title='Пожелания?' description='Пожалуйста, укажите суть задачи и детали заказа, если это необходимо'>
             <div
                 className='flex flex-col mt-6 text-left w-screen px-12 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
                 <textarea

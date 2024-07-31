@@ -18,8 +18,7 @@ import {Context} from "@/features/order/create/model/context";
 
 
 export const CreateOrderStep6 = () => {
-    const currentDate = new Date()
-    const { setTimeToTake, setTimeToDeliver } = useContext(Context)
+    const { timeToTake, timeToDeliver, setTimeToTake, setTimeToDeliver } = useContext(Context)
     const [get, setGet] = useState<Date | undefined>()
     const [give, setGive] = useState<Date | undefined>()
     const [getTimeFrom, setGetTimeFrom] = useState('')
@@ -48,12 +47,11 @@ export const CreateOrderStep6 = () => {
     }, [get, give]);
 
     useEffect(() => {
-        setTimeToTake(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}, как можно быстрее`)
-    }, [currentDate, setTimeToTake])
+        const currentDate = new Date()
 
-    useEffect(() => {
+        setTimeToTake(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}, как можно быстрее`)
         setTimeToDeliver(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}, как можно быстрее`)
-    }, [currentDate, setTimeToDeliver])
+    }, [])
 
     useEffect(() => {
         if (getTimeTo && getTimeFrom) {
@@ -63,8 +61,28 @@ export const CreateOrderStep6 = () => {
             setTimeSlots4(newTimeSlots.slice(newTimeSlots.indexOf(getTimeTo), newTimeSlots.length))
         }
 
-        setTimeToTake(`${get?.getDate()}.${get && get.getMonth() + 1}.${get?.getFullYear()} ${getTimeFrom ? `с ${getTimeFrom}` : 'как можно быстрее, '} ${getTimeTo ? `до ${getTimeTo}` : 'как можно быстрее'}`)
-    }, [getTimeFrom, getTimeTo, get, setTimeToTake]);
+        if (get) {
+            if (getTimeFrom || getTimeTo) {
+                setTimeToTake(`${get?.getDate()}.${get && get.getMonth() + 1}.${get?.getFullYear()} ${getTimeFrom ? `с ${getTimeFrom}` : 'как можно быстрее, '} ${getTimeTo ? `до ${getTimeTo}` : ', как можно быстрее'}`)
+            }
+
+            else {
+                setTimeToTake(`${get?.getDate()}.${get && get.getMonth() + 1}.${get?.getFullYear()} как можно быстрее`)
+            }
+        }
+
+        else {
+            const currentDate = new Date()
+
+            if (getTimeFrom || getTimeTo) {
+                setTimeToTake(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()} ${getTimeFrom ? `с ${getTimeFrom}` : 'как можно быстрее, '} ${getTimeTo ? `до ${getTimeTo}` : ', как можно быстрее'}`)
+            }
+
+            else {
+                setTimeToTake(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()} как можно быстрее`)
+            }
+        }
+    }, [getTimeFrom, getTimeTo, get]);
 
     useEffect(() => {
         if (getTimeFrom) {
@@ -81,12 +99,32 @@ export const CreateOrderStep6 = () => {
     }, [giveTimeFrom]);
 
     useEffect(() => {
-        setTimeToDeliver(`${give?.getDate()}.${give && give.getMonth() + 1}.${give?.getFullYear()} ${giveTimeFrom ? `с ${giveTimeFrom}` : 'как можно быстрее, '} ${giveTimeTo ? `до ${giveTimeTo}` : 'как можно быстрее'}`)
-    }, [giveTimeFrom, giveTimeTo, give, setTimeToDeliver]);
+        if (give) {
+            if (giveTimeFrom || giveTimeTo) {
+                setTimeToDeliver(`${give?.getDate()}.${give && give.getMonth() + 1}.${give?.getFullYear()} ${giveTimeFrom ? `с ${giveTimeFrom}` : 'как можно быстрее, '} ${giveTimeTo ? `до ${giveTimeTo}` : ', как можно быстрее'}`)
+            }
+
+            else {
+                setTimeToDeliver(`${give?.getDate()}.${give && give.getMonth() + 1}.${give?.getFullYear()} как можно быстрее`)
+            }
+        }
+
+        else {
+            const currentDate = new Date()
+
+            if (giveTimeFrom || giveTimeTo) {
+                setTimeToDeliver(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()} ${giveTimeFrom ? `с ${giveTimeFrom}` : 'как можно быстрее, '} ${giveTimeTo ? `до ${giveTimeTo}` : ', как можно быстрее'}`)
+            }
+
+            else {
+                setTimeToDeliver(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()} как можно быстрее`)
+            }
+        }
+    }, [give, giveTimeFrom, giveTimeTo]);
 
 
     return (
-        <CreateOrderStepTemplate title='Когда выполнить?' description='Условия для каждого варианта различаются'>
+        <CreateOrderStepTemplate title='Когда выполнить?' description='Время бесплатного ожидания 25 минут'>
             <div
                 className='flex flex-col mt-6 text-left w-screen px-12 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
                 <h1 className='text-2xl font-semibold'>Забрать</h1>
@@ -101,9 +139,13 @@ export const CreateOrderStep6 = () => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                             <Calendar
-                                disabled={(date) =>
-                                    date.getDate() < new Date().getDate()
-                                }
+                                disabled={(date) => {
+                                    const today = new Date();
+
+                                    today.setHours(0, 0, 0, 0);
+
+                                    return date < today;
+                                }}
                                 mode="single"
                                 className="rounded-md border"
                                 onSelect={d => setGet(d)}
@@ -160,9 +202,13 @@ export const CreateOrderStep6 = () => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                             <Calendar
-                                disabled={(date) =>
-                                    date.getDate() < new Date().getDate() || (get ? date < get : false)
-                                }
+                                disabled={(date) => {
+                                    const today = new Date();
+
+                                    today.setHours(0, 0, 0, 0);
+
+                                    return date < today || (get ? get > date : false);
+                                }}
                                 mode="single"
                                 className="rounded-md border"
                                 onSelect={d => setGive(d)}

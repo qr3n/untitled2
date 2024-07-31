@@ -15,10 +15,10 @@ export const CreateOrderStep1 = () => {
         <CreateOrderStepTemplate title='Какой груз?' description='Условия для каждого варианта различаются'>
             <TwoChoice
                 firstTitle={'Для маркетплейса'}
-                firstDescription={'До 12кг'}
+                firstDescription={'Короб до 25кг'}
                 firstImage={courierWithCar}
-                secondTitle={'Разный товар'}
-                secondDescription={'До 6кг'}
+                secondTitle={'Разные вещи'}
+                secondDescription={'Кроме запрещенных'}
                 secondImage={items}
                 onFirstVariantClick={() => setCargo('marketplace')}
                 onSecondVariantClick={() => setCargo('anything')}

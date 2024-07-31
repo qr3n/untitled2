@@ -15,10 +15,10 @@ export const CreateOrderStep2 = () => {
         <CreateOrderStepTemplate title='Какая упаковка?' description='Условия для каждого варианта различаются'>
             <TwoChoice
                 firstTitle={'Короб'}
-                firstDescription={'До 23кг'}
+                firstDescription={'до 25кг'}
                 firstImage={box}
                 secondTitle={'Палетта'}
-                secondDescription={'До 24кг'}
+                secondDescription={'до 25кг'}
                 secondImage={palette}
                 onFirstVariantClick={() => setPacking('box')}
                 onSecondVariantClick={() => setPacking('palette')}

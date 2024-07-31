@@ -21,7 +21,7 @@ export const CreateOrderCostOrderStep = () => {
     }, [addrTo, addrFrom]);
 
     return (
-        <CreateOrderStepTemplate title='Стоимость' description='300 рублей / км'>
+        <CreateOrderStepTemplate title='Стоимость' description='Зависит от расстояния и количества мест'>
             <div className='w-full h-full flex flex-col items-center justify-center'>
                 <Image className='w-48 h-48 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-64 lg:h-64 object-cover'
                        src={dollars} alt={'select'} height={300} width={300}/>

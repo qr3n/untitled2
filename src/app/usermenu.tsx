@@ -8,11 +8,14 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import { PlusIcon, UserIcon } from "lucide-react";
+import { LogOut, PlusIcon, UserIcon } from "lucide-react";
 import { AiFillDashboard } from "react-icons/ai";
 import { GrDashboard } from "react-icons/gr";
 import Link from "next/link";
 import Avatar from "react-avatar";
+import { FaUser } from "react-icons/fa";
+import { redirect } from "next/navigation";
+import { UserMenuLogout } from "@/app/usermenulogout";
 
 interface User {
     email: string
@@ -30,7 +33,7 @@ export const Usermenu = () => {
         <Sheet>
             <SheetTrigger asChild>
                 <div className='cursor-pointer fixed top-4 right-4 bg-orange-400 rounded-full w-10 h-10 flex items-center justify-center'>
-                    { user.email[0].toUpperCase() }
+                    <FaUser />
                 </div>
             </SheetTrigger>
             <SheetContent className='bg-[#151515] border-[#222]'>
@@ -61,15 +64,7 @@ export const Usermenu = () => {
                     </SheetClose>
                 </Link>
 
-                <Link href='/admin'>
-                    <SheetClose asChild>
-                        <div
-                            className='w-full p-3 mt-4 h-max flex gap-2 rounded-xl bg-[#222] hover:bg-[#333] cursor-pointer items-center'>
-                            <GrDashboard/>
-                            Админ-панель
-                        </div>
-                    </SheetClose>
-                </Link>
+                <UserMenuLogout/>
 
             </SheetContent>
         </Sheet>

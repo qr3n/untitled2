@@ -140,9 +140,9 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
 
                                         <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
                                         <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
-                                        <p className='mt-1 font-medium'>{order.sender_phone || 'Отсутствует'}</p>
+                                        <p className='mt-1 font-medium'>{order.sender_phone ? `+7${order.sender_phone}` : 'Отсутствует'}</p>
                                         <h1 className='text-xl text-[#999] mt-4'>Телефон получателя</h1>
-                                        <p className='mt-1 font-medium'>{order.recipient_phone || 'Отсутствует'}</p>
+                                        <p className='mt-1 font-medium'>{order.recipient_phone ? `+7${order.recipient_phone}` : 'Отсутствует'}</p>
                                         <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
                                         <p className='mt-1 font-medium'>{order.comment || 'Отсутствует'}</p>
                                     </div>
@@ -160,8 +160,6 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                 <div
                                     className='mt-8 px-6 h-[calc(100dvh-164px)] sm:h-[calc(85dvh-164px)] overflow-auto'>
                                     <h1 className='text-2xl text-white font-semibold'>Основное</h1>
-                                    <h1 className='text-xl text-[#999]  mt-4'>Цена</h1>
-                                    <p className='mt-1 font-medium'>{Math.round(order.cost / 1000 * 300)} руб</p>
                                     <h1 className='text-xl text-[#999]  mt-4'>Что доставить</h1>
                                     <p className='mt-1 font-medium'>{order.what_to_deliver}</p>
                                     <h1 className='text-xl text-[#999]  mt-4'>Цена</h1>
@@ -192,9 +190,9 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
 
                                     <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
                                     <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
-                                    <p className='mt-1 font-medium'>{order.sender_phone || 'Отсутствует'}</p>
+                                    <p className='mt-1 font-medium'>{order.sender_phone ? `+7${order.sender_phone}` : 'Отсутствует'}</p>
                                     <h1 className='text-xl text-[#999] mt-4'>Телефон получателя</h1>
-                                    <p className='mt-1 font-medium'>{order.recipient_phone || 'Отсутствует'}</p>
+                                    <p className='mt-1 font-medium'>{order.recipient_phone ? `+7${order.recipient_phone}` : 'Отсутствует'}</p>
                                     <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
                                     <p className='mt-1 font-medium'>{order.comment || 'Отсутствует'}</p>
                                 </div>

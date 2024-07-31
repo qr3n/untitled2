@@ -235,9 +235,9 @@ export const OrdersTemplate = (props: IProps) => {
 
                                     if (order.cargo === 'marketplace') {
                                         text =
-                                            `Магазин\n${order.warehouse}\n\nУпаковка\n${order.packing === 'box' ? 'Короб' : 'Палетта'}\n\nГабариты\n${order.dimensions}\n\nКогда выполнить\nЗабрать ${order.time_to_take}\nДоставить ${order.time_to_deliver}\n\nПожелания\n${order.comment}`
+                                            `Магазин\n${order.warehouse}\n\nУпаковка\n${order.packing === 'box' ? 'Короб' : 'Палетта'}\n\nГабариты\n${order.dimensions}\n\nКоличество\n${order.count}\n\nКогда выполнить\nЗабрать ${order.time_to_take}\nДоставить ${order.time_to_deliver}\n\nПожелания\n${order.comment}`
                                     } else {
-                                        text = `Что доставить?\n${order.what_to_deliver}\n\nКакие габариты?\n${order.dimensions}\n\nКогда выполнить\nЗабрать ${order.time_to_take}\nДоставить ${order.time_to_deliver}\n\nПожелания\n${order.comment}`
+                                        text = `Что доставить\n${order.what_to_deliver}\n\nГабариты\n${order.dimensions}\n\nКоличество\n${order.count}\n\nКогда выполнить\nЗабрать ${order.time_to_take}\nДоставить ${order.time_to_deliver}\n\nПожелания\n${order.comment}`
                                     }
 
                                     const content = new Blob([text], {type: 'text/plain'});
@@ -339,9 +339,9 @@ export const OrdersTemplate = (props: IProps) => {
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
                             <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
-                            <p className='mt-1 font-medium'>{currentOrder.sender_phone || 'Отсутствует'}</p>
+                            <p className='mt-1 font-medium'>{currentOrder.sender_phone ? `+7${currentOrder.sender_phone}` : 'Отсутствует'}</p>
                             <h1 className='text-xl text-[#999] mt-4'>Телефон получателя</h1>
-                            <p className='mt-1 font-medium'>{currentOrder.recipient_phone || 'Отсутствует'}</p>
+                            <p className='mt-1 font-medium'>{currentOrder.recipient_phone ? `+7${currentOrder.recipient_phone}` : 'Отсутствует'}</p>
                             <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
                             <p className='mt-1 font-medium'>{currentOrder.comment || 'Отсутствует'}</p>
                         </div>
@@ -350,7 +350,7 @@ export const OrdersTemplate = (props: IProps) => {
                     <div className='w-full pb-4'>
                         <div className=' text-center w-full items-center'>
                             <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
-                            <Image src={question} alt={''} width={32}
+                                <Image src={question} alt={''} width={32}
                                        className='rounded-lg'/>
                                 {currentOrder.name}
                             </h1>
@@ -389,9 +389,9 @@ export const OrdersTemplate = (props: IProps) => {
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
                             <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
-                            <p className='mt-1 font-medium'>{currentOrder.sender_phone || 'Отсутствует'}</p>
+                            <p className='mt-1 font-medium'>{currentOrder.sender_phone ? `+7${currentOrder.sender_phone}` : 'Отсутствует'}</p>
                             <h1 className='text-xl text-[#999] mt-4'>Телефон получателя</h1>
-                            <p className='mt-1 font-medium'>{currentOrder.recipient_phone || 'Отсутствует'}</p>
+                            <p className='mt-1 font-medium'>{currentOrder.recipient_phone ? `+7${currentOrder.recipient_phone}` : 'Отсутствует'}</p>
                             <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
                             <p className='mt-1 font-medium'>{currentOrder.comment || 'Отсутствует'}</p>
                         </div>
