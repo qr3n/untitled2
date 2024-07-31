@@ -114,14 +114,6 @@ const Buttons = ({ api, email, handleNext, emailStep, isLoading }: { api: Carous
     )
 }
 
-const CreateOrderProvider = () => {
-    return (
-        <>
-
-        </>
-    )
-}
-
 
 export const CreateOrder = () => {
     const [loading, setLoading] = useState(false)

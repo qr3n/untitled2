@@ -217,7 +217,7 @@ export const CreateOrderStep6 = () => {
                         </DropdownMenuContent>
                     </DropdownMenu>
 
-                    <Select disabled={!getTimeTo || !getTimeFrom} onValueChange={v => setGiveTimeFrom(v)}>
+                    <Select onValueChange={v => setGiveTimeFrom(v)}>
                         <SelectTrigger className="w-full mt-4">
                             <div className='flex gap-1'>
                                 <p className='text-[#A2A2A2]'>с</p>
@@ -234,7 +234,7 @@ export const CreateOrderStep6 = () => {
                         </SelectContent>
                     </Select>
 
-                    <Select disabled={!getTimeTo || !getTimeFrom} onValueChange={v => setGiveTimeTo(v)}>
+                    <Select onValueChange={v => setGiveTimeTo(v)}>
                         <SelectTrigger className="w-full mt-4">
                             <div className='flex gap-1'>
                                 <p className='text-[#A2A2A2]'>до</p>
