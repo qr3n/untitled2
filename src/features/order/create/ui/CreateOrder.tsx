@@ -339,9 +339,7 @@ export const CreateOrder = () => {
                     </CarouselItem>
 
                     <CarouselItem className='h-full flex justify-center'>
-                        <div className="p-1">
-                            { cargo === 'marketplace' ? <CreateOrderStep5/> : <CreateOrderStep5SecondVariant/> }
-                        </div>
+                        <CreateOrderStep5SecondVariant/>
                     </CarouselItem>
                     <CarouselItem className='h-full flex justify-center'>
                         <div className="p-1">
