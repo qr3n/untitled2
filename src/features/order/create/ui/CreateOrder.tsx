@@ -32,7 +32,7 @@ interface IResponse {
     token: string
 }
 
-const Buttons = ({ api, email, handleNext, emailStep, isLoading }: { api: CarouselApi, email: string, handleNext: () => void, emailStep: 1 | 2, isLoading: boolean }) => {
+const Buttons = ({ api, email, handleNext, emailStep, isLoading, customDisabled }: { customDisabled: boolean, api: CarouselApi, email: string, handleNext: () => void, emailStep: 1 | 2, isLoading: boolean }) => {
     const [buttonDisabled, setButtonDisabled] = useState(false)
     const cookies = useCookies()
     const account = cookies.get('token')
@@ -67,7 +67,7 @@ const Buttons = ({ api, email, handleNext, emailStep, isLoading }: { api: Carous
         <>
             <Button
                 onClick={handleNext}
-                disabled={buttonDisabled || isLoading}
+                disabled={buttonDisabled || isLoading || customDisabled}
                 className='
                     flex
                     items-center
@@ -116,6 +116,7 @@ const Buttons = ({ api, email, handleNext, emailStep, isLoading }: { api: Carous
 
 
 export const CreateOrder = () => {
+    const [currentStep, setCurrentStep] = useState(0)
     const [loading, setLoading] = useState(false)
     const [count, setCount] = useState('0')
     const [token, setToken] = useState('')
@@ -144,6 +145,19 @@ export const CreateOrder = () => {
     useEffect(() => {
         if (account) setToken(account)
     }, [account]);
+
+    useEffect(() => {
+        if (!api) {
+            return
+        }
+
+        setCurrentStep(api.selectedScrollSnap() + 1)
+
+        api.on("select", () => {
+            setCurrentStep(api.selectedScrollSnap() + 1)
+        })
+    }, [api])
+
 
 
     const handleNext = () => {
@@ -361,7 +375,10 @@ export const CreateOrder = () => {
                 </CarouselContent>
             </Carousel>
             <div className='fixed gap-4 bottom-2 sm:bottom-8 px-8 w-full flex flex-col sm:px-[20%] md:px-[25%] lg:px-[30%] xl:px-[35%]'>
-                <Buttons isLoading={loading} api={api} email={email} handleNext={handleNext} emailStep={emailStep}/>
+                <Buttons isLoading={loading} api={api} email={email} handleNext={handleNext} emailStep={emailStep} customDisabled={
+                    cargo === 'marketplace' && (currentStep === 8 && (!senderPhone || !recipientPhone))
+                    || cargo === 'anything' && (currentStep === 7 && (!senderPhone || !recipientPhone))
+                }/>
             </div>
 
         </Context.Provider>

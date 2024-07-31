@@ -1,10 +1,11 @@
 'use client';
 
 import {CreateOrderStepTemplate} from "@/features/order/create/ui/steps/CreateOrderStepTemplate";
-import {useContext} from "react";
+import { useContext, useState } from "react";
 import {Context} from "@/features/order/create/model/context";
 
 export const CreateOrderPhoneStep = () => {
+    const [recipientPhoneChanged, setRecipientPhoneChanged] = useState<boolean>(false);
     const { recipientPhone, setRecipientPhone, senderPhone, setSenderPhone } = useContext(Context)
 
     return (
@@ -17,7 +18,12 @@ export const CreateOrderPhoneStep = () => {
                     <input
                         className='w-full pl-9 bg-[#2A2A2A] border-2 border-transparent p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
                         placeholder='9117629553' value={senderPhone}
-                        onChange={e => setSenderPhone(e.target.value)}/>
+                        onChange={e => {
+                            if (!recipientPhoneChanged) {
+                                setRecipientPhone(e.currentTarget.value);
+                            }
+                            setSenderPhone(e.target.value)
+                        }}/>
                 </div>
 
                 <h1 className='font-semibold text-xl mt-8'>Номер получателя</h1>
@@ -26,7 +32,10 @@ export const CreateOrderPhoneStep = () => {
                     <input
                         className='w-full pl-9 bg-[#2A2A2A] border-2 border-transparent p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
                         placeholder='9117629553' value={recipientPhone}
-                        onChange={e => setRecipientPhone(e.target.value)}/>
+                        onChange={e => {
+                            if (!recipientPhoneChanged) setRecipientPhoneChanged(true)
+                            setRecipientPhone(e.target.value)
+                        }}/>
                 </div>
 
 
