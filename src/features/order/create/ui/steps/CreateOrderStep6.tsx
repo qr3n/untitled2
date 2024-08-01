@@ -17,6 +17,11 @@ import {useContext, useEffect, useState} from "react";
 import {Context} from "@/features/order/create/model/context";
 
 
+const createDate = (date: Date) => {
+    return ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth() + 1)).slice(-2) + '.' + date.getFullYear()
+}
+
+
 export const CreateOrderStep6 = () => {
     const { timeToTake, timeToDeliver, setTimeToTake, setTimeToDeliver } = useContext(Context)
     const [get, setGet] = useState<Date | undefined>()
@@ -39,6 +44,10 @@ export const CreateOrderStep6 = () => {
     const [timeSlots4, setTimeSlots4] = useState(generateTimeSlots())
 
     useEffect(() => {
+        console.log(timeToTake, timeToDeliver)
+    }, [timeToDeliver, timeToTake]);
+    
+    useEffect(() => {
         if (give && get) {
             if (give < get) {
                 setGive(get)
@@ -49,25 +58,25 @@ export const CreateOrderStep6 = () => {
     useEffect(() => {
         const currentDate = new Date()
 
-        setTimeToTake(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}, как можно быстрее`)
-        setTimeToDeliver(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}, как можно быстрее`)
+        setTimeToTake(`${createDate(currentDate)} как можно быстрее`)
+        setTimeToDeliver(`${createDate(currentDate)} как можно быстрее`)
     }, [])
 
     useEffect(() => {
         if (getTimeTo && getTimeFrom) {
             const newTimeSlots = generateTimeSlots()
 
-            setTimeSlots3(newTimeSlots.slice(newTimeSlots.indexOf(getTimeTo) + 1, newTimeSlots.length))
-            setTimeSlots4(newTimeSlots.slice(newTimeSlots.indexOf(getTimeTo), newTimeSlots.length))
+            setTimeSlots3(newTimeSlots.slice(newTimeSlots.indexOf(getTimeFrom), newTimeSlots.length))
+            setTimeSlots4(newTimeSlots.slice(newTimeSlots.indexOf(getTimeFrom), newTimeSlots.length))
         }
 
         if (get) {
             if (getTimeFrom || getTimeTo) {
-                setTimeToTake(`${get?.getDate()}.${get && get.getMonth() + 1}.${get?.getFullYear()} ${getTimeFrom ? `с ${getTimeFrom}` : 'как можно быстрее, '} ${getTimeTo ? `до ${getTimeTo}` : ', как можно быстрее'}`)
+                setTimeToTake(`${createDate(get)} ${getTimeFrom ? `с ${getTimeFrom}` : 'как можно быстрее, '} ${getTimeTo ? `до ${getTimeTo}` : ', как можно быстрее'}`)
             }
 
             else {
-                setTimeToTake(`${get?.getDate()}.${get && get.getMonth() + 1}.${get?.getFullYear()} как можно быстрее`)
+                setTimeToTake(`${createDate(get)} как можно быстрее`)
             }
         }
 
@@ -75,11 +84,11 @@ export const CreateOrderStep6 = () => {
             const currentDate = new Date()
 
             if (getTimeFrom || getTimeTo) {
-                setTimeToTake(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()} ${getTimeFrom ? `с ${getTimeFrom}` : 'как можно быстрее, '} ${getTimeTo ? `до ${getTimeTo}` : ', как можно быстрее'}`)
+                setTimeToTake(`${createDate(currentDate)} ${getTimeFrom ? `с ${getTimeFrom}` : 'как можно быстрее, '} ${getTimeTo ? `до ${getTimeTo}` : ', как можно быстрее'}`)
             }
 
             else {
-                setTimeToTake(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()} как можно быстрее`)
+                setTimeToTake(`${createDate(currentDate)} как можно быстрее`)
             }
         }
     }, [getTimeFrom, getTimeTo, get]);
@@ -101,11 +110,11 @@ export const CreateOrderStep6 = () => {
     useEffect(() => {
         if (give) {
             if (giveTimeFrom || giveTimeTo) {
-                setTimeToDeliver(`${give?.getDate()}.${give && give.getMonth() + 1}.${give?.getFullYear()} ${giveTimeFrom ? `с ${giveTimeFrom}` : 'как можно быстрее, '} ${giveTimeTo ? `до ${giveTimeTo}` : ', как можно быстрее'}`)
+                setTimeToDeliver(`${createDate(give)} ${giveTimeFrom ? `с ${giveTimeFrom}` : 'как можно быстрее, '} ${giveTimeTo ? `до ${giveTimeTo}` : ', как можно быстрее'}`)
             }
 
             else {
-                setTimeToDeliver(`${give?.getDate()}.${give && give.getMonth() + 1}.${give?.getFullYear()} как можно быстрее`)
+                setTimeToDeliver(`${createDate(give)} как можно быстрее`)
             }
         }
 
@@ -113,11 +122,11 @@ export const CreateOrderStep6 = () => {
             const currentDate = new Date()
 
             if (giveTimeFrom || giveTimeTo) {
-                setTimeToDeliver(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()} ${giveTimeFrom ? `с ${giveTimeFrom}` : 'как можно быстрее, '} ${giveTimeTo ? `до ${giveTimeTo}` : ', как можно быстрее'}`)
+                setTimeToDeliver(`${createDate(currentDate)} ${giveTimeFrom ? `с ${giveTimeFrom}` : 'как можно быстрее, '} ${giveTimeTo ? `до ${giveTimeTo}` : ', как можно быстрее'}`)
             }
 
             else {
-                setTimeToDeliver(`${currentDate?.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()} как можно быстрее`)
+                setTimeToDeliver(`${createDate(currentDate)} как можно быстрее`)
             }
         }
     }, [give, giveTimeFrom, giveTimeTo]);
@@ -148,7 +157,10 @@ export const CreateOrderStep6 = () => {
                                 }}
                                 mode="single"
                                 className="rounded-md border"
-                                onSelect={d => setGet(d)}
+                                onSelect={d => {
+                                    console.log(d)
+                                    setGet(d)
+                                }}
                                 selected={get}
                             />
                         </DropdownMenuContent>

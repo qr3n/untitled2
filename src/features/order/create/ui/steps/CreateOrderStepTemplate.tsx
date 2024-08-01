@@ -7,11 +7,11 @@ interface IProps extends PropsWithChildren {
 
 export const CreateOrderStepTemplate = (props: IProps) => {
     return (
-        <div className='flex flex-col items-center justify-center text-center relative'>
+        <div className='flex flex-col items-center justify-center text-center'>
             <h1 className='text-3xl md:text-4xl font-bold'>{ props.title }</h1>
             <p className='text-[#8C8C8C] mt-2 max-w-xs text-sm md:text-md'>{ props.description }</p>
 
-            <div className='mt-8 flex flex-col items-center justify-center'>
+            <div className='mt-8 flex h-full flex-col items-center justify-center'>
                 { props.children }
             </div>
         </div>

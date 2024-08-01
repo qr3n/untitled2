@@ -1,5 +1,5 @@
 'use client';
-
+import 'react-dadata/dist/react-dadata.css';
 import {CreateOrderStepTemplate} from "@/features/order/create/ui/steps/CreateOrderStepTemplate";
 import {useContext, useEffect, useState} from "react";
 import {PlusIcon} from "lucide-react";
@@ -54,9 +54,9 @@ export const CreateOrderStep5SecondVariant = () => {
     return (
         <CreateOrderStepTemplate title='Куда и откуда?' description='В заказе,можно указывать несколько адресов, нажав на +'>
             <div
-                className='flex flex-col mt-2 text-left w-screen px-12 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
+                className='flex h-full flex-col mt-2 text-left w-screen px-12 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
                 <h1 className='text-2xl font-semibold '>Откуда забрать?</h1>
-                <div className='w-full max-h-36 pr-4 mt-4 pb-4'>
+                <div className='w-full max-h-44 pr-4 mt-4 pb-4'>
                     {inputs2.map(i => (
                         <div key={i.id} className=' flex items-center mt-4 w-full gap-2'>
                             <AddressSuggestions
@@ -87,7 +87,7 @@ export const CreateOrderStep5SecondVariant = () => {
 
 
                 <h1 className='text-2xl font-semibold mt-12'>Куда доставить?</h1>
-                <div className='w-full max-h-36 pr-4 mt-4 pb-4'>
+                <div className='w-full max-h-44 pr-4 mt-4 pb-4'>
                     {inputs.map(i => (
                         <div key={i.id} className='flex items-center mt-4 justify-between w-full gap-2'>
                             <AddressSuggestions

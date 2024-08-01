@@ -9,6 +9,10 @@ import {IOrder} from "@/app/admin/model";
 import {Chat} from "@/app/admin/Chat";
 import {IDriver, IReview} from "@/app/profile/model";
 
+const createDate = (date: Date) => {
+    return ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth() + 1)).slice(-2) + '.' + date.getFullYear()
+}
+
 export default async function AdminPage() {
     const data = await fetch('http://31.129.96.22/api/orders/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['orders'] } })
     const data2 = await fetch('http://31.129.96.22/api/rates/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['rates'] } })
@@ -21,26 +25,16 @@ export default async function AdminPage() {
     const drivers: IDriver[] = await data3.json()
     const activeOrders = orders.filter(order => order.status === 'active')
     const disabledOrders = orders.filter(order => order.status === 'disabled')
-
+    const now = createDate(new Date())
 
     const nowOrders = activeOrders.filter(order => {
-        const now = new Date();
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1)
-        const year = now.getFullYear();
         const date = order.time_to_take.replace(/\s.*/, "");
-
-        return `${day}.${month}.${year}` === date
+        return now === date
     })
 
     const plannedOrders = activeOrders.filter(order => {
-        const now = new Date();
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1)
-        const year = now.getFullYear();
         const date = order.time_to_take.replace(/\s.*/, "");
-
-        return `${day}.${month}.${year}` !== date
+        return now !== date
     })
 
     return (
