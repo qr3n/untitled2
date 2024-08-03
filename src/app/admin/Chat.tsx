@@ -60,7 +60,7 @@ export const Chat = ({ children }: PropsWithChildren) => {
     },[])
 
     useEffect(() => {
-        setWebsocket(chatOpen ? new WebSocket(`ws://31.129.96.22/api/chat/admin?admin_token=secret&order_id=${orderId}`) : null)
+        setWebsocket(chatOpen ? new WebSocket(`wss://postavan.com/api/chat/admin?admin_token=secret&order_id=${orderId}`) : null)
     }, [chatOpen, orderId]);
 
     useEffect(() => {

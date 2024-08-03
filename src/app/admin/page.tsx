@@ -14,9 +14,9 @@ const createDate = (date: Date) => {
 }
 
 export default async function AdminPage() {
-    const data = await fetch('http://31.129.96.22/api/orders/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['orders'] } })
-    const data2 = await fetch('http://31.129.96.22/api/rates/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['rates'] } })
-    const data3 = await fetch('http://31.129.96.22/api/drivers/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['drivers'] } })
+    const data = await fetch('https://postavan.com/api/orders/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['orders'] } })
+    const data2 = await fetch('https://postavan.com/api/rates/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['rates'] } })
+    const data3 = await fetch('https://postavan.com/api/drivers/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['drivers'] } })
 
     const reviews: IReview[] = await data2.json()
     const ordersnotsorted: IOrder[] = await data.json()

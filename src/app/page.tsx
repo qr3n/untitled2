@@ -3,8 +3,7 @@ import bgMobile from './bg-mobile.png'
 import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
-import lamp from './lamp.png'
-import box from './box.png'
+import logo from './logo.png'
 
 export default function Home() {
   return (
@@ -22,18 +21,10 @@ export default function Home() {
           />
 
           <div
-              className='mt-[30%] m-8 sm:m-16 md:m-20 lg:m-24 xl:m-28 flex flex-col items-center justify-center sm:block'
+              className='mt-[25%] m-8 sm:m-16 md:m-20 lg:m-24 xl:m-28 flex flex-col items-center justify-center sm:block'
           >
-              <div className='absolute top-10 sm:top-0 sm:relative flex w-max gap-4 items-center justify-center'>
-                  <div className='flex items-center justify-center gap-1'>
-                      <Image src={lamp} alt={'lamp'}/>
-                      <h1 className='font-semibold text-[15px] sm:text-xl'>Ваша идея</h1>
-                  </div>
-                  <h1 className='text-[#999] text-2xl sm:text-3xl font-medium '>X</h1>
-                  <div className='flex items-center justify-center gap-1'>
-                      <Image src={box} alt={'box'}/>
-                      <h1 className='font-semibold text-[15px] sm:text-xl'>Наша реализация</h1>
-                  </div>
+              <div className='fixed right-10 top-10 sm:top-0 sm:relative flex w-max gap-4 items-center justify-center'>
+                  <Image src={logo} alt={'logo'} width={128} />
               </div>
               <div className='mt-4'>
                   <h1 className='text-[56px] md:text-[82px] lg:text-[96px] xl:text-[106px] font-bold'>ДОСТАВКА</h1>

@@ -48,11 +48,11 @@ export const OrdersTemplate = (props: IProps) => {
     const [driverName, setDriverName] = useState("")
 
     const { mutate, isPending, isSuccess } = useMutation({
-        mutationFn: async (data: { status: 'active' | 'disabled', order_id: number }) => axios.patch(`http://31.129.96.22/api/order?order_id=${data.order_id}&status=${data.status}`, {}),
+        mutationFn: async (data: { status: 'active' | 'disabled', order_id: number }) => axios.patch(`https://postavan.com/api/order?order_id=${data.order_id}&status=${data.status}`, {}),
     })
 
     const { mutate: addDriver, isPending: isDriverPending, isSuccess: isDriverSuccess } = useMutation({
-        mutationFn: async (data: { order_id: number }) => axios.post(`http://31.129.96.22/api/driver?order_id=${data.order_id}`, {
+        mutationFn: async (data: { order_id: number }) => axios.post(`https://postavan.com/api/driver?order_id=${data.order_id}`, {
             color: color,
             model: model,
             car_number: carNumber,

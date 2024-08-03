@@ -34,8 +34,8 @@ export default async function ProfilePage() {
     }
 
     const account = jwtDecode<User>(token.value)
-    const orders = await fetch(`http://31.129.96.22/api/orders?token=${token.value}`, { cache: 'no-cache' })
-    const rates = await fetch(`http://31.129.96.22/api/rates?token=${token.value}`, { cache: 'no-cache' })
+    const orders = await fetch(`https://postavan.com/api/orders?token=${token.value}`, { cache: 'no-cache' })
+    const rates = await fetch(`https://postavan.com/api/rates?token=${token.value}`, { cache: 'no-cache' })
 
     const ratesres: IReview[] = await rates.json()
     const resnotsorted: IOrder[] = await orders.json()

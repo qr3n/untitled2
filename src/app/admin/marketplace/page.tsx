@@ -4,7 +4,7 @@ import Link from "next/link";
 
 
 export default async function MarketplacePage() {
-    const data = await fetch('http://31.129.96.22/api/orders/all?admin_token=secret', { cache: 'no-cache' })
+    const data = await fetch('https://postavan.com/api/orders/all?admin_token=secret', { cache: 'no-cache' })
     const res: IMarketplaceOrder[] = await data.json()
     const filtered = res.filter(r => r.cargo === 'marketplace')
 
