@@ -23,9 +23,6 @@ export default function Home() {
           <div
               className='mt-[25%] m-8 sm:m-16 md:m-20 lg:m-24 xl:m-28 flex flex-col items-center justify-center sm:block'
           >
-              <div className='fixed right-10 top-10 sm:top-0 sm:relative flex w-max gap-4 items-center justify-center'>
-                  <Image src={logo} alt={'logo'} width={128} />
-              </div>
               <div className='mt-4'>
                   <h1 className='text-[56px] md:text-[82px] lg:text-[96px] xl:text-[106px] font-bold'>ДОСТАВКА</h1>
                   <h1 className='
