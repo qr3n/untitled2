@@ -12,7 +12,7 @@ import { Usermenu } from "@/app/usermenu";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Почта Ван",
+  title: "Почта Вэн",
   description: "Луший сервис доставки уже здесь!",
 };
 
