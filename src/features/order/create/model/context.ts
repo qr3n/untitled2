@@ -38,7 +38,10 @@ interface IContext {
     setRecipientPhone: (v: string) => void,
 
     count: string,
-    setCount: (v: string) => void
+    setCount: (v: string) => void,
+
+    tariff: 'day' | 'night',
+    setTariff: (v: 'day' | 'night') => void,
 }
 
 export const Context = createContext<IContext>(null!);

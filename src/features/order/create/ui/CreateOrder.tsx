@@ -131,6 +131,7 @@ export const CreateOrder = () => {
     const [timeToDeliver, setTimeToDeliver] = useState('')
     const [comment, setComment] = useState('')
 
+    const [tariff, setTariff] = useState<'day' | 'night'>('day')
     const [emailStep, setEmailSte] = useState<1 | 2>(1)
     const [api, setApi] = useState<CarouselApi>()
     const [email, setEmail] = useState<string>('')
@@ -198,6 +199,7 @@ export const CreateOrder = () => {
                         sender_phone: senderPhone,
                         recipient_phone: recipientPhone,
                         count: count,
+                        tariff: tariff,
                     }, { withCredentials: true }).then(() => {
 
                         setLoading(false)
@@ -235,6 +237,7 @@ export const CreateOrder = () => {
                                     sender_phone: senderPhone,
                                     recipient_phone: recipientPhone,
                                     count: count,
+                                    tariff: tariff
                                 }, { withCredentials: true }).then(r => {
                                     setLoading(false)
                                     router.push('/profile')
@@ -294,7 +297,9 @@ export const CreateOrder = () => {
             senderPhone,
             setSenderPhone,
             recipientPhone,
-            setRecipientPhone
+            setRecipientPhone,
+            tariff,
+            setTariff
         }}>
             <Carousel opts={{
                 dragFree: false,

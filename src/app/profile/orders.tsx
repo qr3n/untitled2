@@ -77,22 +77,29 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                         <p className='text-[#999] text-sm mt-1'>{order.cost}</p>
                                     </div>
                                 </div>
-                                <div className='flex gap-4'>
-                                    <OpenChatButton orderId={order.id}/>
-                                    {variant === 'disabled' && <div onClick={() => {
-                                        if (!reviews?.find(r => r.order_id === order.id)) {
-                                            setCurrentOrderId(order.id)
-                                            setA(true)
-                                        }
-                                    }} className='z-20 p-2 rounded-md bg-[#444] hover:bg-[#555]'>
-                                        <BsStar style={{color: reviews?.find(r => r.order_id === order.id) ? 'yellow' : 'white'}}/>
-                                    </div>}
+
+                                <div className='flex items-center gap-3'>
+                                    <div className='bg-[#333] py-2 px-4 rounded-2xl text-[#ddd]'>
+                                        { order.courier_status || 'Поиск курьера' }
+                                    </div>
+
+                                    <div className='flex gap-4 h-max w-max'>
+                                        <OpenChatButton orderId={order.id}/>
+                                        {variant === 'disabled' && <div onClick={() => {
+                                            if (!reviews?.find(r => r.order_id === order.id)) {
+                                                setCurrentOrderId(order.id)
+                                                setA(true)
+                                            }
+                                        }} className='z-20 p-2 rounded-md bg-[#444] hover:bg-[#555]'>
+                                            <BsStar
+                                                style={{color: reviews?.find(r => r.order_id === order.id) ? 'yellow' : 'white'}}/>
+                                        </div>}
+                                    </div>
                                 </div>
                             </div>
-
                         </>
                         <DialogContent className='rounded-none sm:!rounded-3xl bg-[#161616] h-[100dvh] sm:h-[85dvh]'>
-                        {order.cargo === 'marketplace' ? (
+                            {order.cargo === 'marketplace' ? (
                                 <div className='w-full pb-4'>
                                     <div className=' text-center w-full items-center'>
                                         <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
@@ -113,8 +120,9 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                             <p className='mt-1 font-medium'>{order.packing === 'box' ? 'Короб' : 'Палетта'}</p>
                                         </div>
                                         <h1 className='text-xl text-[#999]  mt-4'>Цена</h1>
-                                        <p className='mt-1 font-medium'>{Math.round(order.cost / 1000 * 300)} руб</p>
-                                        <p className='-mt-1 text-sm text-[#aaa]'>~{(order.cost / 1000).toFixed(1).toString().replace('.', ',')}</p>
+                                        <p className='mt-1 font-medium'>{Math.round(order.cost / 1000 * 42) + (order.tariff === 'day' ? 800 : 1000)} руб</p>
+                                        <p className='-mt-1 text-sm text-[#aaa]'>~{(order.cost / 1000).toFixed(1).toString().replace('.', ',')}км</p>
+                                        <p className='mt-1 text-sm text-[#aaa]'>{order.tariff === 'day' ? 'Дневной' : 'Ночной'} тариф</p>
 
                                         <h1 className='text-2xl text-white font-semibold mt-8'>Размеры</h1>
                                         <h1 className='text-xl text-[#999] mt-4'>Длина</h1>
@@ -163,8 +171,9 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                     <h1 className='text-xl text-[#999]  mt-4'>Что доставить</h1>
                                     <p className='mt-1 font-medium'>{order.what_to_deliver}</p>
                                     <h1 className='text-xl text-[#999]  mt-4'>Цена</h1>
-                                    <p className='mt-1 font-medium'>{Math.round(order.cost / 1000 * 300)} руб</p>
+                                    <p className='mt-1 font-medium'>{Math.round(order.cost / 1000 * 42) + (order.tariff === 'day' ? 800 : 1000)} руб</p>
                                     <p className='-mt-1 text-sm text-[#aaa]'>~{(order.cost / 1000).toFixed(1).toString().replace('.', ',')}</p>
+                                    <p className='mt-1 text-sm text-[#aaa]'>{order.tariff === 'day' ? 'Дневной' : 'Ночной'} тариф</p>
 
                                     <h1 className='text-2xl text-white font-semibold mt-8'>Размеры</h1>
                                     <h1 className='text-xl text-[#999] mt-4'>Длина</h1>
@@ -197,7 +206,7 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                     <p className='mt-1 font-medium'>{order.comment || 'Отсутствует'}</p>
                                 </div>
                             </div>
-                        )}
+                            )}
                         </DialogContent>
                     </Dialog>
                 ))

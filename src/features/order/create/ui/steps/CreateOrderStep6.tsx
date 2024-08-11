@@ -21,9 +21,21 @@ const createDate = (date: Date) => {
     return ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth() + 1)).slice(-2) + '.' + date.getFullYear()
 }
 
+let time = new Date();
+time.setHours(22, 0, 0, 0); // Устанавливаем время на 22:00
+
+const nightSlots: string[] = [];
+
+for (let i = 0; i < 21; i++) { // Генерируем 12 часов * 60 минут = 720 минут
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+    nightSlots.push(`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`);
+    time.setMinutes(time.getMinutes() + 30); // Переходим к следующему временному слоту через 30 минут
+}
+
 
 export const CreateOrderStep6 = () => {
-    const { timeToTake, timeToDeliver, setTimeToTake, setTimeToDeliver } = useContext(Context)
+    const { timeToTake, timeToDeliver, setTimeToTake, setTimeToDeliver, setTariff } = useContext(Context)
     const [get, setGet] = useState<Date | undefined>()
     const [give, setGive] = useState<Date | undefined>()
     const [getTimeFrom, setGetTimeFrom] = useState('')
@@ -46,7 +58,17 @@ export const CreateOrderStep6 = () => {
     useEffect(() => {
         console.log(timeToTake, timeToDeliver)
     }, [timeToDeliver, timeToTake]);
-    
+
+    useEffect(() => {
+        if (nightSlots.includes(getTimeFrom)) {
+            setTariff('night')
+        }
+
+        else {
+            setTariff('day')
+        }
+    }, [getTimeFrom]);
+
     useEffect(() => {
         if (give && get) {
             if (give < get) {

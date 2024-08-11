@@ -17,7 +17,6 @@ export default async function AdminPage() {
     const data = await fetch('https://postavan.com/api/orders/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['orders'] } })
     const data2 = await fetch('https://postavan.com/api/rates/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['rates'] } })
     const data3 = await fetch('https://postavan.com/api/drivers/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['drivers'] } })
-
     const reviews: IReview[] = await data2.json()
     const ordersnotsorted: IOrder[] = await data.json()
     const orders = ordersnotsorted.reverse()
@@ -26,6 +25,10 @@ export default async function AdminPage() {
     const activeOrders = orders.filter(order => order.status === 'active')
     const disabledOrders = orders.filter(order => order.status === 'disabled')
     const now = createDate(new Date())
+
+    console.log(orders)
+    console.log(disabledOrders.length)
+    console.log(activeOrders.length)
 
     const nowOrders = activeOrders.filter(order => {
         const date = order.time_to_take.replace(/\s.*/, "");
@@ -36,6 +39,9 @@ export default async function AdminPage() {
         const date = order.time_to_take.replace(/\s.*/, "");
         return now !== date
     })
+
+    console.log(nowOrders.length)
+    console.log(plannedOrders.length)
 
     return (
         <div className='w-screen h-screen flex flex-col items-center mt-12 gap-6'>

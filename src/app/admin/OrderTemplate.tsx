@@ -21,6 +21,7 @@ import {AiOutlineEdit} from "react-icons/ai";
 import ReactStars from "react-stars";
 import {Button} from "@/components/ui/button";
 import {IDriver, IReview} from "@/app/profile/model";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
 interface IProps extends PropsWithChildren {
     orders: IOrder[],
@@ -49,6 +50,12 @@ export const OrdersTemplate = (props: IProps) => {
 
     const { mutate, isPending, isSuccess } = useMutation({
         mutationFn: async (data: { status: 'active' | 'disabled', order_id: number }) => axios.patch(`https://postavan.com/api/order?order_id=${data.order_id}&status=${data.status}`, {}),
+        mutationKey: ['order_id'],
+    })
+
+    const { mutate: changeCourierStatus, isPending: isCourierStatusPending, isSuccess: isCourierStatusSuccess } = useMutation({
+        mutationFn: async (data: { order_id: number, status: string } ) => axios.put(`https://postavan.com/api/courier-status?order_id=${data.order_id}&status=${data.status}`),
+        mutationKey: ['courier_status']
     })
 
     const { mutate: addDriver, isPending: isDriverPending, isSuccess: isDriverSuccess } = useMutation({
@@ -59,6 +66,7 @@ export const OrdersTemplate = (props: IProps) => {
             driver_phone: driverPhone,
             driver_name: driverName
         }),
+        mutationKey: ['driver_id'],
     })
 
     const [currentOrder, setCurrentOrder] = useState<IOrder>(props.orders[0])
@@ -83,6 +91,12 @@ export const OrdersTemplate = (props: IProps) => {
     }, [isDriverSuccess]);
 
     useEffect(() => {
+        if (isCourierStatusSuccess) {
+            revalidateTagFrontend('orders')
+        }
+    }, [isDriverSuccess]);
+
+    useEffect(() => {
         if (isSuccess) {
             revalidateTagFrontend('orders').then(r => setIsLoading(false))
         }
@@ -90,7 +104,7 @@ export const OrdersTemplate = (props: IProps) => {
 
     return (
         <Dialog>
-            <div className='sm:px-[15%] md:px-[20%] lg:px-[25%] xl:px-[30%] h-[calc(100dvh-100px)] overflow-y-auto'>
+            <div className='sm:px-[1%] md:px-[3%] lg:px-[13%] xl:px-[20%] h-[calc(100dvh-100px)] overflow-y-auto'>
                 <div className='flex w-full flex-col gap-0 p-6 px-4 mt-0 h-[calc(100dvh-200px)] overflow-y-auto'>
                     { props.orders.map(order => (
                         <div
@@ -109,30 +123,48 @@ export const OrdersTemplate = (props: IProps) => {
                                 </div>
                             </div>
                             <div className='flex w-full sm:w-max items-center gap-3 justify-end z-20'>
-                                {<button
-                                    onClick={() => {
-                                        setIsLoading(true)
+                                <div className='flex flex-col sm:flex-row gap-3 w-full'>
+                                    <button
+                                        onClick={() => {
+                                            setIsLoading(true)
 
-                                        mutate({
-                                            status: (props.variant === 'active' || props.variant === 'planned') ? 'disabled' : 'active',
-                                            order_id: order.id
-                                        })
-                                    }}
-                                    className='w-full flex items-center justify-center bg-[#333] px-4 py-2 rounded-full text-sm hover:bg-[#555]'
-                                    style={{
-                                        color: isLoading || isPending ? '#999' : 'white',
-                                    }}>
-                                    {(isLoading || isPending) &&
-                                        <Loader2 className="text-[#999] h-4 w-4 animate-spin"/>}
-                                    {props.variant === 'active' && !(isLoading || isPending) && 'Закрыть'}
-                                    {props.variant === 'planned' && !(isLoading || isPending) && 'Закрыть'}
-                                    {props.variant === 'disabled' && !(isLoading || isPending) && 'Открыть снова'}
-                                </button>}
-
+                                            mutate({
+                                                status: (props.variant === 'active' || props.variant === 'planned') ? 'disabled' : 'active',
+                                                order_id: order.id
+                                            })
+                                        }}
+                                        className='w-full sm:min-w-max flex items-center justify-center bg-[#333] px-4 py-2 rounded-full text-sm hover:bg-[#555]'
+                                        style={{
+                                            color: isLoading || isPending ? '#999' : 'white',
+                                        }}>
+                                        {(isLoading || isPending) &&
+                                            <Loader2 className="text-[#999] h-4 w-4 animate-spin"/>}
+                                        {props.variant === 'active' && !(isLoading || isPending) && 'Закрыть'}
+                                        {props.variant === 'planned' && !(isLoading || isPending) && 'Закрыть'}
+                                        {props.variant === 'disabled' && !(isLoading || isPending) && 'Открыть снова'}
+                                    </button>
+                                    <Select disabled={isCourierStatusPending} defaultValue={order.courier_status || 'Поиск курьера'} onValueChange={v => changeCourierStatus({
+                                        order_id: order.id,
+                                        status: v
+                                    })}>
+                                        <SelectTrigger className="min-w-[180px]">
+                                            <SelectValue placeholder="Статус"/>
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="Поиск курьера">Поиск курьера</SelectItem>
+                                            <SelectItem value="Курьер назначен">Курьер назначен</SelectItem>
+                                            <SelectItem value="В пути">В пути</SelectItem>
+                                            <SelectItem value="На погрузке">На погрузке</SelectItem>
+                                            <SelectItem value="Выполняет">Выполняет</SelectItem>
+                                            <SelectItem value="Заказ выполнен">Заказ выполнен</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
                                 {(props.variant === 'active' || props.variant === 'planned') && (
                                     <Dialog open={driverWindowOpen} onOpenChange={setDriverWindowOpen}>
                                         <DialogTrigger>
-                                            <div className='p-2 rounded-md bg-[#444] hover:bg-[#555]' onClick={() => setCurrentOrderId(order.id)}>
+                                            <div className='p-2 rounded-md bg-[#444] hover:bg-[#555]'
+                                                 onClick={() => setCurrentOrderId(order.id)}>
                                                 <AiOutlineEdit/>
                                             </div>
                                         </DialogTrigger>
@@ -194,15 +226,17 @@ export const OrdersTemplate = (props: IProps) => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    <Button onClick={() => isDriverPending ? null : addDriver({ order_id: order.id })} disabled={
-                                                        isDriverPending ||
-                                                        !color ||
-                                                        !model ||
-                                                        !carNumber ||
-                                                        !driverPhone ||
-                                                        !driverName
-                                                    }
-                                                            className='
+                                                    <Button
+                                                        onClick={() => isDriverPending ? null : addDriver({order_id: order.id})}
+                                                        disabled={
+                                                            isDriverPending ||
+                                                            !color ||
+                                                            !model ||
+                                                            !carNumber ||
+                                                            !driverPhone ||
+                                                            !driverName
+                                                        }
+                                                        className='
                                                     justify-self-end
                                                     flex
                                                     items-center
@@ -258,6 +292,7 @@ export const OrdersTemplate = (props: IProps) => {
                                     <BsDownload/>
                                 </div>
 
+
                                 {props.rates.find(r => r.order_id === order.id) &&
                                     <Dialog>
                                         <DialogTrigger>
@@ -278,8 +313,9 @@ export const OrdersTemplate = (props: IProps) => {
                                                     count={5}
                                                     size={48}
                                                     color2={'#ffd700'}/>
-                                                <div className='h-full w-full text-left bg-[#222] text-lg p-5 rounded-xl'>
-                                                    { props.rates.find(r => r.order_id === order.id)?.text }
+                                                <div
+                                                    className='h-full w-full text-left bg-[#222] text-lg p-5 rounded-xl'>
+                                                    {props.rates.find(r => r.order_id === order.id)?.text}
                                                 </div>
                                             </div>
                                         </DialogContent>
@@ -312,8 +348,9 @@ export const OrdersTemplate = (props: IProps) => {
                                 <p className='mt-1 font-medium'>{currentOrder.packing === 'box' ? 'Короб' : 'Палетта'}</p>
                             </div>
                             <h1 className='text-xl text-[#999]  mt-4'>Цена</h1>
-                            <p className='mt-1 font-medium'>{Math.round(currentOrder.cost / 1000 * 300)} руб</p>
+                            <p className='mt-1 font-medium'>{Math.round(currentOrder.cost / 1000 * 42) + (currentOrder.tariff === 'day' ? 800 : 1000)} руб</p>
                             <p className='-mt-1 text-sm text-[#aaa]'>~{(currentOrder.cost / 1000).toFixed(1).toString().replace('.', ',')} км</p>
+                            <p className='mt-1 text-sm text-[#aaa]'>{currentOrder.tariff === 'day' ? 'Дневной' : 'Ночной'} тариф</p>
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Размеры</h1>
                             <h1 className='text-xl text-[#999] mt-4'>Длина</h1>
@@ -359,8 +396,9 @@ export const OrdersTemplate = (props: IProps) => {
                         <div className='mt-8 px-6 h-[calc(100dvh-164px)] sm:h-[calc(85dvh-164px)] overflow-auto'>
                             <h1 className='text-2xl text-white font-semibold'>Основное</h1>
                             <h1 className='text-xl text-[#999]  mt-4'>Цена</h1>
-                            <p className='mt-1 font-medium'>{Math.round(currentOrder.cost / 1000 * 300)} руб</p>
+                            <p className='mt-1 font-medium'>{Math.round(currentOrder.cost / 1000 * 42) + (currentOrder.tariff === 'day' ? 800 : 1000)} руб</p>
                             <p className='-mt-1 text-sm text-[#aaa]'>~{(currentOrder.cost / 1000).toFixed(1).toString().replace('.', ',')} км</p>
+                            <p className='mt-1 text-sm text-[#aaa]'>{currentOrder.tariff === 'day' ? 'Дневной' : 'Ночной'} тариф</p>
 
                             <h1 className='text-xl text-[#999]  mt-4'>Что доставить</h1>
                             <p className='mt-1 font-medium'>{currentOrder.what_to_deliver}</p>

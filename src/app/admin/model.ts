@@ -19,6 +19,8 @@ export interface IOrder {
     count: string,
     sender_phone: string,
     recipient_phone: string,
+    courier_status: string,
+    tariff: 'day' | 'night',
 }
 
 interface IChatContext {
