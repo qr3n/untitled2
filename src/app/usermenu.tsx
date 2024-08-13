@@ -1,4 +1,5 @@
-import { cookies } from "next/headers";
+'use client';
+
 import { jwtDecode } from "jwt-decode";
 import {
     Sheet, SheetClose,
@@ -9,36 +10,56 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { LogOut, PlusIcon, UserIcon } from "lucide-react";
-import { AiFillDashboard } from "react-icons/ai";
-import { GrDashboard } from "react-icons/gr";
 import Link from "next/link";
-import Avatar from "react-avatar";
 import { FaUser } from "react-icons/fa";
-import { redirect } from "next/navigation";
 import { UserMenuLogout } from "@/app/usermenulogout";
+import {Button} from "@/components/ui/button";
+import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
+import {UserLogin} from "@/app/userlogin";
+import {useState} from "react";
+import {useCookies} from "next-client-cookies";
 
 interface User {
     email: string
 }
 
 export const Usermenu = () => {
-    const token = cookies().get('token')
+    const cookies = useCookies()
+    const [isLogin, setIsLogin] = useState(!!cookies.get('token'))
 
-    if (!token) return <></>
+    if (!isLogin) return (
+        <>
+            <Dialog>
+                <DialogTrigger asChild>
+                    <div
+                        className='cursor-pointer fixed top-4 right-4 gap-3 rounded-full flex items-center justify-center'>
+                        <Button className='bg-white text-black rounded-full font-bold'>Войти</Button>
+                    </div>
+                </DialogTrigger>
 
-    const user = jwtDecode<User>(token.value)
+                <DialogContent className='rounded-none sm:!rounded-3xl bg-[#161616] h-[100dvh] sm:h-auto'>
+                    <div>
+                        <h1 className='font-semibold text-2xl text-center mt-4'>Добро пожаловать!</h1>
+                        <UserLogin setIsLogin={setIsLogin}/>
+                    </div>
+                </DialogContent>
+            </Dialog>
+        </>
+    )
 
+    const user = jwtDecode<User>(cookies.get('token')!)
 
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <div className='cursor-pointer fixed top-4 right-4 bg-orange-400 rounded-full w-10 h-10 flex items-center justify-center'>
-                    <FaUser />
+                <div
+                    className='cursor-pointer fixed top-4 right-4 bg-orange-400 rounded-full w-10 h-10 flex items-center justify-center'>
+                    <FaUser/>
                 </div>
             </SheetTrigger>
             <SheetContent className='bg-[#151515] border-[#222]'>
                 <SheetHeader>
-                    <SheetTitle className='text-white'>Меню</SheetTitle>
+                <SheetTitle className='text-white'>Меню</SheetTitle>
                     <SheetDescription className='text-[#aaa]'>
                         {user.email}
                     </SheetDescription>
@@ -64,7 +85,7 @@ export const Usermenu = () => {
                     </SheetClose>
                 </Link>
 
-                <UserMenuLogout/>
+                <UserMenuLogout setIsLogin={setIsLogin}/>
 
             </SheetContent>
         </Sheet>
