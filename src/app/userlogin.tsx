@@ -23,9 +23,10 @@ export const UserLogin = ({ setIsLogin }: { setIsLogin: Dispatch<SetStateAction<
     const router = useRouter()
 
     return (
-        <>
+        <form>
             { state === 0 ? (
                 <input
+                    type='email'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className='mt-8 w-full h-max bg-[#2A2A2A] border-2 border-transparent p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
@@ -90,6 +91,6 @@ export const UserLogin = ({ setIsLogin }: { setIsLogin: Dispatch<SetStateAction<
                 { loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" /> }
                 Войти
             </Button>
-        </>
+        </form>
     )
 }
