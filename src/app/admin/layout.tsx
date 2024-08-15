@@ -2,6 +2,22 @@
 
 import {useState} from "react";
 import {useCookies} from "next-client-cookies";
+import {
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger
+} from "@/components/ui/sheet";
+import {FaUser} from "react-icons/fa";
+import Link from "next/link";
+import {PlusIcon, UserIcon} from "lucide-react";
+import {UserMenuLogout} from "@/app/usermenulogout";
+import {CiBurger} from "react-icons/ci";
+import {CgMenu} from "react-icons/cg";
+import {GiHelp} from "react-icons/gi";
 
 export default function RootLayout({
                                        children,
@@ -33,6 +49,40 @@ export default function RootLayout({
     } else {
         return (
             <>
+                <Sheet >
+                    <SheetTrigger asChild>
+                        <div className='p-2 rounded-lg cursor-pointer bg-[#222] fixed top-4 left-4'>
+                            <CgMenu className='w-6 h-6'/>
+                        </div>
+                    </SheetTrigger>
+                    <SheetContent side='left' className='bg-[#151515] border-[#222]'>
+                        <SheetHeader>
+                            <SheetTitle className='text-white'>Админ-панель</SheetTitle>
+                            <SheetDescription className='text-[#aaa]'>
+                            </SheetDescription>
+                        </SheetHeader>
+
+                        <Link href={'/admin'}>
+                            <SheetClose asChild>
+                                <div
+                                    className='w-full p-3 mt-8 h-max flex gap-2 rounded-xl bg-[#222] hover:bg-[#333] cursor-pointer items-center'>
+                                    <UserIcon/>
+                                    Заказы
+                                </div>
+                            </SheetClose>
+                        </Link>
+
+                        <Link href={'/admin/help'}>
+                            <SheetClose asChild>
+                                <div
+                                    className='w-full p-3 mt-4 h-max flex gap-2 rounded-xl bg-[#222] hover:bg-[#333] cursor-pointer items-center'>
+                                    <GiHelp/>
+                                    Чат с поддержкой
+                                </div>
+                            </SheetClose>
+                        </Link>
+                    </SheetContent>
+                </Sheet>
                 {children}
             </>
         )
