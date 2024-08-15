@@ -11,13 +11,13 @@ export default function Home() {
           <Image
               src={bgMobile}
               alt={''}
-              className='opacity-100 sm:opacity-0 absolute w-screen h-screen -z-50 object-cover object-bottom top-0 left-0'
+              className='opacity-100 sm:opacity-0 fixed w-screen h-screen -z-50 object-cover object-bottom top-0 left-0'
           />
 
           <Image
               src={bg}
               alt={''}
-              className='opacity-0 sm:opacity-100 absolute w-screen h-screen -z-50 object-cover object-bottom top-0 left-0'
+              className='opacity-0 sm:opacity-100 fixed w-screen h-screen -z-50 object-cover object-bottom top-0 left-0'
           />
 
           <div

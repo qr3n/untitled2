@@ -5,9 +5,9 @@ import NextTopLoader from 'nextjs-toploader';
 import {Toaster} from "@/components/ui/toaster";
 import {CookiesProvider} from "next-client-cookies/server";
 import {Providers} from "@/app/providers";
-import { cookies } from "next/headers";
-import { jwtDecode } from "jwt-decode";
 import { Usermenu } from "@/app/usermenu";
+import {BaseChatButton} from "@/app/basechatbutton";
+import {BaseUserChat} from "@/app/basechat";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +32,9 @@ export default function RootLayout({
           <Providers>
               { children }
               <Usermenu/>
+              <BaseUserChat>
+                    <BaseChatButton/>
+              </BaseUserChat>
           </Providers>
       </CookiesProvider>
       </body>

@@ -28,7 +28,7 @@ export const Usermenu = () => {
     const [isLogin, setIsLogin] = useState(!!cookies.get('token'))
 
     if (!isLogin) return (
-        <>
+        <div>
             <Dialog>
                 <DialogTrigger asChild>
                     <div
@@ -44,7 +44,7 @@ export const Usermenu = () => {
                     </div>
                 </DialogContent>
             </Dialog>
-        </>
+        </div>
     )
 
     const user = jwtDecode<User>(cookies.get('token')!)
@@ -53,7 +53,7 @@ export const Usermenu = () => {
         <Sheet>
             <SheetTrigger asChild>
                 <div
-                    className='cursor-pointer fixed top-4 right-4 bg-orange-400 rounded-full w-10 h-10 flex items-center justify-center'>
+                    className='cursor-pointer fixed top-4 right-4 bg-orange-500 shadow-2xl drop-shadow-2xl border-[#333] rounded-full w-10 h-10 flex items-center justify-center'>
                     <FaUser/>
                 </div>
             </SheetTrigger>
