@@ -26,10 +26,6 @@ export default async function AdminPage() {
     const disabledOrders = orders.filter(order => order.status === 'disabled')
     const now = createDate(new Date())
 
-    console.log(orders)
-    console.log(disabledOrders.length)
-    console.log(activeOrders.length)
-
     const nowOrders = activeOrders.filter(order => {
         const date = order.time_to_take.replace(/\s.*/, "");
         return now === date
@@ -40,8 +36,6 @@ export default async function AdminPage() {
         return now !== date
     })
 
-    console.log(nowOrders.length)
-    console.log(plannedOrders.length)
 
     return (
         <div className='w-screen h-screen flex flex-col items-center mt-12 gap-6'>

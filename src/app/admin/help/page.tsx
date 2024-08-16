@@ -19,7 +19,7 @@ const ChatButton = ({ id }: { id: number }) => {
 
     return (
         <div onClick={() => {
-            setWebsocket(new WebSocket('wss://postavan.com/api/admin/help?id=1'))
+            setWebsocket(new WebSocket(`wss://postavan.com/api/admin/help?id=${id}`))
             setOpen(true)
         }} className='px-6 py-4 bg-[#222] rounded-2xl hover:bg-[#333] cursor-pointer'>
             <h1 className='font-semibold text-xl'>Чат #{id}</h1>
@@ -39,8 +39,6 @@ export default function HelpPage() {
 
             switch (data.type_) {
                 case "init":
-
-
                     setWebsockets(data.websockets)
 
                     break
