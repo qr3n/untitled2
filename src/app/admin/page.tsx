@@ -22,8 +22,19 @@ export default async function AdminPage() {
     const orders = ordersnotsorted.reverse()
 
     const drivers: IDriver[] = await data3.json()
-    const activeOrders = orders.filter(order => order.status === 'active')
-    const disabledOrders = orders.filter(order => order.status === 'disabled')
+    const activeOrders = orders.filter(order =>
+        (order.status === 'active') ||
+        (order.courier_status === 'В пути') ||
+        (order.courier_status === 'На погрузке') ||
+        (order.courier_status === 'Выполняет')
+    )
+    const disabledOrders = orders.filter(order =>
+        (order.status === 'disabled') &&
+        (order.courier_status !== 'В пути') &&
+        (order.courier_status !== 'На погрузке') &&
+        (order.courier_status !== 'Выполняет')
+    )
+    
     const now = createDate(new Date())
 
     const nowOrders = activeOrders.filter(order => {

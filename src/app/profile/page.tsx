@@ -41,9 +41,18 @@ export default async function ProfilePage() {
     const resnotsorted: IOrder[] = await orders.json()
     const res = resnotsorted.reverse()
 
-    const activeOrders = res.filter(order => order.status === 'active')
-    const disabledOrders = res.filter(order => order.status === 'disabled')
-
+    const activeOrders = res.filter(order =>
+        (order.status === 'active') ||
+        (order.courier_status === 'В пути') ||
+        (order.courier_status === 'На погрузке') ||
+        (order.courier_status === 'Выполняет')
+    )
+    const disabledOrders = res.filter(order =>
+        (order.status === 'disabled') &&
+        (order.courier_status !== 'В пути') &&
+        (order.courier_status !== 'На погрузке') &&
+        (order.courier_status !== 'Выполняет')
+    )
     return (
         <div className="w-screen h-screen flex flex-col items-center mt-12">
             <h1 className='text-3xl font-semibold'>Пользователь</h1>

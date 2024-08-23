@@ -59,8 +59,6 @@ export const BaseAdminChat = (props: PropsWithChildren) => {
             websocket.onmessage = (msg) => {
                 const data: IWebsocketMessage = JSON.parse(msg.data)
 
-                console.log(data)
-
                 switch (data.type) {
                     case 'init':
                         setMessages(data.messages)
