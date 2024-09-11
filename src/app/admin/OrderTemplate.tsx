@@ -360,7 +360,7 @@ export const OrdersTemplate = (props: IProps) => {
                             <h1 className='text-xl mt-4 text-[#999]'>Высота</h1>
                             <p className='mt-1 font-medium'>{currentOrder.dimensions.split(' ')[2]}</p>
                             <h1 className='text-xl mt-4 text-[#999]'>Количество</h1>
-                            <p className='mt-1 font-medium'>{!currentOrder.count ? 1 : currentOrder.count}</p>
+                            <p className='mt-1 font-medium'>{currentOrder.count + 1}</p>
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Куда и
                                 откуда</h1>
@@ -411,7 +411,7 @@ export const OrdersTemplate = (props: IProps) => {
                             <h1 className='text-xl mt-4 text-[#999]'>Высота</h1>
                             <p className='mt-1 font-medium'>{currentOrder.dimensions.split(' ')[2]}</p>
                             <h1 className='text-xl mt-4 text-[#999]'>Количество</h1>
-                            <p className='mt-1 font-medium'>{!currentOrder.count ? 1 : currentOrder.count}</p>
+                            <p className='mt-1 font-medium'>{currentOrder.count + 1}</p>
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Куда и
                                 откуда</h1>

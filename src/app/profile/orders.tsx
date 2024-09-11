@@ -132,7 +132,7 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                         <h1 className='text-xl mt-4 text-[#999]'>Высота</h1>
                                         <p className='mt-1 font-medium'>{order.dimensions.split(' ')[2]}</p>
                                         <h1 className='text-xl mt-4 text-[#999]'>Количество</h1>
-                                        <p className='mt-1 font-medium'>{!order.count ? 1 : order.count}</p>
+                                        <p className='mt-1 font-medium'>{order.count + 1}</p>
 
                                         <h1 className='text-2xl text-white font-semibold mt-8'>Куда и
                                             откуда</h1>
@@ -183,7 +183,7 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                     <h1 className='text-xl mt-4 text-[#999]'>Высота</h1>
                                     <p className='mt-1 font-medium'>{order.dimensions.split(' ')[2]}</p>
                                     <h1 className='text-xl mt-4 text-[#999]'>Количество</h1>
-                                    <p className='mt-1 font-medium'>{!order.count ? 1 : order.count}</p>
+                                    <p className='mt-1 font-medium'>{order.count + 1}</p>
 
                                     <h1 className='text-2xl text-white font-semibold mt-8'>Куда и
                                         откуда</h1>
