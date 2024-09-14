@@ -18,7 +18,7 @@ import {useContext} from "react";
 import {IReview, UserChatContext} from "@/app/profile/model";
 import {OpenChatButton} from "@/app/profile/OpenChatButton";
 import {ProfileOrdersTemplate} from "@/app/profile/orders";
-import {IOrder} from "@/app/admin/model";
+import { ICar, IOrder } from "@/app/admin/model";
 
 
 interface User {
@@ -36,7 +36,9 @@ export default async function ProfilePage() {
     const account = jwtDecode<User>(token.value)
     const orders = await fetch(`https://postavan.com/api/orders?token=${token.value}`, { cache: 'no-cache' })
     const rates = await fetch(`https://postavan.com/api/rates?token=${token.value}`, { cache: 'no-cache' })
+    const data = await fetch(`https://postavan.com/api/cars?token=${token.value}`, { cache: 'no-cache' })
 
+    const cars: ICar[] = await data.json()
     const ratesres: IReview[] = await rates.json()
     const resnotsorted: IOrder[] = await orders.json()
     const res = resnotsorted.reverse()
@@ -66,13 +68,13 @@ export default async function ProfilePage() {
                     </TabsList>
                     <TabsContent value="now" className='w-full'>
                         <div className='px-4 sm:px-[15%] md:px-[20%] lg:px-[25%] xl:px-[30%] h-[calc(100dvh-300px)] overflow-y-auto'>
-                            <ProfileOrdersTemplate orders={activeOrders} variant='active'/>
+                            <ProfileOrdersTemplate cars={cars} orders={activeOrders} variant='active'/>
                         </div>
                     </TabsContent>
                     <TabsContent value="completed" className='w-full'>
                         <div
                             className='px-4 sm:px-[15%] md:px-[20%] lg:px-[25%] xl:px-[30%] h-[calc(100dvh-300px)] overflow-y-auto'>
-                            <ProfileOrdersTemplate reviews={ratesres} orders={disabledOrders} variant='disabled'/>
+                            <ProfileOrdersTemplate cars={cars} reviews={ratesres} orders={disabledOrders} variant='disabled'/>
                         </div>
                     </TabsContent>
                 </Tabs>

@@ -1,6 +1,6 @@
 'use client';
 
-import {IOrder} from "@/app/admin/model";
+import { ICar, IOrder } from "@/app/admin/model";
 import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 import Image from "next/image";
 import question from "@/app/profile/q.png";
@@ -25,7 +25,8 @@ import {IReview} from "@/app/profile/model";
 interface IProps {
     orders: IOrder[],
     variant: 'active' | 'disabled',
-    reviews?: IReview[]
+    reviews?: IReview[],
+    cars: ICar[]
 }
 
 const imagesMap = {
@@ -36,7 +37,7 @@ const imagesMap = {
     'Wildberriez': wb
 }
 
-export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
+export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps) => {
     const cookies = useCookies()
     const [stars, setStars] = useState(0)
     const [currentOrderId, setCurrentOrderId] = useState(0)
@@ -146,6 +147,15 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                         <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
                                         <p className='mt-1 font-medium'>{order.time_to_deliver}</p>
 
+                                        <h1 className='text-2xl text-white font-semibold mt-8'>Данные водителя</h1>
+                                        <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
+                                        <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.color || '-'}</p>
+                                        <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>
+                                        <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.model || '-'}</p>
+                                        <h1 className='text-xl mt-4 text-[#999]'>Номер машины</h1>
+                                        <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.number || '-'}</p>
+
+
                                         <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
                                         <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
                                         <p className='mt-1 font-medium'>{order.sender_phone ? `+7${order.sender_phone}` : 'Отсутствует'}</p>
@@ -155,18 +165,18 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                         <p className='mt-1 font-medium'>{order.comment || 'Отсутствует'}</p>
                                     </div>
                                 </div>
-                        ) : (
-                            <div className='w-full pb-4'>
-                                <div className=' text-center w-full items-center'>
-                                    <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
-                                        <Image src={question} alt={''} width={32}
-                                               className='rounded-lg'/>
-                                        {order.name}
-                                    </h1>
-                                    <p className='text-[#999] mt-3'>{order.packing === 'box' ? 'Короб' : 'Палетта'}</p>
-                                </div>
-                                <div
-                                    className='mt-8 px-6 h-[calc(100dvh-164px)] sm:h-[calc(85dvh-164px)] overflow-auto'>
+                            ) : (
+                                <div className='w-full pb-4'>
+                                    <div className=' text-center w-full items-center'>
+                                        <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
+                                            <Image src={question} alt={''} width={32}
+                                                   className='rounded-lg'/>
+                                            {order.name}
+                                        </h1>
+                                        <p className='text-[#999] mt-3'>{order.packing === 'box' ? 'Короб' : 'Палетта'}</p>
+                                    </div>
+                                    <div
+                                        className='mt-8 px-6 h-[calc(100dvh-164px)] sm:h-[calc(85dvh-164px)] overflow-auto'>
                                     <h1 className='text-2xl text-white font-semibold'>Основное</h1>
                                     <h1 className='text-xl text-[#999]  mt-4'>Что доставить</h1>
                                     <p className='mt-1 font-medium'>{order.what_to_deliver}</p>
@@ -196,6 +206,15 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews }: IProps) => {
                                     <p className='mt-1 font-medium'>{order.time_to_take}</p>
                                     <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
                                     <p className='mt-1 font-medium'>{order.time_to_deliver}</p>
+
+                                    <h1 className='text-2xl text-white font-semibold mt-8'>Данные водителя</h1>
+                                    <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
+                                    <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.color || '-'}</p>
+                                    <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>
+                                    <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.model || '-'}</p>
+                                    <h1 className='text-xl mt-4 text-[#999]'>Номер машины</h1>
+                                    <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.number || '-'}</p>
+
 
                                     <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
                                     <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>

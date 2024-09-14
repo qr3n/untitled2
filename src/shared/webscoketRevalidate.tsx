@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from "react";
-import { revalidateTagFrontend } from "@/shared/api";
+import { revalidateTagFrontend } from "@/shared/revalidate";
 
 interface IWebsocketMessage {
     command: 'refresh_orders';

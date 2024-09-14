@@ -5,7 +5,7 @@ import {
     TabsTrigger,
 } from "@/components/ui/tabs"
 import {OrdersTemplate} from "@/app/admin/OrderTemplate";
-import {IOrder} from "@/app/admin/model";
+import { ICar, IOrder } from "@/app/admin/model";
 import {Chat} from "@/app/admin/Chat";
 import {IDriver, IReview} from "@/app/profile/model";
 
@@ -17,11 +17,12 @@ export default async function AdminPage() {
     const data = await fetch('https://postavan.com/api/orders/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['orders'] } })
     const data2 = await fetch('https://postavan.com/api/rates/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['rates'] } })
     const data3 = await fetch('https://postavan.com/api/drivers/all?admin_token=secret', { cache: 'no-cache', next: { tags: ['drivers'] } })
+    const data4 = await fetch(`https://postavan.com/api/cars/all?admin_token=secret`, { cache: 'no-cache' })
+
+    const cars: ICar[] = await data4.json()
     const reviews: IReview[] = await data2.json()
     const ordersnotsorted: IOrder[] = await data.json()
     const orders = ordersnotsorted.reverse()
-
-    console.log(orders)
 
         const drivers: IDriver[] = await data3.json()
     const activeOrders = orders.filter(order =>
@@ -62,15 +63,15 @@ export default async function AdminPage() {
                     </TabsList>
 
                     <TabsContent value='active' className='w-full'>
-                        { nowOrders.length > 0 && <OrdersTemplate drivers={drivers} rates={reviews} orders={nowOrders} variant='active'/> }
+                        { nowOrders.length > 0 && <OrdersTemplate cars={cars} drivers={drivers} rates={reviews} orders={nowOrders} variant='active'/> }
                     </TabsContent>
 
                     <TabsContent value='planned' className='w-full'>
-                        { plannedOrders.length > 0 && <OrdersTemplate drivers={drivers} rates={reviews} orders={plannedOrders} variant='planned'/> }
+                        { plannedOrders.length > 0 && <OrdersTemplate cars={cars} drivers={drivers} rates={reviews} orders={plannedOrders} variant='planned'/> }
                     </TabsContent>
 
                     <TabsContent value='closed' className='w-full'>
-                        { disabledOrders.length > 0 && <OrdersTemplate drivers={drivers} rates={reviews} orders={disabledOrders} variant='disabled'/> }
+                        { disabledOrders.length > 0 && <OrdersTemplate cars={cars} drivers={drivers} rates={reviews} orders={disabledOrders} variant='disabled'/> }
                     </TabsContent>
                 </Tabs>
             </Chat>

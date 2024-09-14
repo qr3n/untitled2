@@ -1,7 +1,7 @@
 'use client';
 
 import {PropsWithChildren, useContext, useEffect, useState} from "react";
-import {ChatContext, IOrder} from './model'
+import { ChatContext, ICar, IOrder } from './model'
 import {Dialog, DialogClose, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 import Image from "next/image";
 import question from "@/app/admin/anything/assets/question.png";
@@ -27,6 +27,7 @@ interface IProps extends PropsWithChildren {
     orders: IOrder[],
     rates: IReview[],
     drivers: IDriver[],
+    cars: ICar[],
     variant: 'active' | 'planned' | 'disabled'
 }
 
@@ -374,6 +375,14 @@ export const OrdersTemplate = (props: IProps) => {
                             <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
                             <p className='mt-1 font-medium'>{currentOrder.time_to_deliver}</p>
 
+                            <h1 className='text-2xl text-white font-semibold mt-8'>Данные водителя</h1>
+                            <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
+                            <p className='mt-1 font-medium'>{props.cars.find(c => c.driver_email === currentOrder.driver_email)?.color || '-'}</p>
+                            <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>
+                            <p className='mt-1 font-medium'>{props.cars.find(c => c.driver_email === currentOrder.driver_email)?.model || '-'}</p>
+                            <h1 className='text-xl mt-4 text-[#999]'>Номер машины</h1>
+                            <p className='mt-1 font-medium'>{props.cars.find(c => c.driver_email === currentOrder.driver_email)?.number || '-'}</p>
+
                             <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
                             <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
                             <p className='mt-1 font-medium'>{currentOrder.sender_phone ? `+7${currentOrder.sender_phone}` : 'Отсутствует'}</p>
@@ -424,6 +433,14 @@ export const OrdersTemplate = (props: IProps) => {
                             <p className='mt-1 font-medium'>{currentOrder.time_to_take}</p>
                             <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
                             <p className='mt-1 font-medium'>{currentOrder.time_to_deliver}</p>
+
+                            <h1 className='text-2xl text-white font-semibold mt-8'>Данные водителя</h1>
+                            <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
+                            <p className='mt-1 font-medium'>{props.cars.find(c => c.driver_email === currentOrder.driver_email)?.color || '-'}</p>
+                            <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>
+                            <p className='mt-1 font-medium'>{props.cars.find(c => c.driver_email === currentOrder.driver_email)?.model || '-'}</p>
+                            <h1 className='text-xl mt-4 text-[#999]'>Номер машины</h1>
+                            <p className='mt-1 font-medium'>{props.cars.find(c => c.driver_email === currentOrder.driver_email)?.number || '-'}</p>
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
                             <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>

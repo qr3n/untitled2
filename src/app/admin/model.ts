@@ -21,6 +21,15 @@ export interface IOrder {
     recipient_phone: string,
     courier_status: string,
     tariff: 'day' | 'night',
+    driver_email: string,
+}
+
+export interface ICar {
+    id: number,
+    color: string,
+    model: string,
+    number: string,
+    driver_email: string
 }
 
 interface IChatContext {
