@@ -32,8 +32,11 @@ export const Usermenu = () => {
             <Dialog>
                 <DialogTrigger asChild>
                     <div
-                        className='cursor-pointer fixed top-4 right-4 gap-3 rounded-full flex items-center justify-center'>
-                        <Button className='bg-white text-black rounded-full font-bold'>Войти</Button>
+                        className='cursor-pointer sm:p-4 sm:backdrop-blur fixed top-4 right-4 gap-3 rounded-full flex items-center justify-center' style={{
+                            background: 'rgba(30, 30, 30, .7)'
+                    }}>
+                        <Button className='bg-[#2174FFFF] hover:bg-[#0099ff] rounded-full font-bold'>Войти</Button>
+                        <Button className='bg-white hover:bg-[#eee] text-black rounded-full font-bold hidden sm:block'>Зарегестироваться</Button>
                     </div>
                 </DialogTrigger>
 

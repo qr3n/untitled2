@@ -48,20 +48,22 @@ export const CreateOrderStep4 = () => {
         <CreateOrderStepTemplate title='Что доставить?' description='Не забудьте описать детали заказа в разделе "Пожелания"'>
             <div className='w-screen p-12 sm:w-full flex items-center justify-center'>
                 <div className='flex flex-col gap-6 max-h-[calc(100dvh-400px)] overflow-y-auto w-full sm:px-32'>
+                    <Variant text='Посылку' setter={setWhatToDeliver}/>
                     <Variant text='Документы' setter={setWhatToDeliver}/>
                     <Variant text='Личные вещи' setter={setWhatToDeliver}/>
                     <Variant text='Запчасти' setter={setWhatToDeliver}/>
-                    <Variant text='Одежда' setter={setWhatToDeliver}/>
-                    <Variant text='Продукты' setter={setWhatToDeliver}/>
+                    <Variant text='Электронику' setter={setWhatToDeliver}/>
+                    <Variant text='Бытовую технику' setter={setWhatToDeliver}/>
+                    <Variant text='Товары из магазина' setter={setWhatToDeliver}/>
+                    <Variant text='Одежду' setter={setWhatToDeliver}/>
                     <Variant text='Лекарства' setter={setWhatToDeliver}/>
                     <Variant text='Мебель' setter={setWhatToDeliver}/>
-                    <Variant text='Негабарит' setter={setWhatToDeliver}/>
-                    <Variant text='Цветы' setter={setWhatToDeliver}/>
+                    <Variant text='Стройматериалы' setter={setWhatToDeliver}/>
+                    <Variant text='Цветы/Букеты' setter={setWhatToDeliver}/>
                     <Variant text='Шары' setter={setWhatToDeliver}/>
-                    <Variant text='Печатная пр.' setter={setWhatToDeliver}/>
-                    <Variant text='Торт' setter={setWhatToDeliver}/>
-                    <Variant text='Трамитадоры' setter={setWhatToDeliver}/>
-                    <Variant text='Аэропорт, Ж/Д' setter={setWhatToDeliver}/>
+                    <Variant text='Продукты' setter={setWhatToDeliver}/>
+                    <Variant text='Еду из ресторана' setter={setWhatToDeliver}/>
+                    <Variant text='Ценную вещь' setter={setWhatToDeliver}/>
                 </div>
             </div>
         </CreateOrderStepTemplate>

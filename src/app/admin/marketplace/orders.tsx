@@ -6,7 +6,7 @@ import {IMarketplaceOrder} from "./model";
 import ali from './assets/ali.png'
 import lamoda from './assets/lamoda.png'
 import ozon from './assets/ozon.png'
-import wb from './assets/wb.png'
+import wb from './assets/wb.webp'
 import yandex from './assets/yandex.png'
 import {useState} from "react";
 import box from './assets/box.png'
@@ -17,7 +17,7 @@ const imagesMap = {
     'Ozon': ozon,
     'AliExpress': ali,
     'Lamoda': lamoda,
-    'Wildberriez': wb
+    'Wildberries': wb
 }
 
 export const Orders = ({ orders }: { orders: IMarketplaceOrder[] }) => {

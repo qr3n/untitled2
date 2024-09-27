@@ -11,7 +11,7 @@ import yandex from "@/app/admin/marketplace/assets/yandex.png";
 import ozon from "@/app/admin/marketplace/assets/ozon.png";
 import ali from "@/app/admin/marketplace/assets/ali.png";
 import lamoda from "@/app/admin/marketplace/assets/lamoda.png";
-import wb from "@/app/admin/marketplace/assets/wb.png";
+import wb from "@/app/admin/marketplace/assets/wb.webp";
 import {BsChat, BsStar} from "react-icons/bs";
 import {ChangeEvent, useCallback, useState} from "react";
 import {Button} from "@/components/ui/button";
@@ -34,7 +34,7 @@ const imagesMap = {
     'Ozon': ozon,
     'AliExpress': ali,
     'Lamoda': lamoda,
-    'Wildberriez': wb
+    'Wildberries': wb
 }
 
 export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps) => {
@@ -70,18 +70,26 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps
                                     <DialogTrigger asChild>
                                         <div className='absolute top-0 left-0 rounded-2xl w-full h-full z-10'/>
                                     </DialogTrigger>
-                                    <Image
-                                        src={order.cargo === 'anything' ? question : imagesMap[order.warehouse]}
-                                        alt={''} width={38} className='rounded-lg'/>
-                                    <div>
-                                        <h1 className='font-semibold'>{order.name}</h1>
-                                        <p className='text-[#999] text-sm mt-1'>{order.cost}</p>
+                                    <div className='flex items-center gap-4'>
+                                        <Image
+                                            src={order.cargo === 'anything' ? question : imagesMap[order.warehouse]}
+                                            alt={''} width={46} className='rounded-2xl'/>
+                                        <div>
+                                            <h1 className='font-semibold'>
+                                                {order.time_to_take}
+                                            </h1>
+                                            <p className='p-3 bg-[#333] border border-[#555] w-full max-w-[400px] rounded-xl text-[#ddd] font-medium text-sm mt-1 '>
+                                                {order.addr_from.replace('г Москва,', '')}
+                                                <span
+                                                    className='font-normal text-[#aaa]'> до</span> {order.addr_to.replace('г Москва,', '')}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div className='flex items-center gap-3'>
                                     <div className='bg-[#333] py-2 px-4 rounded-2xl text-[#ddd]'>
-                                        { order.courier_status || 'Поиск курьера' }
+                                        {order.courier_status || 'Поиск курьера'}
                                     </div>
 
                                     <div className='flex gap-4 h-max w-max'>
@@ -147,7 +155,7 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps
                                         <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
                                         <p className='mt-1 font-medium'>{order.time_to_deliver}</p>
 
-                                        <h1 className='text-2xl text-white font-semibold mt-8'>Данные водителя</h1>
+                                        <h1 className='text-2xl text-white font-semibold mt-8'>Данные курьера</h1>
                                         <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
                                         <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.color || '-'}</p>
                                         <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>
@@ -207,7 +215,7 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps
                                     <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
                                     <p className='mt-1 font-medium'>{order.time_to_deliver}</p>
 
-                                    <h1 className='text-2xl text-white font-semibold mt-8'>Данные водителя</h1>
+                                    <h1 className='text-2xl text-white font-semibold mt-8'>Данные курьера</h1>
                                     <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
                                     <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.color || '-'}</p>
                                     <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>

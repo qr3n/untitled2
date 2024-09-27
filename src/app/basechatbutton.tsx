@@ -11,8 +11,8 @@ export const BaseChatButton = () => {
         <button onClick={() => {
             setWebsocket(new WebSocket('wss://postavan.com/api/user/help'))
             setOpen(true)
-        }} className='fixed bottom-7 right-7 bg-white shadow-2xl drop-shadow-2xl p-4 rounded-full border-white'>
-            <IoChatboxEllipses className='text-black w-7 h-7'/>
+        }} className='bg-[#2174FFFF] hover:bg-[#4174FFFF] fixed bottom-7 right-7 bg-white shadow-2xl drop-shadow-2xl p-4 rounded-full border-white'>
+            <IoChatboxEllipses className='text-white w-7 h-7'/>
         </button>
     )
 }

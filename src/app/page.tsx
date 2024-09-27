@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
 import logo from './logo.png'
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -35,8 +36,8 @@ export default function Home() {
                       xl:text-[80px]
                       font-bold
                       bg-gradient-to-r
-                      from-[#FF0000]
-                      to-[#FFA63E]
+                      from-[#2174FFFF]
+                      to-[#00ffbb]
                       inline-block
                       text-transparent
                       bg-clip-text
@@ -46,7 +47,7 @@ export default function Home() {
                   </h1>
               </div>
               <Link href='/order'>
-                  <button
+                  <Button
                       className='
                   mt-10
                   flex
@@ -56,22 +57,23 @@ export default function Home() {
                   -rotate-[7deg]
                   w-max
                   px-8
-                  py-3.5
+                  py-9
                   bg-white
                   text-[18px]
                   md:text-[22px]
                   xl:text-[24px]
                   font-bold
-                  text-black
                   rounded-full
                   hover:-rotate-[5deg]
                   hover:scale-105
                   transition-all
+                  bg-[#2174FFFF]
+                  text-white
                   '
                   >
                       СДЕЛАТЬ ЗАКАЗ
-                      <FaArrowRight className='w-6 h-6 text-black'/>
-                  </button>
+                      <FaArrowRight className='w-6 h-6 text-white'/>
+                  </Button>
               </Link>
           </div>
       </>

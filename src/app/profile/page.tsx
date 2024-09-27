@@ -8,7 +8,7 @@ import yandex from "@/app/admin/marketplace/assets/yandex.png";
 import ozon from "@/app/admin/marketplace/assets/ozon.png";
 import ali from "@/app/admin/marketplace/assets/ali.png";
 import lamoda from "@/app/admin/marketplace/assets/lamoda.png";
-import wb from "@/app/admin/marketplace/assets/wb.png";
+import wb from "@/app/admin/marketplace/assets/wb.webp";
 import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 import box from "@/app/admin/marketplace/assets/box.png";
 import palette from "@/app/admin/marketplace/assets/palette.png";

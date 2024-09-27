@@ -9,7 +9,7 @@ import yandex from "@/app/admin/marketplace/assets/yandex.png";
 import ozon from "@/app/admin/marketplace/assets/ozon.png";
 import ali from "@/app/admin/marketplace/assets/ali.png";
 import lamoda from "@/app/admin/marketplace/assets/lamoda.png";
-import wb from "@/app/admin/marketplace/assets/wb.png";
+import wb from "@/app/admin/marketplace/assets/wb.webp";
 import {BsChat, BsDownload, BsInfo, BsStar} from "react-icons/bs";
 import box from "@/app/admin/marketplace/assets/box.png";
 import palette from "@/app/admin/marketplace/assets/palette.png";
@@ -36,7 +36,7 @@ const imagesMap = {
     'Ozon': ozon,
     'AliExpress': ali,
     'Lamoda': lamoda,
-    'Wildberriez': wb
+    'Wildberries': wb
 }
 
 export const OrdersTemplate = (props: IProps) => {
@@ -117,15 +117,21 @@ export const OrdersTemplate = (props: IProps) => {
                             <div className='flex items-center gap-4'>
                             <Image
                                     src={order.cargo === 'anything' ? question : imagesMap[order.warehouse]}
-                                    alt={''} width={38} className='rounded-lg'/>
+                                    alt={''} width={46} className='rounded-2xl'/>
                                 <div>
-                                    <h1 className='font-semibold'>{order.name}</h1>
-                                    <p className='text-[#999] text-sm mt-1'>{order.email}</p>
+                                    <h1 className='font-semibold'>
+                                        {order.time_to_take}
+                                    </h1>
+                                    <p className='p-3 bg-[#333] border border-[#555] w-full max-w-[400px] rounded-xl text-[#ddd] font-medium text-sm mt-1 '>
+                                        {order.addr_from.replace('г Москва,', '')}
+                                        <span
+                                            className='font-normal text-[#aaa]'> до</span> {order.addr_to.replace('г Москва,', '')}
+                                    </p>
                                 </div>
                             </div>
                             <div className='flex w-full sm:w-max items-center gap-3 justify-end z-20'>
                                 <div className='flex flex-col sm:flex-row gap-3 w-full'>
-                                    <button
+                                    <Button
                                         onClick={() => {
                                             setIsLoading(true)
 
@@ -134,7 +140,7 @@ export const OrdersTemplate = (props: IProps) => {
                                                 order_id: order.id
                                             })
                                         }}
-                                        className='w-full sm:min-w-max flex items-center justify-center bg-[#333] px-4 py-2 rounded-full text-sm hover:bg-[#555]'
+                                        className='w-full sm:min-w-max flex items-center justify-center px-4 py-2 rounded-full text-sm'
                                         style={{
                                             color: isLoading || isPending ? '#999' : 'white',
                                         }}>
@@ -143,7 +149,7 @@ export const OrdersTemplate = (props: IProps) => {
                                         {props.variant === 'active' && !(isLoading || isPending) && 'Закрыть'}
                                         {props.variant === 'planned' && !(isLoading || isPending) && 'Закрыть'}
                                         {props.variant === 'disabled' && !(isLoading || isPending) && 'Открыть снова'}
-                                    </button>
+                                    </Button>
                                     <Select disabled={isCourierStatusPending} defaultValue={order.courier_status || 'Поиск курьера'} onValueChange={v => changeCourierStatus({
                                         order_id: order.id,
                                         status: v
@@ -375,7 +381,7 @@ export const OrdersTemplate = (props: IProps) => {
                             <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
                             <p className='mt-1 font-medium'>{currentOrder.time_to_deliver}</p>
 
-                            <h1 className='text-2xl text-white font-semibold mt-8'>Данные водителя</h1>
+                            <h1 className='text-2xl text-white font-semibold mt-8'>Данные курьера</h1>
                             <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
                             <p className='mt-1 font-medium'>{props.cars.find(c => c.driver_email === currentOrder.driver_email)?.color || '-'}</p>
                             <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>
@@ -434,7 +440,7 @@ export const OrdersTemplate = (props: IProps) => {
                             <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
                             <p className='mt-1 font-medium'>{currentOrder.time_to_deliver}</p>
 
-                            <h1 className='text-2xl text-white font-semibold mt-8'>Данные водителя</h1>
+                            <h1 className='text-2xl text-white font-semibold mt-8'>Данные курьера</h1>
                             <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
                             <p className='mt-1 font-medium'>{props.cars.find(c => c.driver_email === currentOrder.driver_email)?.color || '-'}</p>
                             <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>

@@ -5,8 +5,17 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { DialogProps } from "@radix-ui/react-dialog";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-const Dialog = DialogPrimitive.Root
+const Dialog = (props: DialogProps) => {
+    return (
+        <DialogPrimitive.Root {...props}>
+            { props.children }
+        </DialogPrimitive.Root>
+    )
+}
 
 const DialogTrigger = DialogPrimitive.Trigger
 

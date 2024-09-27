@@ -3,7 +3,7 @@ export interface IAnythingOrder {
     email: string
     name: string,
     cargo: string,
-    warehouse: 'Яндекс маркет' | 'Ozon' | 'AliExpress' | 'Lamoda' | 'Wildberriez',
+    warehouse: 'Яндекс маркет' | 'Ozon' | 'AliExpress' | 'Lamoda' | 'Wildberries',
     what_to_deliver: string,
     packing: 'box' | 'palette',
     dimensions: string,
