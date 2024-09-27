@@ -19,8 +19,9 @@ import ReactStars from 'react-stars'
 import {useMutation} from "@tanstack/react-query";
 import axios from "axios";
 import {useCookies} from "next-client-cookies";
-import {Loader2} from "lucide-react";
+import { EditIcon, Loader2 } from "lucide-react";
 import {IReview} from "@/app/profile/model";
+import { CiEdit } from "react-icons/ci";
 
 interface IProps {
     orders: IOrder[],
@@ -52,8 +53,6 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps
         mutationKey: ['rating']
     })
 
-
-    console.log(reviews)
     const handleOnChange = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
         setTextReview(event.target.value)
     },[])
@@ -65,7 +64,7 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps
                     <Dialog key={index}>
                         <>
                             <div
-                                className='mt-4 relative w-full flex justify-between items-center bg-[#151515] p-4 rounded-2xl cursor-pointer hover:bg-[#202020] select-none'>
+                                className='mt-4 gap-4 relative w-full flex justify-between items-center bg-[#151515] p-4 rounded-2xl cursor-pointer hover:bg-[#202020] select-none flex-col sm:flex-row'>
                                 <div className='flex items-center gap-4'>
                                     <DialogTrigger asChild>
                                         <div className='absolute top-0 left-0 rounded-2xl w-full h-full z-10'/>
@@ -88,9 +87,22 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps
                                 </div>
 
                                 <div className='flex items-center gap-3'>
-                                    <div className='bg-[#333] py-2 px-4 rounded-2xl text-[#ddd]'>
+                                    <div className='py-2 px-4 rounded-2xl font-medium bg-[#2174FFFF] text-white'>
                                         {order.courier_status || 'Поиск курьера'}
                                     </div>
+
+                                    <Dialog>
+                                        <DialogTrigger>
+                                            {(!order.courier_status || order.courier_status === 'Поиск курьера' || order.courier_status === 'Курьер назначен') &&
+                                                <div className='z-20 p-2 rounded-md bg-[#444] hover:bg-[#555]'>
+                                                    <CiEdit/>
+                                                </div>}
+                                        </DialogTrigger>
+
+                                        <DialogContent>
+
+                                        </DialogContent>
+                                    </Dialog>
 
                                     <div className='flex gap-4 h-max w-max'>
                                         <OpenChatButton orderId={order.id}/>

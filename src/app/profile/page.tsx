@@ -67,13 +67,13 @@ export default async function ProfilePage() {
                         <TabsTrigger value="completed">Завершены</TabsTrigger>
                     </TabsList>
                     <TabsContent value="now" className='w-full'>
-                        <div className='px-4 sm:px-[15%] md:px-[20%] lg:px-[25%] xl:px-[30%] h-[calc(100dvh-300px)] overflow-y-auto'>
+                        <div className='px-4 sm:px-[10%] md:px-[15%] lg:px-[20%] xl:px-[25%] h-[calc(100dvh-300px)] overflow-y-auto'>
                             <ProfileOrdersTemplate cars={cars} orders={activeOrders} variant='active'/>
                         </div>
                     </TabsContent>
                     <TabsContent value="completed" className='w-full'>
                         <div
-                            className='px-4 sm:px-[15%] md:px-[20%] lg:px-[25%] xl:px-[30%] h-[calc(100dvh-300px)] overflow-y-auto'>
+                            className='px-4 sm:px-[10%] md:px-[15%] lg:px-[20%] xl:px-[25%] h-[calc(100dvh-300px)] overflow-y-auto'>
                             <ProfileOrdersTemplate cars={cars} reviews={ratesres} orders={disabledOrders} variant='disabled'/>
                         </div>
                     </TabsContent>
