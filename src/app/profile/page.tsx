@@ -34,7 +34,7 @@ export default async function ProfilePage() {
     }
 
     const account = jwtDecode<User>(token.value)
-    const orders = await fetch(`https://postavan.com/api/orders?token=${token.value}`, { cache: 'no-cache' })
+    const orders = await fetch(`https://postavan.com/api/orders?token=${token.value}`, { next: { tags: ['orders'] },  cache: 'no-cache' })
     const rates = await fetch(`https://postavan.com/api/rates?token=${token.value}`, { cache: 'no-cache' })
     const data = await fetch(`https://postavan.com/api/cars?token=${token.value}`, { cache: 'no-cache' })
 

@@ -12,7 +12,10 @@ export const CreateOrderCostOrderStep = () => {
     const { addrFrom, addrTo, tariff } = useContext(Context)
 
     useEffect(() => {
-        if (addrFrom.length > 0 && addrTo.length > 0) {
+        console.log(addrFrom)
+        console.log(addrTo)
+
+        if (addrFrom.length > 0 && addrTo.length > 0 && addrFrom[0] !== '' && addrTo[0] !== '') {
             axios.post(`https://postavan.com/api/cost`, {
                 address_from: addrFrom,
                 address_to: addrTo,

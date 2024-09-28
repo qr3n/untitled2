@@ -39,11 +39,20 @@ const Variant = (props: IProps) => {
 
 export const CreateOrderStep4 = () => {
     const { setWhatToDeliver, whatToDeliver } = useContext(Context)
-    
+    const [other, setOther] = useState(false)
+    const [input, setInput] = useState('')
+
     useEffect(() => {
-        console.log(whatToDeliver)
-    }, [whatToDeliver])
-    
+        if (other) {
+            setWhatToDeliver(prev => [...prev, input])
+        }
+
+        else {
+            setWhatToDeliver(prev => prev.filter(v => v != input))
+        }
+    }, [other]);
+
+
     return (
         <CreateOrderStepTemplate title='Что доставить?' description='Не забудьте описать детали заказа в разделе "Пожелания"'>
             <div className='w-screen p-12 sm:w-full flex items-center justify-center'>
@@ -64,6 +73,22 @@ export const CreateOrderStep4 = () => {
                     <Variant text='Продукты' setter={setWhatToDeliver}/>
                     <Variant text='Еду из ресторана' setter={setWhatToDeliver}/>
                     <Variant text='Ценную вещь' setter={setWhatToDeliver}/>
+
+
+                    <div className='flex gap-5 cursor-pointer items-center' >
+                        {other ? <Image onClick={() => {
+                                setOther(!other)
+                            }} src={check} alt={'check'} className='w-6 h-6'/> :
+                            <div className='border-2 rounded-md border-[#858585] w-6 h-6' onClick={() => {
+                                setOther(!other)
+                            }}/>}
+                        <input
+                            value={input}
+                            onChange={e => setInput(e.target.value)}
+                            className='w-full bg-[#2A2A2A] border-2 border-transparent mt-2 p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
+                            placeholder='Другое'
+                        />
+                    </div>
                 </div>
             </div>
         </CreateOrderStepTemplate>

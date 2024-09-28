@@ -22,6 +22,8 @@ import {useCookies} from "next-client-cookies";
 import { EditIcon, Loader2 } from "lucide-react";
 import {IReview} from "@/app/profile/model";
 import { CiEdit } from "react-icons/ci";
+import { EditOrderModal } from "@/features/order/edit/ui/EditOrderModal";
+import { EditOrder } from "@/features/order/edit/ui/EditOrder";
 
 interface IProps {
     orders: IOrder[],
@@ -58,7 +60,7 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps
     },[])
 
     return (
-        <>
+        <EditOrderModal>
             {
                 orders.map((order, index) => (
                     <Dialog key={index}>
@@ -87,22 +89,11 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps
                                 </div>
 
                                 <div className='flex items-center gap-3'>
-                                    <div className='py-2 px-4 rounded-2xl font-medium bg-[#2174FFFF] text-white'>
+                                    <div className='py-2 px-4 rounded-full font-medium text-sm bg-[#2174FFFF] text-white'>
                                         {order.courier_status || 'Поиск курьера'}
                                     </div>
 
-                                    <Dialog>
-                                        <DialogTrigger>
-                                            {(!order.courier_status || order.courier_status === 'Поиск курьера' || order.courier_status === 'Курьер назначен') &&
-                                                <div className='z-20 p-2 rounded-md bg-[#444] hover:bg-[#555]'>
-                                                    <CiEdit/>
-                                                </div>}
-                                        </DialogTrigger>
-
-                                        <DialogContent>
-
-                                        </DialogContent>
-                                    </Dialog>
+                                    <EditOrder order={order}/>
 
                                     <div className='flex gap-4 h-max w-max'>
                                         <OpenChatButton orderId={order.id}/>
@@ -283,6 +274,6 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps
                     </div>
                 </DialogContent>
             </Dialog>}
-        </>
+        </EditOrderModal>
     )
 }

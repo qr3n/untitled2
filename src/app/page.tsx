@@ -3,7 +3,6 @@ import bgMobile from './bg-mobile.png'
 import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
-import logo from './logo.png'
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
@@ -56,8 +55,10 @@ export default function Home() {
                   gap-3
                   -rotate-[7deg]
                   w-max
-                  px-8
-                  py-9
+                  px-6
+                  py-7
+                  md:px-8
+                  md:py-9
                   bg-white
                   text-[18px]
                   md:text-[22px]

@@ -24,8 +24,6 @@ import {CreateOrderGabaritsStep} from "@/features/order/create/ui/steps/CreateOr
 import {Loader2} from "lucide-react";
 import {CreateOrderCostOrderStep} from "@/features/order/create/ui/steps/CostOrderStep";
 import {CreateOrderPhoneStep} from "@/features/order/create/ui/steps/CreateOrderPhoneStep";
-import {EmblaCarouselType} from "embla-carousel";
-import {IContext} from "ts-interface-checker/dist/util";
 
 interface IResponse {
     success: boolean,
@@ -381,6 +379,7 @@ export const CreateOrder = () => {
                 <Buttons isLoading={loading} api={api} email={email} handleNext={handleNext} emailStep={emailStep} customDisabled={
                     cargo === 'marketplace' && (currentStep === 8 && (!senderPhone || !recipientPhone))
                     || cargo === 'anything' && (currentStep === 7 && (!senderPhone || !recipientPhone))
+                    || cargo === 'anything' && (currentStep === 2 && (whatToDeliver.length === 0))
                 }/>
             </div>
 
