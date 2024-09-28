@@ -18,7 +18,7 @@ import {useContext} from "react";
 import {IReview, UserChatContext} from "@/app/profile/model";
 import {OpenChatButton} from "@/app/profile/OpenChatButton";
 import {ProfileOrdersTemplate} from "@/app/profile/orders";
-import { ICar, IOrder } from "@/app/admin/model";
+import { ICar, IDriver, IOrder } from "@/app/admin/model";
 
 
 interface User {
@@ -37,11 +37,13 @@ export default async function ProfilePage() {
     const orders = await fetch(`https://postavan.com/api/orders?token=${token.value}`, { next: { tags: ['orders'] },  cache: 'no-cache' })
     const rates = await fetch(`https://postavan.com/api/rates?token=${token.value}`, { cache: 'no-cache' })
     const data = await fetch(`https://postavan.com/api/cars?token=${token.value}`, { cache: 'no-cache' })
+    const data2 = await fetch(`https://postavan.com/api/drivers/all?token=${token.value}`, { cache: 'no-cache' })
 
     const cars: ICar[] = await data.json()
     const ratesres: IReview[] = await rates.json()
     const resnotsorted: IOrder[] = await orders.json()
     const res = resnotsorted.reverse()
+    const drivers: IDriver[] = await data2.json()
 
     const activeOrders = res.filter(order =>
         (order.status === 'active') ||
@@ -68,13 +70,13 @@ export default async function ProfilePage() {
                     </TabsList>
                     <TabsContent value="now" className='w-full'>
                         <div className='px-4 sm:px-[10%] md:px-[15%] lg:px-[20%] xl:px-[25%] h-[calc(100dvh-300px)] overflow-y-auto'>
-                            <ProfileOrdersTemplate cars={cars} orders={activeOrders} variant='active'/>
+                            <ProfileOrdersTemplate cars={cars} orders={activeOrders} variant='active' drivers={drivers}/>
                         </div>
                     </TabsContent>
                     <TabsContent value="completed" className='w-full'>
                         <div
                             className='px-4 sm:px-[10%] md:px-[15%] lg:px-[20%] xl:px-[25%] h-[calc(100dvh-300px)] overflow-y-auto'>
-                            <ProfileOrdersTemplate cars={cars} reviews={ratesres} orders={disabledOrders} variant='disabled'/>
+                            <ProfileOrdersTemplate cars={cars} reviews={ratesres} orders={disabledOrders} drivers={drivers} variant='disabled'/>
                         </div>
                     </TabsContent>
                 </Tabs>

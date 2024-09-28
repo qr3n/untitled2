@@ -1,6 +1,6 @@
 'use client';
 
-import { ICar, IOrder } from "@/app/admin/model";
+import { ICar, IDriver, IOrder } from "@/app/admin/model";
 import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 import Image from "next/image";
 import question from "@/app/profile/q.png";
@@ -29,7 +29,8 @@ interface IProps {
     orders: IOrder[],
     variant: 'active' | 'disabled',
     reviews?: IReview[],
-    cars: ICar[]
+    cars: ICar[],
+    drivers: IDriver[]
 }
 
 const imagesMap = {
@@ -40,7 +41,7 @@ const imagesMap = {
     'Wildberries': wb
 }
 
-export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps) => {
+export const ProfileOrdersTemplate = ({ drivers, orders, variant, reviews, cars }: IProps) => {
     const cookies = useCookies()
     const [stars, setStars] = useState(0)
     const [currentOrderId, setCurrentOrderId] = useState(0)
@@ -159,6 +160,11 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps
                                         <p className='mt-1 font-medium'>{order.time_to_deliver}</p>
 
                                         <h1 className='text-2xl text-white font-semibold mt-8'>Данные курьера</h1>
+                                        <h1 className='text-xl text-[#999] mt-4'>Имя</h1>
+                                        <p className='mt-1 font-medium'>{drivers.find(c => c.driver_email === order.driver_email)?.name || '-'}</p>
+                                        <h1 className='text-xl text-[#999] mt-4'>Фамилия</h1>
+                                        <p className='mt-1 font-medium'>{drivers.find(c => c.driver_email === order.driver_email)?.surname || '-'}</p>
+
                                         <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
                                         <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.color || '-'}</p>
                                         <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>
@@ -179,7 +185,7 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps
                             ) : (
                                 <div className='w-full pb-4'>
                                     <div className=' text-center w-full items-center'>
-                                        <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
+                                    <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
                                             <Image src={question} alt={''} width={32}
                                                    className='rounded-lg'/>
                                             {order.name}
@@ -188,54 +194,60 @@ export const ProfileOrdersTemplate = ({ orders, variant, reviews, cars }: IProps
                                     </div>
                                     <div
                                         className='mt-8 px-6 h-[calc(100dvh-164px)] sm:h-[calc(85dvh-164px)] overflow-auto'>
-                                    <h1 className='text-2xl text-white font-semibold'>Основное</h1>
-                                    <h1 className='text-xl text-[#999]  mt-4'>Что доставить</h1>
-                                    <p className='mt-1 font-medium'>{order.what_to_deliver}</p>
-                                    <h1 className='text-xl text-[#999]  mt-4'>Цена</h1>
-                                    <p className='mt-1 font-medium'>{Math.round(order.cost / 1000 * 42) + (order.tariff === 'day' ? 800 : 1000)} руб</p>
-                                    <p className='-mt-1 text-sm text-[#aaa]'>~{(order.cost / 1000).toFixed(1).toString().replace('.', ',')}</p>
-                                    <p className='mt-1 text-sm text-[#aaa]'>{order.tariff === 'day' ? 'Дневной' : 'Ночной'} тариф</p>
+                                        <h1 className='text-2xl text-white font-semibold'>Основное</h1>
+                                        <h1 className='text-xl text-[#999]  mt-4'>Что доставить</h1>
+                                        <p className='mt-1 font-medium'>{order.what_to_deliver}</p>
+                                        <h1 className='text-xl text-[#999]  mt-4'>Цена</h1>
+                                        <p className='mt-1 font-medium'>{Math.round(order.cost / 1000 * 42) + (order.tariff === 'day' ? 800 : 1000)} руб</p>
+                                        <p className='-mt-1 text-sm text-[#aaa]'>~{(order.cost / 1000).toFixed(1).toString().replace('.', ',')}</p>
+                                        <p className='mt-1 text-sm text-[#aaa]'>{order.tariff === 'day' ? 'Дневной' : 'Ночной'} тариф</p>
 
-                                    <h1 className='text-2xl text-white font-semibold mt-8'>Размеры</h1>
-                                    <h1 className='text-xl text-[#999] mt-4'>Длина</h1>
-                                    <p className='mt-1 font-medium'>{order.dimensions.split(' ')[0]}</p>
-                                    <h1 className='text-xl mt-4 text-[#999]'>Ширина</h1>
-                                    <p className='mt-1 font-medium'>{order.dimensions.split(' ')[1]}</p>
-                                    <h1 className='text-xl mt-4 text-[#999]'>Высота</h1>
-                                    <p className='mt-1 font-medium'>{order.dimensions.split(' ')[2]}</p>
-                                    <h1 className='text-xl mt-4 text-[#999]'>Количество</h1>
-                                    <p className='mt-1 font-medium'>{order.count + 1}</p>
+                                        <h1 className='text-2xl text-white font-semibold mt-8'>Размеры</h1>
+                                        <h1 className='text-xl text-[#999] mt-4'>Длина</h1>
+                                        <p className='mt-1 font-medium'>{order.dimensions.split(' ')[0]}</p>
+                                        <h1 className='text-xl mt-4 text-[#999]'>Ширина</h1>
+                                        <p className='mt-1 font-medium'>{order.dimensions.split(' ')[1]}</p>
+                                        <h1 className='text-xl mt-4 text-[#999]'>Высота</h1>
+                                        <p className='mt-1 font-medium'>{order.dimensions.split(' ')[2]}</p>
+                                        <h1 className='text-xl mt-4 text-[#999]'>Количество</h1>
+                                        <p className='mt-1 font-medium'>{order.count + 1}</p>
 
-                                    <h1 className='text-2xl text-white font-semibold mt-8'>Куда и
-                                        откуда</h1>
-                                    <h1 className='text-xl text-[#999] mt-4'>Откуда забрать</h1>
-                                    <p className='mt-1 font-medium'>{order.addr_from}</p>
-                                    <h1 className='text-xl mt-4 text-[#999]'>Куда доставить</h1>
-                                    <p className='mt-1 font-medium'>{order.addr_to}</p>
+                                        <h1 className='text-2xl text-white font-semibold mt-8'>Куда и
+                                            откуда</h1>
+                                        <h1 className='text-xl text-[#999] mt-4'>Откуда забрать</h1>
+                                        <p className='mt-1 font-medium'>{order.addr_from}</p>
+                                        <h1 className='text-xl mt-4 text-[#999]'>Куда доставить</h1>
+                                        <p className='mt-1 font-medium'>{order.addr_to}</p>
 
-                                    <h1 className='text-xl text-[#999] mt-4'>Когда забрать</h1>
-                                    <p className='mt-1 font-medium'>{order.time_to_take}</p>
-                                    <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
-                                    <p className='mt-1 font-medium'>{order.time_to_deliver}</p>
+                                        <h1 className='text-xl text-[#999] mt-4'>Когда забрать</h1>
+                                        <p className='mt-1 font-medium'>{order.time_to_take}</p>
+                                        <h1 className='text-xl text-[#999] mt-4'>Когда доставить</h1>
+                                        <p className='mt-1 font-medium'>{order.time_to_deliver}</p>
 
-                                    <h1 className='text-2xl text-white font-semibold mt-8'>Данные курьера</h1>
-                                    <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
-                                    <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.color || '-'}</p>
-                                    <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>
-                                    <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.model || '-'}</p>
-                                    <h1 className='text-xl mt-4 text-[#999]'>Номер машины</h1>
-                                    <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.number || '-'}</p>
+                                        <h1 className='text-2xl text-white font-semibold mt-8'>Данные курьера</h1>
+                                        <h1 className='text-xl text-[#999] mt-4'>Имя</h1>
+                                        <p className='mt-1 font-medium'>{drivers.find(c => c.driver_email === order.driver_email)?.name || '-'}</p>
+                                        <h1 className='text-xl text-[#999] mt-4'>Фамилия</h1>
+                                        <p className='mt-1 font-medium'>{drivers.find(c => c.driver_email === order.driver_email)?.surname || '-'}</p>
 
 
-                                    <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
-                                    <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
-                                    <p className='mt-1 font-medium'>{order.sender_phone ? `+7${order.sender_phone}` : 'Отсутствует'}</p>
-                                    <h1 className='text-xl text-[#999] mt-4'>Телефон получателя</h1>
-                                    <p className='mt-1 font-medium'>{order.recipient_phone ? `+7${order.recipient_phone}` : 'Отсутствует'}</p>
-                                    <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
-                                    <p className='mt-1 font-medium'>{order.comment || 'Отсутствует'}</p>
+                                        <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
+                                        <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.color || '-'}</p>
+                                        <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>
+                                        <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.model || '-'}</p>
+                                        <h1 className='text-xl mt-4 text-[#999]'>Номер машины</h1>
+                                        <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.number || '-'}</p>
+
+
+                                        <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
+                                        <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
+                                        <p className='mt-1 font-medium'>{order.sender_phone ? `+7${order.sender_phone}` : 'Отсутствует'}</p>
+                                        <h1 className='text-xl text-[#999] mt-4'>Телефон получателя</h1>
+                                        <p className='mt-1 font-medium'>{order.recipient_phone ? `+7${order.recipient_phone}` : 'Отсутствует'}</p>
+                                        <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
+                                        <p className='mt-1 font-medium'>{order.comment || 'Отсутствует'}</p>
+                                    </div>
                                 </div>
-                            </div>
                             )}
                         </DialogContent>
                     </Dialog>

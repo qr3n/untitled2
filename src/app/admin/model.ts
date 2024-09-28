@@ -32,6 +32,16 @@ export interface ICar {
     driver_email: string
 }
 
+export interface IDriver {
+    name: string
+    surname: string
+    patronymic: string
+    passport_number: string
+    passport_given: string
+    passport_given_date: string
+    driver_email: string
+}
+
 interface IChatContext {
     chatOpen: boolean,
     setChatOpen: Dispatch<SetStateAction<boolean>>,
