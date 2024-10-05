@@ -8,12 +8,14 @@ import {Providers} from "@/app/providers";
 import { Usermenu } from "@/app/usermenu";
 import {BaseChatButton} from "@/app/basechatbutton";
 import {BaseUserChat} from "@/app/basechat";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Почта Вэн",
   description: "Луший сервис доставки уже здесь!",
+    icons: '/icons/icon-512x512.png'
 };
 
 
@@ -25,8 +27,11 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
-      <NextTopLoader color="#FF551F" template='<div class="bar" role="bar"><div class="peg"></div></divz' showSpinner={false} />
+    <Head>
+        <link rel="icon" href="/favicon.ico"/>
+    </Head>
+    <body className={inter.className}>
+    <NextTopLoader color="#FF551F" template='<div class="bar" role="bar"><div class="peg"></div></divz' showSpinner={false} />
       <Toaster/>
       <CookiesProvider>
           <Providers>
