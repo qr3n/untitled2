@@ -18,6 +18,11 @@ const config = {
       },
     },
     extend: {
+      colors: {
+        blue: {
+          500: '#2174FFFF'
+        }
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
