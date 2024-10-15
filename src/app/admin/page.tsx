@@ -34,7 +34,7 @@ export default async function AdminPage() {
         (order.courier_status === 'Выполняет')
     )
     const disabledOrders = orders.filter(order =>
-        (order.status === 'disabled') &&
+        ((order.status === 'disabled') || (order.status === 'canceled')) &&
         (order.courier_status !== 'В пути') &&
         (order.courier_status !== 'На погрузке') &&
         (order.courier_status !== 'Выполняет')

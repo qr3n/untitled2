@@ -22,6 +22,7 @@ import ReactStars from "react-stars";
 import {Button} from "@/components/ui/button";
 import {IDriver, IReview} from "@/app/profile/model";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import { GiCancel } from "react-icons/gi";
 
 interface IProps extends PropsWithChildren {
     orders: IOrder[],
@@ -110,7 +111,8 @@ export const OrdersTemplate = (props: IProps) => {
                     { props.orders.map(order => (
                         <div
                             key={order.id}
-                            className='mt-4 w-full flex flex-col relative sm:flex-row justify-between sm:items-center gap-4 bg-[#151515] p-4 rounded-2xl cursor-pointer hover:bg-[#202020] select-none'>
+                            className='mt-4 w-full flex flex-col relative sm:flex-row justify-between sm:items-center gap-4 bg-[#151515] p-4 rounded-2xl cursor-pointer hover:bg-[#202020] select-none'
+                        >
                             <DialogTrigger asChild>
                                 <div className='absolute top-0 left-0 rounded-2xl w-full h-full z-10' onClick={() => setCurrentOrder(order)}/>
                             </DialogTrigger>
@@ -119,9 +121,12 @@ export const OrdersTemplate = (props: IProps) => {
                                     src={order.cargo === 'anything' ? question : imagesMap[order.warehouse]}
                                     alt={''} width={46} className='rounded-2xl'/>
                                 <div>
-                                    <h1 className='font-semibold'>
-                                        {order.time_to_take}
-                                    </h1>
+                                    <div className='flex items-center gap-2'>
+                                        {order.status === 'canceled' && <GiCancel className='w-5 h-5 text-red-500'/>}
+                                        <h1 className='font-semibold'>
+                                            {order.time_to_take}
+                                        </h1>
+                                    </div>
                                     <p className='p-3 bg-[#333] border border-[#555] w-full max-w-[400px] rounded-xl text-[#ddd] font-medium text-sm mt-1 '>
                                         {order.addr_from.replace('г Москва,', '')}
                                         <span
@@ -391,10 +396,13 @@ export const OrdersTemplate = (props: IProps) => {
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
                             <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
-                            <p className='mt-1 font-medium'>{currentOrder.sender_phone ? `+7${currentOrder.sender_phone}` : 'Отсутствует'}</p>
+                            {currentOrder.sender_phone ?
+                                <a href={`tel:+7${currentOrder.sender_phone.replace('+7', '')}`}
+                                   className='text-blue-400 mt-1 font-medium'>+7{currentOrder.sender_phone.replace('+7', '')}</a> : <p className='mt-1 font-medium'>Отсутствует</p>}
                             <h1 className='text-xl text-[#999] mt-4'>Телефон получателя</h1>
-                            <p className='mt-1 font-medium'>{currentOrder.recipient_phone ? `+7${currentOrder.recipient_phone}` : 'Отсутствует'}</p>
-                            <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
+                            {currentOrder.sender_phone ?
+                                <a href={`tel:+7${currentOrder.recipient_phone.replace('+7', '')}`}
+                                   className='text-blue-400 mt-1 font-medium'>+7{currentOrder.recipient_phone.replace('+7', '')}</a> : <p className='mt-1 font-medium'>Отсутствует</p>}                            <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
                             <p className='mt-1 font-medium'>{currentOrder.comment || 'Отсутствует'}</p>
                         </div>
                     </div>

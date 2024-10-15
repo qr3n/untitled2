@@ -33,7 +33,7 @@ export const CreateOrderGabaritsStep = () => {
     return (
         <CreateOrderStepTemplate title='Какие габариты?' description='Пожалуйста, укажите общие габариты груза'>
             <div
-                className='flex flex-col mt-2 text-left w-screen px-12 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%]'>
+                className='flex flex-col mt-2 text-left w-screen px-12 sm:px-[25%] md:px-[30%] lg:px-[35%] xl:px-[35%] h-[calc(100dvh-350px)] overflow-y-auto'>
 
                 <h1 className='text-xl font-semibold'>Длина</h1>
                 <input
@@ -66,6 +66,12 @@ export const CreateOrderGabaritsStep = () => {
                         <SelectItem value={'100'}>100 и более</SelectItem>
                     </SelectContent>
                 </Select>
+
+                <h1 className='text-xl font-semibold mt-6'>Общий вес</h1>
+                <input
+                    className='bg-[#2A2A2A] border-2 border-transparent mt-4 p-2 rounded-xl outline-none focus:border-[#666] placeholder-[#888]'
+                    placeholder='5кг' onChange={e => handleChange(2, e.target.value)}/>
+
             </div>
         </CreateOrderStepTemplate>
     )

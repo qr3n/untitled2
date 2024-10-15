@@ -36,8 +36,8 @@ for (let i = 0; i < 21; i++) { // Генерируем 12 часов * 60 мин
 
 export const CreateOrderStep6 = () => {
     const { timeToTake, timeToDeliver, setTimeToTake, setTimeToDeliver, setTariff } = useContext(Context)
-    const [get, setGet] = useState<Date | undefined>()
-    const [give, setGive] = useState<Date | undefined>()
+    const [get, setGet] = useState<Date | undefined>(new Date())
+    const [give, setGive] = useState<Date | undefined>(new Date())
     const [getTimeFrom, setGetTimeFrom] = useState('')
     const [getTimeTo, setGetTimeTo] = useState('')
     const [giveTimeFrom, setGiveTimeFrom] = useState('')
@@ -51,13 +51,8 @@ export const CreateOrderStep6 = () => {
 
     const [timeSlots, setTimeSlots] = useState(generateTimeSlots())
     const [timeSlots2, setTimeSlots2] = useState(generateTimeSlots())
-
     const [timeSlots3, setTimeSlots3] = useState(generateTimeSlots())
     const [timeSlots4, setTimeSlots4] = useState(generateTimeSlots())
-
-    useEffect(() => {
-        console.log(timeToTake, timeToDeliver)
-    }, [timeToDeliver, timeToTake]);
 
     useEffect(() => {
         if (nightSlots.includes(getTimeFrom)) {
@@ -67,7 +62,7 @@ export const CreateOrderStep6 = () => {
         else {
             setTariff('day')
         }
-    }, [getTimeFrom]);
+    }, [getTimeFrom, setTariff]);
 
     useEffect(() => {
         if (give && get) {
@@ -82,14 +77,21 @@ export const CreateOrderStep6 = () => {
 
         setTimeToTake(`${createDate(currentDate)} как можно быстрее`)
         setTimeToDeliver(`${createDate(currentDate)} как можно быстрее`)
-    }, [])
+    }, [setTimeToDeliver, setTimeToTake])
 
     useEffect(() => {
         if (getTimeTo && getTimeFrom) {
             const newTimeSlots = generateTimeSlots()
 
-            setTimeSlots3(newTimeSlots.slice(newTimeSlots.indexOf(getTimeFrom), newTimeSlots.length))
-            setTimeSlots4(newTimeSlots.slice(newTimeSlots.indexOf(getTimeFrom), newTimeSlots.length))
+            if ((get?.getDate() === give?.getDate())) {
+                setTimeSlots3(newTimeSlots.slice(newTimeSlots.indexOf(getTimeFrom), newTimeSlots.length))
+                setTimeSlots4(newTimeSlots.slice(newTimeSlots.indexOf(getTimeFrom), newTimeSlots.length))
+            }
+
+            else {
+                setTimeSlots3(generateTimeSlots())
+                setTimeSlots4(generateTimeSlots())
+            }
         }
 
         if (get) {
@@ -113,21 +115,16 @@ export const CreateOrderStep6 = () => {
                 setTimeToTake(`${createDate(currentDate)} как можно быстрее`)
             }
         }
-    }, [getTimeFrom, getTimeTo, get]);
+    }, [getTimeFrom, getTimeTo, get, give, setTimeToTake]);
 
     useEffect(() => {
-        if (getTimeFrom) {
+        if (getTimeFrom ) {
             const newTimeSlots = generateTimeSlots()
             setTimeSlots2(newTimeSlots.slice(newTimeSlots.indexOf(getTimeFrom) + 1, newTimeSlots.length))
+            setTimeSlots4(newTimeSlots.slice(newTimeSlots.indexOf(giveTimeFrom) + 1, newTimeSlots.length))
         }
     }, [getTimeFrom]);
 
-    useEffect(() => {
-        if (giveTimeFrom) {
-            const newTimeSlots = generateTimeSlots()
-            setTimeSlots4(newTimeSlots.slice(newTimeSlots.indexOf(giveTimeFrom) + 1, newTimeSlots.length))
-        }
-    }, [giveTimeFrom]);
 
     useEffect(() => {
         if (give) {
