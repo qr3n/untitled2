@@ -14,12 +14,15 @@ export interface IReview {
 }
 
 export interface IDriver {
-    order_id: number,
-    color: string,
-    model: string,
-    car_number: string,
-    driver_phone: string,
-    driver_name: string,
+    id: number,
+    name: string,
+    surname: string,
+    patronymic: string,
+    passport_number: string,
+    passport_given: string,
+    passport_given_date: string,
+    driver_email: string,
+    phone: string
 }
 
 export const UserChatContext = createContext<IChatContext>(null!)

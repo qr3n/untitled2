@@ -15,7 +15,7 @@ export const Users = () => {
     const [activeDrivers, setActiveDrivers] = useState<number | null>(0)
 
     useEffect(() => {
-        const ws = new WebSocket('wss://postavan.com/users')
+        const ws = new WebSocket('wss://postavan.com/api/users')
 
         ws.onmessage = m => {
             const data: IMessage = JSON.parse(m.data)
@@ -46,7 +46,7 @@ export const Users = () => {
                     <h1 className='text-2xl font-semibold'>Клиенты</h1>
                     <h1 className='text-lg mt-2 flex items-center'>Зарегестрировано <DotIcon
                         className='w-10 h-10 -ml-2 text-blue-500'/></h1>
-                    <p className='text-md font-medium bg-blue-500 w-max rounded-full px-3'>24</p>
+                    <p className='text-md font-medium bg-blue-500 w-max rounded-full px-3'>...</p>
                     <h1 className='text-lg mt-4 flex items-center'> В сети <DotIcon
                         className='w-10 h-10 -ml-2 text-green-500'/></h1>
                     <p className='text-md font-medium bg-green-600 w-max rounded-full px-3 '>{activeUsers}</p>
@@ -58,7 +58,7 @@ export const Users = () => {
                     <h1 className='text-2xl font-semibold'>Водители</h1>
                     <h1 className='text-lg mt-2 flex items-center'>Зарегестрировано <DotIcon
                         className='w-10 h-10 -ml-2 text-blue-500'/></h1>
-                    <p className='text-md font-medium bg-blue-500 w-max rounded-full px-3'>24</p>
+                    <p className='text-md font-medium bg-blue-500 w-max rounded-full px-3'>...</p>
                     <h1 className='text-lg mt-4 flex items-center'> В сети <DotIcon
                         className='w-10 h-10 -ml-2 text-green-500'/></h1>
                     <p className='text-md font-medium bg-green-600 w-max rounded-full px-3 '>{activeDrivers}</p>

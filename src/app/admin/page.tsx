@@ -27,6 +27,9 @@ export default async function AdminPage() {
     const orders = ordersnotsorted.reverse()
 
         const drivers: IDriver[] = await data3.json()
+
+    console.log(drivers)
+
     const activeOrders = orders.filter(order =>
         (order.status === 'active') ||
         (order.courier_status === 'В пути') ||

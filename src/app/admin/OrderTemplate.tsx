@@ -2,7 +2,7 @@
 
 import {PropsWithChildren, useContext, useEffect, useState} from "react";
 import { ChatContext, ICar, IOrder } from './model'
-import {Dialog, DialogClose, DialogContent, DialogTrigger} from "@/components/ui/dialog";
+import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 import Image from "next/image";
 import question from "@/app/admin/anything/assets/question.png";
 import yandex from "@/app/admin/marketplace/assets/yandex.png";
@@ -10,7 +10,7 @@ import ozon from "@/app/admin/marketplace/assets/ozon.png";
 import ali from "@/app/admin/marketplace/assets/ali.png";
 import lamoda from "@/app/admin/marketplace/assets/lamoda.png";
 import wb from "@/app/admin/marketplace/assets/wb.webp";
-import {BsChat, BsDownload, BsInfo, BsStar} from "react-icons/bs";
+import {BsChat, BsDownload, BsStar} from "react-icons/bs";
 import box from "@/app/admin/marketplace/assets/box.png";
 import palette from "@/app/admin/marketplace/assets/palette.png";
 import {useMutation} from "@tanstack/react-query";
@@ -74,17 +74,16 @@ export const OrdersTemplate = (props: IProps) => {
     const [currentOrder, setCurrentOrder] = useState<IOrder>(props.orders[0])
     const { setChatOpen, setOrderId } = useContext(ChatContext)
 
-
-    useEffect(() => {
-        if (driverWindowOpen) {
-            setColor(props.drivers.find(d => d.order_id === currentOrderId)?.color || '')
-            setModel(props.drivers.find(d => d.order_id === currentOrderId)?.model || '')
-            setCarNumber(props.drivers.find(d => d.order_id === currentOrderId)?.car_number || '')
-            setDriverPhone(props.drivers.find(d => d.order_id === currentOrderId)?.driver_phone || '')
-            setDriverName(props.drivers.find(d => d.order_id === currentOrderId)?.driver_name || '')
-        }
-    }, [currentOrderId, driverWindowOpen, props.drivers]);
-
+    // useEffect(() => {
+    //     if (driverWindowOpen) {
+    //         setColor(props.drivers.find(d => d.order_id === currentOrderId)?.color || '')
+    //         setModel(props.drivers.find(d => d.order_id === currentOrderId)?.model || '')
+    //         setCarNumber(props.drivers.find(d => d.order_id === currentOrderId)?.car_number || '')
+    //         setDriverPhone(props.drivers.find(d => d.order_id === currentOrderId)?.driver_phone || '')
+    //         setDriverName(props.drivers.find(d => d.order_id === currentOrderId)?.driver_name || '')
+    //     }
+    // }, [currentOrderId, driverWindowOpen, props.drivers]);
+    //
 
     useEffect(() => {
         if (isDriverSuccess) {
@@ -387,6 +386,11 @@ export const OrdersTemplate = (props: IProps) => {
                             <p className='mt-1 font-medium'>{currentOrder.time_to_deliver}</p>
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Данные курьера</h1>
+                            <h1 className='text-xl text-[#999] mt-4'>Имя</h1>
+                            <p className='mt-1 font-medium'>{props.drivers.find(c => c.driver_email === currentOrder.driver_email)?.name || '-'}</p>
+                            <h1 className='text-xl text-[#999] mt-4'>Телефон</h1>
+                            <p className='mt-1 font-medium'>{props.drivers.find(c => c.driver_email === currentOrder.driver_email)?.phone || '-'}</p>
+
                             <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
                             <p className='mt-1 font-medium'>{props.cars.find(c => c.driver_email === currentOrder.driver_email)?.color || '-'}</p>
                             <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>
@@ -398,11 +402,14 @@ export const OrdersTemplate = (props: IProps) => {
                             <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
                             {currentOrder.sender_phone ?
                                 <a href={`tel:+7${currentOrder.sender_phone.replace('+7', '')}`}
-                                   className='text-blue-400 mt-1 font-medium'>+7{currentOrder.sender_phone.replace('+7', '')}</a> : <p className='mt-1 font-medium'>Отсутствует</p>}
+                                   className='text-blue-400 mt-1 font-medium'>+7{currentOrder.sender_phone.replace('+7', '')}</a> :
+                                <p className='mt-1 font-medium'>Отсутствует</p>}
                             <h1 className='text-xl text-[#999] mt-4'>Телефон получателя</h1>
                             {currentOrder.sender_phone ?
                                 <a href={`tel:+7${currentOrder.recipient_phone.replace('+7', '')}`}
-                                   className='text-blue-400 mt-1 font-medium'>+7{currentOrder.recipient_phone.replace('+7', '')}</a> : <p className='mt-1 font-medium'>Отсутствует</p>}                            <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
+                                   className='text-blue-400 mt-1 font-medium'>+7{currentOrder.recipient_phone.replace('+7', '')}</a> :
+                                <p className='mt-1 font-medium'>Отсутствует</p>}                            <h1
+                            className='text-xl text-[#999] mt-4'>Комментарий</h1>
                             <p className='mt-1 font-medium'>{currentOrder.comment || 'Отсутствует'}</p>
                         </div>
                     </div>
@@ -449,6 +456,11 @@ export const OrdersTemplate = (props: IProps) => {
                             <p className='mt-1 font-medium'>{currentOrder.time_to_deliver}</p>
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Данные курьера</h1>
+                            <h1 className='text-xl text-[#999] mt-4'>Имя</h1>
+                            <p className='mt-1 font-medium'>{props.drivers.find(c => c.driver_email === currentOrder.driver_email)?.name || '-'}</p>
+                            <h1 className='text-xl text-[#999] mt-4'>Телефон</h1>
+                            <p className='mt-1 font-medium'>{props.drivers.find(c => c.driver_email === currentOrder.driver_email)?.phone || '-'}</p>
+
                             <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
                             <p className='mt-1 font-medium'>{props.cars.find(c => c.driver_email === currentOrder.driver_email)?.color || '-'}</p>
                             <h1 className='text-xl mt-4 text-[#999]'>Модель машины</h1>
@@ -458,9 +470,15 @@ export const OrdersTemplate = (props: IProps) => {
 
                             <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
                             <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
-                            <p className='mt-1 font-medium'>{currentOrder.sender_phone ? `+7${currentOrder.sender_phone}` : 'Отсутствует'}</p>
+                            {currentOrder.sender_phone ?
+                                <a href={`tel:+7${currentOrder.sender_phone.replace('+7', '')}`}
+                                   className='text-blue-400 mt-1 font-medium'>+7{currentOrder.sender_phone.replace('+7', '')}</a> :
+                                <p className='mt-1 font-medium'>Отсутствует</p>}
                             <h1 className='text-xl text-[#999] mt-4'>Телефон получателя</h1>
-                            <p className='mt-1 font-medium'>{currentOrder.recipient_phone ? `+7${currentOrder.recipient_phone}` : 'Отсутствует'}</p>
+                            {currentOrder.recipient_phone ?
+                                <a href={`tel:+7${currentOrder.recipient_phone.replace('+7', '')}`}
+                                   className='text-blue-400 mt-1 font-medium'>+7{currentOrder.recipient_phone.replace('+7', '')}</a> :
+                                <p className='mt-1 font-medium'>Отсутствует</p>}
                             <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
                             <p className='mt-1 font-medium'>{currentOrder.comment || 'Отсутствует'}</p>
                         </div>

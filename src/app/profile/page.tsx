@@ -57,6 +57,9 @@ export default async function ProfilePage() {
         (order.courier_status !== 'На погрузке') &&
         (order.courier_status !== 'Выполняет')
     )
+
+    console.log(drivers)
+
     return (
         <div className="w-screen h-screen flex flex-col items-center mt-12">
             <h1 className='text-3xl font-semibold'>Пользователь</h1>

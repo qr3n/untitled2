@@ -39,7 +39,8 @@ export interface IDriver {
     passport_number: string
     passport_given: string
     passport_given_date: string
-    driver_email: string
+    driver_email: string,
+    phone: string
 }
 
 interface IChatContext {

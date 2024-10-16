@@ -162,8 +162,9 @@ export const ProfileOrdersTemplate = ({ drivers, orders, variant, reviews, cars 
                                         <h1 className='text-2xl text-white font-semibold mt-8'>Данные курьера</h1>
                                         <h1 className='text-xl text-[#999] mt-4'>Имя</h1>
                                         <p className='mt-1 font-medium'>{drivers.find(c => c.driver_email === order.driver_email)?.name || '-'}</p>
-                                        <h1 className='text-xl text-[#999] mt-4'>Фамилия</h1>
-                                        <p className='mt-1 font-medium'>{drivers.find(c => c.driver_email === order.driver_email)?.surname || '-'}</p>
+                                        <h1 className='text-xl text-[#999] mt-4'>Телефон</h1>
+                                        <p className='mt-1 font-medium'>{drivers.find(c => c.driver_email === order.driver_email)?.phone || '-'}</p>
+
 
                                         <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
                                         <p className='mt-1 font-medium'>{cars.find(c => c.driver_email === order.driver_email)?.color || '-'}</p>
@@ -175,9 +176,16 @@ export const ProfileOrdersTemplate = ({ drivers, orders, variant, reviews, cars 
 
                                         <h1 className='text-2xl text-white font-semibold mt-8'>Дополнительно</h1>
                                         <h1 className='text-xl text-[#999] mt-4'>Телефон отправителя</h1>
-                                        <p className='mt-1 font-medium'>{order.sender_phone ? `+7${order.sender_phone}` : 'Отсутствует'}</p>
+                                        {order.sender_phone ?
+                                            <a href={`tel:+7${order.sender_phone.replace('+7', '')}`}
+                                               className='text-blue-400 mt-1 font-medium'>+7{order.sender_phone.replace('+7', '')}</a> :
+                                            <p className='mt-1 font-medium'>Отсутствует</p>}
+
                                         <h1 className='text-xl text-[#999] mt-4'>Телефон получателя</h1>
-                                        <p className='mt-1 font-medium'>{order.recipient_phone ? `+7${order.recipient_phone}` : 'Отсутствует'}</p>
+                                        {order.recipient_phone ?
+                                            <a href={`tel:+7${order.recipient_phone.replace('+7', '')}`}
+                                               className='text-blue-400 mt-1 font-medium'>+7{order.recipient_phone.replace('+7', '')}</a> :
+                                            <p className='mt-1 font-medium'>Отсутствует</p>}
                                         <h1 className='text-xl text-[#999] mt-4'>Комментарий</h1>
                                         <p className='mt-1 font-medium'>{order.comment || 'Отсутствует'}</p>
                                     </div>
@@ -185,7 +193,7 @@ export const ProfileOrdersTemplate = ({ drivers, orders, variant, reviews, cars 
                             ) : (
                                 <div className='w-full pb-4'>
                                     <div className=' text-center w-full items-center'>
-                                    <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
+                                        <h1 className='font-semibold text-3xl flex items-center justify-center gap-2'>
                                             <Image src={question} alt={''} width={32}
                                                    className='rounded-lg'/>
                                             {order.name}
@@ -227,8 +235,8 @@ export const ProfileOrdersTemplate = ({ drivers, orders, variant, reviews, cars 
                                         <h1 className='text-2xl text-white font-semibold mt-8'>Данные курьера</h1>
                                         <h1 className='text-xl text-[#999] mt-4'>Имя</h1>
                                         <p className='mt-1 font-medium'>{drivers.find(c => c.driver_email === order.driver_email)?.name || '-'}</p>
-                                        <h1 className='text-xl text-[#999] mt-4'>Фамилия</h1>
-                                        <p className='mt-1 font-medium'>{drivers.find(c => c.driver_email === order.driver_email)?.surname || '-'}</p>
+                                        <h1 className='text-xl text-[#999] mt-4'>Телефон</h1>
+                                        <p className='mt-1 font-medium'>{drivers.find(c => c.driver_email === order.driver_email)?.phone || '-'}</p>
 
 
                                         <h1 className='text-xl text-[#999] mt-4'>Цвет машины</h1>
