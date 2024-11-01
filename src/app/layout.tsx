@@ -31,7 +31,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico"/>
     </Head>
     <body className={inter.className}>
-    <NextTopLoader color="#FF551F" template='<div class="bar" role="bar"><div class="peg"></div></divz' showSpinner={false} />
+    <NextTopLoader color="#4287f5" template='<div class="bar" role="bar"><div class="peg"></div></divz' showSpinner={false} />
       <Toaster/>
       <CookiesProvider>
           <Providers>
